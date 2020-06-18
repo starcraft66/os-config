@@ -5,10 +5,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
     pkgs.vim
-    pkgs.emacs
   ];
-
-  services.emacs.enable = true;
 
   fonts = {
     enableFontDir = true;

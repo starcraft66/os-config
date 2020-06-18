@@ -3,6 +3,7 @@
 {
   imports = [
       ./programs/alacritty.nix
+      ./programs/doom-emacs.nix
       ./programs/tmux.nix
   ];
 
