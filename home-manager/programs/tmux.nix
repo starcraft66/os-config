@@ -6,10 +6,15 @@
     enable = true;
     clock24 = true;
     historyLimit = 999999999;
-    newSession = true;
-    shortcut = "a";
+    newSession = false;
 
     extraConfig = ''
+      # rebind main key
+      unbind C-b
+      unbind C-a
+      set -g prefix C-a
+      bind a send-prefix
+
       # Binds to split the panes
       bind | split-window -h
       bind - split-window -v
