@@ -2,6 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+let
+  unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+  masterTarball = fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz;
+in
+
 { config, pkgs, ... }:
 
 {
@@ -53,6 +58,17 @@
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+      master = import masterTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
 
   # (((steam))) and (((nvidia)))
   nixpkgs.config.allowUnfree = true;
