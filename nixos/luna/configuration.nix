@@ -150,6 +150,17 @@ in
   services.fwupd.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  systemd.services.nvidia-config = {
+    description = "NVIDIA Settings Configuration";
+    serviceConfig = {
+      Environment = "\"DISPLAY=:11\"";
+      Type = "oneshot";
+      ExecStart = "${pkgs.linuxPackages_latest.nvidia_x11.settings}/bin/nvidia-settings --display :1 --assign CurrentMetaMode=\"DP-4: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}\"";
+      RemainAfterExit = true;
+    };
+    after = [ "graphical.target" ];
+  };
+
   # kde has a "redshift" built-in
   #services.redshift = {
   #  enable = true;
