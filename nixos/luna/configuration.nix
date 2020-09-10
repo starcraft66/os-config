@@ -13,6 +13,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -203,6 +204,13 @@ in
   users.users.tristan = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "wireshark" "libvirtd" "docker" ]; # Enable ‘sudo’ for the user.
+  };
+
+  home-manager = {
+    users.tristan = ../../home-manager/home.nix;
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    verbose = true;
   };
 
   # This value determines the NixOS release with which your system is to be
