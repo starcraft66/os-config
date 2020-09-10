@@ -59,6 +59,11 @@ in
     defaultLocale = "en_US.UTF-8";
   };
 
+  fonts = {
+    enableFontDir = true;
+    fonts = [ pkgs.nerdfonts ];
+  };
+
   console.font = "Lat2-Terminus16";
   console.useXkbConfig = true;
 
