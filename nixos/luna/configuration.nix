@@ -41,6 +41,12 @@ in
   networking.interfaces.enp3s0.useDHCP = false;
   networking.interfaces.Home.useDHCP = true;
   networking.interfaces.Management.useDHCP = true;
+  networking.defaultGateway.address = "";
+  networking.defaultGateway.interface = "enp3s0.51";
+  networking.defaultGateway.metric = 10;
+  #networking.defaultGateway6.address = "";
+  #networking.defaultGateway6.interface = "enp3s0.51";
+  #networking.defaultGateway6.metric = 10;
   networking.wireguard.enable = true;
 
   # Configure network proxy if necessary
