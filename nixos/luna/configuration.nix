@@ -101,15 +101,17 @@ in
       ansible
     ];
     python-with-my-packages = python3.withPackages my-python-packages;
+    wine-unstable = unstable.wine.override { wineBuild = "wineWow"; wineRelease = "staging"; };
+    winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
+    firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
     wget vim wireshark networkmanager unstable.element-desktop git pass slack qtpass pciutils
     alacritty steam tmux neofetch spotify vscode minecraft roboto font-awesome
     screen unzip traceroute signal-desktop iperf ethtool irssi qogir-theme libsForQt5.qtstyleplugins
-    spectacle (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
-    python-with-my-packages virtmanager-qt borgbackup thunderbird speedtest-cli
+    spectacle firefox-customized python-with-my-packages virtmanager-qt borgbackup thunderbird speedtest-cli
     chromium vagrant unrar file binutils patchelf fuse zlib appimage-run net_snmp
     tcpdump gns3-gui minecraft wireguard dislocker obs-studio htop lm_sensors
-    docker-compose bind (unstable.wine.override { wineBuild = "wineWow"; wineRelease = "staging"; }) (unstable.winetricks.override { wine = unstable.wine.override { wineBuild = "wineWow"; wineRelease = "staging"; };})  unstable.zoom-us
+    docker-compose bind wine-unstable winetricks-unstable unstable.zoom-us
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
     unzip master.discord libreoffice mpv utillinux usbutils teleconsole
     pulseaudio-dlna ghidra-bin gimp unstable.cryptsetup gwenview deluge
