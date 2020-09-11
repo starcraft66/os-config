@@ -164,12 +164,11 @@ in
     after = [ "graphical.target" ];
   };
 
-  # kde has a "redshift" built-in
-  #services.redshift = {
-  #  enable = true;
-  #  temperature.day = 6500;
-  #  temperature.night = 2700;
-  #};
+  services.redshift = {
+   enable = true;
+   temperature.day = 6500;
+   temperature.night = 3000;
+  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 2049 111 ];
