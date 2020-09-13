@@ -197,6 +197,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tristan = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" "networkmanager" "video" "wireshark" "libvirtd" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
