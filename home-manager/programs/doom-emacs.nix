@@ -3,8 +3,7 @@
 let
   doom-emacs = pkgs.callPackage (builtins.fetchGit {
     url = "https://github.com/vlaci/nix-doom-emacs";
-    rev = "8176d34e198ea5b12d15841220150c44310d5bea";
-    ref = "issue/14";
+    rev = "df31ca1bf11b199a47d6ebcc0c9bb64a4ff365e4";
   }) {
     doomPrivateDir = ../doom.d;  # Directory containing your config.el init.el and packages.el files
   };
