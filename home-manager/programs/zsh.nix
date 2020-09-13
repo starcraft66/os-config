@@ -22,6 +22,7 @@
     sessionVariables = {
       COLORTERM = "truecolor";
       TERM = "xterm-256color";
+      EDITOR = "vi";
     };
 
     shellAliases = rec {
