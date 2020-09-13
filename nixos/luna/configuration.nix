@@ -3,8 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 let
-  unstableTarball = fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
-  masterTarball = fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz;
+  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
+  masterTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
 in
 
 { config, pkgs, ... }:
