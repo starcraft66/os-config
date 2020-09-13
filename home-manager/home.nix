@@ -5,6 +5,7 @@
       ./programs/alacritty.nix
       ./programs/doom-emacs.nix
       ./programs/tmux.nix
+      ./programs/fzf.nix
       ./programs/starship.nix
       ./programs/zsh.nix
   ];
