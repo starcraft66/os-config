@@ -19,6 +19,8 @@
 
   programs.zsh.enable = true;
 
+  programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+
   users.users.tristan = {
     home = "/Users/tristan";
     isHidden = false;
