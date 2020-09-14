@@ -115,7 +115,7 @@ in
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
     unzip master.discord libreoffice mpv utillinux usbutils teleconsole
     pulseaudio-dlna ghidra-bin gimp unstable.cryptsetup gwenview deluge
-    ark pipenv exa qt5.qttools xclip bat ];
+    ark pipenv exa qt5.qttools xclip bat ripgrep];
 
 
   # Virtualization
