@@ -6,6 +6,7 @@
       ./programs/doom-emacs.nix
       ./programs/tmux.nix
       ./programs/fzf.nix
+      ./programs/git.nix
       ./programs/kde.nix
       ./programs/neofetch.nix
       ./programs/starship.nix
