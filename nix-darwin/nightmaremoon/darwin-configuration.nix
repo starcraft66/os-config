@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../../applications/core.nix
+    <home-manager/nix-darwin>
+  ];
+  
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
@@ -10,6 +15,21 @@
   fonts = {
     enableFontDir = true;
     fonts = [ pkgs.nerdfonts ];
+  };
+
+  programs.zsh.enable = true;
+
+  users.users.tristan = {
+    home = "/Users/tristan";
+    isHidden = false;
+    shell = pkgs.zsh;
+  };
+
+  home-manager = {
+    users.tristan = ../../home-manager/home.nix;
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    verbose = true;
   };
 
   # Use a custom configuration.nid location.
