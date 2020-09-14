@@ -4,7 +4,7 @@ let
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball {};
   inherit (pkgs.stdenv.targetPlatform) isDarwin isLinux;
-  config = if isLinux then {
+  config = if isDarwin then {
     check = false;
   } else {
     check = true;
