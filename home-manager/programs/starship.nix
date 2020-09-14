@@ -43,53 +43,51 @@ in
 
     settings = {
       # This line replaces add_newline = false
+      add_newline = false;
       format = "$all";
       prompt_order = [
-          "username"
-          "hostname"
-          "kubernetes"
-          "git_branch"
-          "git_commit"
-          "git_state"
-          "git_status"
-          "hg_branch"
-          "docker_context"
-          "package"
-          "dotnet"
-          "elixir"
-          "elm"
-          "erlang"
-          "golang"
-          "haskell"
-          "java"
-          "julia"
-          "nodejs"
-          "ocaml"
-          "php"
-          "purescript"
-          "python"
-          "ruby"
-          "rust"
-          "terraform"
-          "zig"
-          "nix_shell"
-          "conda"
-          "memory_usage"
-          "aws"
-          "env_var"
-          "crystal"
-          "cmd_duration"
-          "custom"
-          "line_break"
-          "jobs"
-          "battery"
-          "directory"
-          "time"
-          "character"
+        "username"
+        "hostname"
+        "git_branch"
+        "git_commit"
+        "git_state"
+        "git_status"
+        "hg_branch"
+        "docker_context"
+        "package"
+        "dotnet"
+        "elixir"
+        "elm"
+        "erlang"
+        "golang"
+        "haskell"
+        "java"
+        "julia"
+        "nodejs"
+        "ocaml"
+        "php"
+        "purescript"
+        "python"
+        "ruby"
+        "rust"
+        "terraform"
+        "zig"
+        "nix_shell"
+        "conda"
+        "memory_usage"
+        "env_var"
+        "crystal"
+        "cmd_duration"
+        "custom"
+        "line_break"
+        "jobs"
+        "battery"
+        "directory"
+        "time"
+        "character"
       ];
 
       character = {
-        use_symbol_for_status = true;
         symbol = "$";
       };
 
@@ -134,6 +132,10 @@ in
         style_user = "fg:purple";
         style_root = "bold fg:red";
         format = "[$user]($style)";
+      };
+
+      gcloud = {
+        disabled = true;
       };
     };
   };
