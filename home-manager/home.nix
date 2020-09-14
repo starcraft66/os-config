@@ -10,6 +10,7 @@
       ./programs/kde.nix
       ./programs/neofetch.nix
       ./programs/starship.nix
+      ./programs/zoxide.nix
       ./programs/zsh.nix
   ];
 
