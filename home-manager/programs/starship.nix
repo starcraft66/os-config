@@ -3,6 +3,16 @@
 let
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball {};
+  inherit (pkgs.stdenv.targetPlatform) isDarwin isLinux;
+  config = if isDarwin then {
+    srcSha256 = "0qmpbl7kzv7ighh8vw71mmxzcfay6cls6ny3qc4mx87l2x3ywssb";
+    cargoSha256 = "05cwvpagbqcwbnfjyb73dywvdhjl4jbj9vh1w6k977x2yh9vz7d8";
+    check = false;
+  } else {
+    srcSha256 = "07asac7vklgsxpyap0rwc6ygwa31207ksx7bg3yw9sm6553zl37m";
+    cargoSha256 = "11rh4bzs6256vr0l7n244inpdh80xckcrvcx62rm7l89925vbxnh";
+    check = true;
+  };
 in
 {
   programs.starship = {
@@ -15,13 +25,14 @@ in
         owner = "starship";
         repo = oldAttrs.pname;
         rev = "2996220568d5dcc437b09dcfa2654a90c3ed9809";
-        sha256 = "07asac7vklgsxpyap0rwc6ygwa31207ksx7bg3yw9sm6553zl37m";
+        sha256 = config.srcSha256;
       };
       cargoDeps = oldAttrs.cargoDeps.overrideAttrs (lib.const {
         name = "${oldAttrs.pname}-${version}-vendor.tar.gz";
         inherit src;
-        outputHash = "11rh4bzs6256vr0l7n244inpdh80xckcrvcx62rm7l89925vbxnh";
+        outputHash = config.cargoSha256;
       });
+      doCheck = config.check;
     });
 
 
