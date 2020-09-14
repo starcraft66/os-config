@@ -14,6 +14,7 @@
     exa
     xclip
     bat
-    ripgrep 
+    ripgrep
+    fzf
   ];
 }
