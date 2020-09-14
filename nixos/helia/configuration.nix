@@ -58,7 +58,7 @@
   let
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
-    firefox-customized htop bind
+    firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3
     alacritty steam neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
