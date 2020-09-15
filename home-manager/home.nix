@@ -12,6 +12,7 @@
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/tmux.nix
+    ./programs/vim.nix
     ./programs/vscode.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
