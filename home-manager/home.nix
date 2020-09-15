@@ -9,6 +9,7 @@
     ./programs/git.nix
     ./programs/kde.nix
     ./programs/neofetch.nix
+    ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/tmux.nix
     ./programs/vscode.nix
