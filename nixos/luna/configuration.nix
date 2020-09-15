@@ -116,7 +116,7 @@ in
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
     unzip master.discord libreoffice mpv utillinux usbutils teleconsole
     pulseaudio-dlna ghidra-bin gimp unstable.cryptsetup gwenview deluge
-    ark pipenv qt5.qttools
+    ark pipenv qt5.qttools peek
   ];
 
 
