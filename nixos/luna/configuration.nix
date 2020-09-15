@@ -160,9 +160,9 @@ in
   '';
 
   services.redshift = {
-   enable = true;
-   temperature.day = 6500;
-   temperature.night = 3000;
+    enable = true;
+    temperature.day = 6500;
+    temperature.night = 3000;
   };
 
   # Open ports in the firewall.
