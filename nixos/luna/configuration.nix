@@ -212,7 +212,7 @@ in
         type = lib.types.int;
       };
 
-      config.my.terminalFontSize = 15;
+      config.my.terminalFontSize = 12;
     };
     useUserPackages = true;
     useGlobalPkgs = true;
