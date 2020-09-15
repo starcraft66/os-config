@@ -14,7 +14,10 @@
 
   fonts = {
     enableFontDir = true;
-    fonts = [ pkgs.nerdfonts ];
+    fonts = with pkgs; [
+      nerdfonts
+      emacs-all-the-icons-fonts
+    ];
   };
 
   programs.zsh.enable = true;

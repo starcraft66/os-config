@@ -112,11 +112,8 @@
   # Fonts
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    joypixels 
     nerdfonts
+    emacs-all-the-icons-fonts
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

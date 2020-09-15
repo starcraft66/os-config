@@ -63,7 +63,10 @@ in
 
   fonts = {
     enableFontDir = true;
-    fonts = [ pkgs.nerdfonts ];
+    fonts = with pkgs; [
+      nerdfonts
+      emacs-all-the-icons-fonts
+    ];
   };
 
   console.font = "Lat2-Terminus16";
