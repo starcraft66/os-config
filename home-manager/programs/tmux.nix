@@ -13,7 +13,7 @@
       unbind C-b
       unbind C-a
       set -g prefix C-a
-      bind a send-prefix
+      bind C-a send-prefix
 
       # Binds to split the panes
       bind | split-window -h
