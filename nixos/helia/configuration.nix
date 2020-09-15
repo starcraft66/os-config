@@ -127,7 +127,16 @@
   };
 
   home-manager = {
-    users.tristan = ../../home-manager/home.nix;
+    users.tristan = {
+      imports = [ ../../home-manager/home.nix ];
+
+      options.my.terminalFontSize = lib.mkOption {
+        description = "The terminal font size";
+        type = lib.types.int;
+      };
+
+      config.my.terminalFontSize = 12;
+    };
     useUserPackages = true;
     useGlobalPkgs = true;
     verbose = true;

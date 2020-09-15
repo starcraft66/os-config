@@ -39,7 +39,7 @@ in
     };
 
     font = {
-      size = 18.0;
+      size = config.my.terminalFontSize;
 
       normal.family = fontFamily;
       normal.style = "Regular";
