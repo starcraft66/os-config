@@ -198,6 +198,18 @@ in
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.desktopManager.wallpaper.combineScreens = true;
+
+  services.xserver.windowManager.i3 = {
+    enable = true;
+    package = pkgs.i3-gaps;
+    extraPackages = with pkgs; [
+      rofi #application launcher most people use
+      i3status # gives you the default i3 status bar
+      i3lock #default i3 screen locker
+      i3blocks #if you are planning on using i3blocks over i3status
+    ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tristan = {
