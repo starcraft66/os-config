@@ -20,6 +20,7 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # Use the latest linux kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -103,13 +104,20 @@ in
       setuptools
       virtualenv
       ansible
+      pwntools
+      pillow
+      opencv4
+      numpy
+      pytesseract
+      requests
+      pycryptodome
     ];
     python-with-my-packages = python3.withPackages my-python-packages;
     wine-unstable = unstable.wine.override { wineBuild = "wineWow"; wineRelease = "staging"; };
     winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
-    wireshark networkmanager unstable.element-desktop slack qtpass pciutils
+    wireshark unstable.element-desktop slack qtpass pciutils
     alacritty steam neofetch spotify vscode minecraft roboto font-awesome
     unzip traceroute signal-desktop iperf ethtool irssi qogir-theme libsForQt5.qtstyleplugins
     spectacle firefox-customized python-with-my-packages virtmanager-qt thunderbird speedtest-cli
@@ -119,7 +127,7 @@ in
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
     unzip master.discord libreoffice mpv utillinux usbutils teleconsole
     pulseaudio-dlna ghidra-bin gimp unstable.cryptsetup gwenview deluge
-    ark pipenv qt5.qttools peek
+    ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack
   ];
 
 
@@ -208,6 +216,7 @@ in
       i3status # gives you the default i3 status bar
       i3lock #default i3 screen locker
       i3blocks #if you are planning on using i3blocks over i3status
+      picom # compositor
     ];
   };
 
