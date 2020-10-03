@@ -113,7 +113,7 @@ in
       pycryptodome
     ];
     python-with-my-packages = python3.withPackages my-python-packages;
-    wine-unstable = unstable.wine.override { wineBuild = "wineWow"; wineRelease = "staging"; };
+    wine-unstable = unstable.wineWowPackages.staging;
     winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
