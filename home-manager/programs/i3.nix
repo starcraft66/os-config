@@ -15,14 +15,21 @@
     config = {
       modifier = "Mod4";
       bars = [
-        { statusCommand = "${pkgs.i3status}/bin/i3status"; }
+        {
+          statusCommand = "${pkgs.i3status}/bin/i3status";
+          fonts = config.fonts;
+        }
       ];
       fonts = [
-        "MesloLGS Nerd Font Mono 10"
+        "pango:MesloLGS Nerd Font Mono 10"
       ];
       workspaceAutoBackAndForth = true;
       terminal = "${pkgs.alacritty}/bin/alacritty";
       menu = "${pkgs.rofi}/bin/rofi -show run";
+      startup = [
+        { command = "pkill picom; ${pkgs.picom}/bin/picom --backend xrender"; notification = false; }
+        { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
+      ];
       keybindings = let mod = config.modifier; in {
         "${mod}+d" = "exec ${config.menu}";
         "${mod}+Return" = "exec ${config.terminal}";
