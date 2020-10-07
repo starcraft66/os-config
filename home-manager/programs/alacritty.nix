@@ -12,8 +12,6 @@ in
     # set by alacritty itself.
     env = { };
 
-    dynamic_title = true;
-
     window = {
       dimensions = {
         columns = 80;
@@ -27,6 +25,7 @@ in
 
       decorations = "full";
       dynamic_padding = true;
+      dynamic_title = true;
     };
 
     scrolling = {
@@ -96,7 +95,7 @@ in
       };
     };
 
-    visual_bell = {
+    bell = {
       animation = "EaseOutExpo";
       duration = 0;
     };
