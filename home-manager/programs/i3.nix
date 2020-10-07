@@ -1,12 +1,59 @@
 { config, lib, pkgs, ... }:
 
 {
-  # programs.i3status = {
-	#   enable = true;
-  # };
+  programs.i3status = {
+	  enable = true;
+    enableDefault = false;
+    general = {
+      output_format = "i3bar";
+      colors = "false";
+      markup = "pango";
+      color_good = "#2f343f";
+      color_degraded = "#ebcb8b";
+      color_bad = "#ba5e57";
+    };
+    modules = {
+      "load" = {
+        position = 1;
+        settings = {
+          format = "<span background='#f59335'>  %5min Load </span>";
+        };
+      };
+      "disk /" = {
+        position = 2;
+        settings = {
+          format = "<span background='#fec7cd'>  %free Free </span>";
+        };
+      };
+      "ethernet Home@enp3s0" = {
+        position = 3;
+        settings = {
+          format_up = "<span background='#88c0d0'>  %ip </span>";
+          format_down = "<span background='#88c0d0'>  Disconnected </span>";
+        };
+      };
+      "volume master" = {
+        position = 4;
+        settings = {
+          format = "<span background='#ebcb8b'>  %volume </span>";
+          format_muted = "<span background='#ebcb8b'>  Muted </span>";
+          device = "default";
+          mixer = "Master";
+          mixer_idx = 0;
+        };
+      };
+      "tztime local" = {
+        position = 5;
+        settings = {
+          format = "<span background='#81a1c1'> %time </span>";
+          format_time = " %a %-d %b %H:%M";
+        };
+      };
+    };
+  };
 
   services.picom = {
-	  enable = true;
+    backend = "xrender";
   };
 
   xsession.windowManager.i3 = rec {
@@ -18,8 +65,64 @@
         {
           statusCommand = "${pkgs.i3status}/bin/i3status";
           fonts = config.fonts;
+          trayOutput = "DP-4";
+          colors = {
+            background = "#282a2e";
+            statusline = "#282a2e";
+            separator = "#515151";
+            focusedWorkspace = {
+              border = "#81a2be";
+              background = "#81a2be";
+              text = "#1d1f21";
+            };
+            activeWorkspace = {
+              border = "#333333";
+              background = "#333333";
+              text = "#ffffff";
+            };
+            inactiveWorkspace = {
+              border = "#282a2e";
+              background = "#282a2e";
+              text = "#999999";
+            };
+            urgentWorkspace = {
+              border = "#f2777a";
+              background = "#f2777a";
+              text = "#ffffff";
+            };
+          };
         }
       ];
+      colors = {
+        focused = {
+          border = "#81a2be";
+          childBorder = "#81a2be";
+          background = "#81a2be";
+          text = "#1d1f21";
+          indicator = "#282a2e";
+        };
+        focusedInactive = {
+          border = "#373b41";
+          childBorder = "#373b41";
+          background = "#373b41";
+          text = "#969896";
+          indicator = "#292d2e";
+        };
+        unfocused = {
+          border = "#282a2e";
+          childBorder = "#282a2e";
+          background = "#282a2e";
+          text = "#999999";
+          indicator = "#292d2e";
+        };
+        urgent= {
+          border = "#2f343a";
+          childBorder = "#2f343a";
+          background = "#cc6666";
+          text = "#ffffff";
+          indicator = "#cc6666";
+        };
+      };
       fonts = [
         "pango:MesloLGS Nerd Font Mono 10"
       ];
