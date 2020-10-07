@@ -51,3 +51,7 @@
 
 ;; Python language server stupidity
 (setq lsp-python-ms-executable (executable-find "python-language-server"))
+
+(setq
+ projectile-project-search-path '("~/src")
+ )
