@@ -354,22 +354,22 @@ in
             background = theme.color1;
             statusline = theme.color1;
             separator = "#515151";
-            focusedworkspace = {
+            focusedWorkspace = {
               border = theme.colorD;
               background = theme.colorD;
               text = theme.color0;
             };
-            activeworkspace = {
+            activeWorkspace = {
               border = "#333333";
               background = "#333333";
               text = theme.colorF;
             };
-            inactiveworkspace = {
+            inactiveWorkspace = {
               border = theme.color1;
               background = theme.color1;
               text = "#999999";
             };
-            urgentworkspace = {
+            urgentWorkspace = {
               border = theme.color8;
               background = theme.color8;
               text = theme.colorF;
@@ -385,7 +385,7 @@ in
           text = theme.color0;
           indicator = theme.color1;
         };
-        focusedinactive = {
+        focusedInactive = {
           border = theme.color2;
           childBorder = theme.color2;
           background = theme.color2;
