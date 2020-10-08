@@ -418,12 +418,14 @@ in
         # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
       ];
       keybindings = let mod = config.modifier; in {
-        "${mod}+d" = "exec ${config.menu}";
+        "${mod}+a" = "exec ${config.menu}";
+        "${mod}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
+        "Mod1+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${mod}+Return" = "exec ${config.terminal}";
         "${mod}+w" = "exec chromium";
         "${mod}+e" = "exec thunar";
         "${mod}+q" = "exec dmenu_run";
-        "${mod}+print" = "exec flameshot gui";
+        "${mod}+Print" = "exec flameshot gui";
         "${mod}+Shift+q" = "kill";
 
         "${mod}+r" = "mode resize";
