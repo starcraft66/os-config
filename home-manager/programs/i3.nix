@@ -1,5 +1,26 @@
 { config, lib, pkgs, ... }:
 
+let
+  dpi = 144;
+  theme = {
+    color0 = "#1d1f21";
+    color1 = "#282a2e";
+    color2 = "#373b41";
+    color3 = "#969896";
+    color4 = "#b4b7b4";
+    color5 = "#c5c8c6";
+    color6 = "#e0e0e0";
+    color7 = "#ffffff";
+    color8 = "#cc6666";
+    color9 = "#de935f";
+    colorA = "#f0c674";
+    colorB = "#b5bd68";
+    colorC = "#8abeb7";
+    colorD = "#81a2be";
+    colorE = "#b294bb";
+    colorF = "#a3685a";
+  };
+in
 {
   programs.i3status = {
     enable = true;
@@ -94,9 +115,9 @@
       };
       shortcuts = {
         close = "ctrl+space";
-        close_all = "ctrl+shift+space";
+        close_all = "ctrl+Shift+space";
         history = "ctrl+grave";
-        context = "ctrl+shift+period";
+        context = "ctrl+Shift+period";
       };
       urgency_low = {
         frame_color = "#3B7C87";
@@ -119,6 +140,202 @@
     };
   };
 
+  xdg.configFile."rofi/flat-orange.rasi".text = ''
+    /**
+    * ROFI Color theme
+    * User: mbfraga
+    * Copyright: Martin B. Fraga
+    */
+
+    /* global settings and color variables */
+    * {
+      maincolor:        #ed8712;
+      highlight:        bold #ed8712;
+      urgentcolor:      #e53714;
+
+      fgwhite:          #cfcfcf;
+      blackdarkest:     #1d1d1d;
+      blackwidget:      #262626;
+      blackentry:       #292929;
+      blackselect:      #303030;
+      darkgray:         #848484;
+      scrollbarcolor:   #505050;
+      font: "MesloLGS Nerd Font Mono 10";
+      background-color: @blackdarkest;
+    }
+
+    window {
+      background-color: @blackdarkest;
+      anchor: north;
+      location: north;
+      y-offset: 20%;
+    }
+
+    mainbox {
+      background-color: @blackdarkest;
+      spacing:0px;
+      children: [inputbar, message, mode-switcher, listview];
+    }
+
+    message {
+      padding: 6px 10px;
+      background-color:@blackwidget;
+    }
+
+    textbox {
+      text-color:@darkgray;
+      background-color:@blackwidget;
+    }
+
+    listview {
+      fixed-height: false;
+      dynamic: true;
+      scrollbar: true;
+      spacing: 0px;
+      padding: 1px 0px 0px 0px;
+      margin: 0px 0px 1px 0px;
+      background: @blackdarkest;
+    }
+
+    element {
+      padding: 2px 15px;
+    }
+
+    element normal.normal {
+      padding: 0px 15px;
+      background-color: @blackentry;
+      text-color: @fgwhite;
+    }
+
+    element normal.urgent {
+      background-color: @blackentry;
+      text-color: @urgentcolor;
+    }
+
+    element normal.active {
+      background-color: @blackentry;
+      text-color: @maincolor;
+    }
+
+    element selected.normal {
+        background-color: @blackselect;
+        text-color:       @fgwhite;
+    }
+
+    element selected.urgent {
+        background-color: @urgentcolor;
+        text-color:       @blackdarkest;
+    }
+
+    element selected.active {
+        background-color: @maincolor;
+        text-color:       @blackdarkest;
+    }
+
+    element alternate.normal {
+        background-color: @blackentry;
+        text-color:       @fgwhite;
+    }
+
+    element alternate.urgent {
+        background-color: @blackentry;
+        text-color:       @urgentcolor;
+    }
+
+    element alternate.active {
+        background-color: @blackentry;
+        text-color:       @maincolor;
+    }
+
+    scrollbar {
+      background-color: @blackwidget;
+      handle-color: @darkgray;
+      handle-width: 15px;
+    }
+
+    mode-switcher {
+      background-color: @blackwidget;
+    }
+
+    button {
+      background-color: @blackwidget;
+      text-color:       @darkgray;
+    }
+
+    button selected {
+        text-color:       @maincolor;
+    }
+
+    inputbar {
+      background-color: @blackdarkest;
+      spacing: 0px;
+    }
+
+    prompt {
+      padding:6px 9px;
+      background-color: @maincolor;
+      text-color:@blackwidget;
+    }
+
+    entry {
+      padding:6px 10px;
+      background-color:@blackwidget;
+      text-color:@fgwhite;
+    }
+
+    case-indicator {
+      padding:6px 10px;
+      text-color:@maincolor;
+      background-color:@blackwidget;
+    }
+    '';
+
+  programs.rofi = {
+    enable = true;
+    separator = "solid";
+    font = "MesloLGS Nerd Font Mono 10";
+    theme = "${config.xdg.configHome}/rofi/flat-orange.rasi";
+    # colors = {
+    #   window = {
+    #     background = theme.color1;
+    #     border = theme.color1;
+    #     separator = theme.color0;
+    #   };
+    #   rows = {
+    #     normal = {
+    #       background = theme.color1;
+    #       foreground = theme.color5;
+    #       backgroundAlt = theme.color1;
+    #       highlight = {
+    #         background = theme.color1;
+    #         foreground = theme.color7;
+    #       };
+    #     };
+    #     active = {
+    #       background = theme.color1;
+    #       foreground = theme.colorD;
+    #       backgroundAlt = theme.color1;
+    #       highlight = {
+    #         background = theme.color1;
+    #         foreground = theme.colorD;
+    #       };
+    #     };
+    #     urgent = {
+    #       background = theme.color1;
+    #       foreground = theme.color8;
+    #       backgroundAlt = theme.color1;
+    #       highlight = {
+    #         background = theme.color1;
+    #         foreground = theme.color8;
+    #       };
+    #     };
+    #   };
+    # };
+    extraConfig = ''
+      rofi.dpi: 0
+    '';
+  };
+
   services.picom = {
     backend = "xrender";
   };
@@ -134,60 +351,60 @@
           fonts = config.fonts;
           trayOutput = "DP-4";
           colors = {
-            background = "#282a2e";
-            statusline = "#282a2e";
+            background = theme.color1;
+            statusline = theme.color1;
             separator = "#515151";
-            focusedWorkspace = {
-              border = "#81a2be";
-              background = "#81a2be";
-              text = "#1d1f21";
+            focusedworkspace = {
+              border = theme.colorD;
+              background = theme.colorD;
+              text = theme.color0;
             };
-            activeWorkspace = {
+            activeworkspace = {
               border = "#333333";
               background = "#333333";
-              text = "#ffffff";
+              text = theme.colorF;
             };
-            inactiveWorkspace = {
-              border = "#282a2e";
-              background = "#282a2e";
+            inactiveworkspace = {
+              border = theme.color1;
+              background = theme.color1;
               text = "#999999";
             };
-            urgentWorkspace = {
-              border = "#f2777a";
-              background = "#f2777a";
-              text = "#ffffff";
+            urgentworkspace = {
+              border = theme.color8;
+              background = theme.color8;
+              text = theme.colorF;
             };
           };
         }
       ];
       colors = {
         focused = {
-          border = "#81a2be";
-          childBorder = "#81a2be";
-          background = "#81a2be";
-          text = "#1d1f21";
-          indicator = "#282a2e";
+          border = theme.colorD;
+          childBorder = theme.colorD;
+          background = theme.colorD;
+          text = theme.color0;
+          indicator = theme.color1;
         };
-        focusedInactive = {
-          border = "#373b41";
-          childBorder = "#373b41";
-          background = "#373b41";
-          text = "#969896";
+        focusedinactive = {
+          border = theme.color2;
+          childBorder = theme.color2;
+          background = theme.color2;
+          text = theme.color3;
           indicator = "#292d2e";
         };
         unfocused = {
-          border = "#282a2e";
-          childBorder = "#282a2e";
-          background = "#282a2e";
+          border = theme.color1;
+          childBorder = theme.color1;
+          background = theme.color1;
           text = "#999999";
           indicator = "#292d2e";
         };
         urgent= {
           border = "#2f343a";
           childBorder = "#2f343a";
-          background = "#cc6666";
-          text = "#ffffff";
-          indicator = "#cc6666";
+          background = theme.color8;
+          text = theme.colorF;
+          indicator = theme.color8;
         };
       };
       fonts = [
@@ -206,7 +423,7 @@
         "${mod}+w" = "exec chromium";
         "${mod}+e" = "exec thunar";
         "${mod}+q" = "exec dmenu_run";
-        "${mod}+Print" = "exec flameshot gui";
+        "${mod}+print" = "exec flameshot gui";
         "${mod}+Shift+q" = "kill";
 
         "${mod}+r" = "mode resize";
@@ -229,7 +446,7 @@
         "${mod}+Shift+Up" = "move up";
         "${mod}+Shift+Right" = "move right";
         "${mod}+minus" = "split v";
-        "${mod}+shift+bar" = "split h";
+        "${mod}+Shift+bar" = "split h";
         "${mod}+f" = "fullscreen";
         "${mod}+Shift+s" = "layout stacking";
         "${mod}+Shift+t" = "layout tabbed";
@@ -277,18 +494,18 @@
           "j" = "resize shrink height 10 px or 10 ppt";
           "k" = "resize grow height 10 px or 10 ppt";
           "l" = "resize grow width 10 px or 10 ppt";
-          "Left" = "resize shrink width 10 px or 10 ppt";
-          "Down" = "resize grow height 10 px or 10 ppt";
-          "Up" = "resize shrink height 10 px or 10 ppt";
-          "Right" = "resize grow width 10 px or 10 ppt";
-          "Escape" = "mode default";
-          "Return" = "mode default";
+          "left" = "resize shrink width 10 px or 10 ppt";
+          "down" = "resize grow height 10 px or 10 ppt";
+          "up" = "resize shrink height 10 px or 10 ppt";
+          "right" = "resize grow width 10 px or 10 ppt";
+          "escape" = "mode default";
+          "return" = "mode default";
         };
       };
     };
   };
 
   xresources.properties = {
-    "Xft.dpi" = 144;
+    "xft.dpi" = dpi;
   };
 }
