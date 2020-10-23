@@ -10,6 +10,7 @@
     ./programs/i3.nix
     ./programs/kde.nix
     ./programs/neofetch.nix
+    ./programs/obs-studio.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/tmux.nix

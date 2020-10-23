@@ -128,7 +128,7 @@ in
     unzip master.discord libreoffice mpv utillinux usbutils teleconsole
     unstable.pulseaudio-dlna ghidra-bin gimp unstable.cryptsetup gwenview deluge
     ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
-    unstable.spotify-tui flameshot rofi-pass
+    unstable.spotify-tui flameshot rofi-pass zip obs-studio
     bmon
     nmon
   ];

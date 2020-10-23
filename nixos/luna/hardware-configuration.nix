@@ -11,7 +11,10 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aes_x86_64" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
+  boot.extraModprobeConfig = ''
+      options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
+    '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/3624849c-d896-49c1-8089-a5ec19d607df";
