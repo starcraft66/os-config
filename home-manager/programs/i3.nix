@@ -43,21 +43,21 @@ in
       "disk /" = {
         position = 2;
         settings = {
-          format = "<span background='#fec7cd'>  %free Free </span>";
+          format = "<span background='#fec7cd'>  %free Free </span>";
         };
       };
       "ethernet Home@enp3s0" = {
         position = 3;
         settings = {
-          format_up = "<span background='#88c0d0'>  %ip </span>";
-          format_down = "<span background='#88c0d0'>  Disconnected </span>";
+          format_up = "<span background='#88c0d0'> ﯱ %ip </span>";
+          format_down = "<span background='#88c0d0'>  Disconnected </span>";
         };
       };
       "volume master" = {
         position = 4;
         settings = {
-          format = "<span background='#ebcb8b'>  %volume </span>";
-          format_muted = "<span background='#ebcb8b'>  Muted </span>";
+          format = "<span background='#ebcb8b'>  %volume </span>";
+          format_muted = "<span background='#ebcb8b'> ﱝ Muted </span>";
           device = "default";
           mixer = "Master";
           mixer_idx = 0;
@@ -67,7 +67,7 @@ in
         position = 5;
         settings = {
           format = "<span background='#81a1c1'> %time </span>";
-          format_time = " %a %-d %b %H:%M";
+          format_time = " %a %-d %b %H:%M";
         };
       };
     };
