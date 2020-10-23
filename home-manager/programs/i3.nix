@@ -104,7 +104,7 @@ in
         horizontal_padding = 6;
         separator_color = "frame";
         startup_notification = "false";
-        dmenu = "${pkgs.rofi}/bin/rofi -p dunst";
+        dmenu = "${pkgs.rofi}/bin/rofi -p dunst -dmenu";
         browser = "${pkgs.firefox}/bin/firefox -new-tab";
         icon_position = "off";
         max_icon_size = 80;
