@@ -349,6 +349,7 @@ in
           statusCommand = "${pkgs.i3status}/bin/i3status";
           fonts = config.fonts;
           trayOutput = "DP-4";
+          position = "top";
           colors = {
             background = theme.color1;
             statusline = theme.color1;
