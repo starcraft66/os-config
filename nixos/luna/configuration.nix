@@ -171,6 +171,11 @@ in
 
   security.pam.enableSSHAgentAuth = true;
 
+  services.xserver.deviceSection = ''
+    Option "UseEdidDpi" "False"
+    Option "DPI" "144 x 144"
+  '';
+
   services.xserver.screenSection = ''
     Option         "metamodes" "DP-4: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}"
   '';
