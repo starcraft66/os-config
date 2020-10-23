@@ -77,10 +77,9 @@ in
     enable = true;
     settings = {
       global = {
-        font = "MesloLGS Nerd Font Mono 10";
-        markup = "yes";
-        plain_text = "no";
-        format = "<b>%s</b>\n%b";
+        #font = "MesloLGS Nerd Font 10";
+        markup = "full";
+        format = "<b>%a</b>\\n<b>%s</b>\\n%b";
         sort = "no";
         indicate_hidden = "yes";
         alignment = "center";
@@ -115,21 +114,21 @@ in
       };
       shortcuts = {
         close = "ctrl+space";
-        close_all = "ctrl+Shift+space";
+        close_all = "ctrl+shift+space";
         history = "ctrl+grave";
-        context = "ctrl+Shift+period";
+        context = "ctrl+shift+period";
       };
       urgency_low = {
         frame_color = "#3B7C87";
         foreground = "#3B7C87";
         background = "#191311";
-        timeout = 4;
+        timeout = 8;
       };
       urgency_normal = {
         frame_color = "#5B8234";
         foreground = "#5B8234";
         background = "#191311";
-        timeout = 6;
+        timeout = 8;
       };
       urgency_critical = {
         frame_color = "#B7472A";
