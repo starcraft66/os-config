@@ -414,7 +414,8 @@ in
       terminal = "${pkgs.alacritty}/bin/alacritty";
       menu = "${pkgs.rofi}/bin/rofi -show run";
       startup = [
-        { command = "pkill picom; ${pkgs.picom}/bin/picom --backend xrender"; notification = false; }
+        { command = "pkill picom; ${pkgs.picom}/bin/picom --backend xrender --xrender-sync-fence --no-vsync"; notification = false; }
+        { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; }
         # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
       ];
       keybindings = let mod = config.modifier; in {
