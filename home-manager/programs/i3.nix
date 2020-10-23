@@ -454,7 +454,7 @@ in
         "${mod}+Shift+s" = "layout stacking";
         "${mod}+Shift+t" = "layout tabbed";
         "${mod}+Shift+f" = "floating toggle";
-        "${mod}+space" = "focus mode_toggle";
+        "${mod}+Space" = "focus mode_toggle";
         "${mod}+1" = "workspace 1";
         "${mod}+2" = "workspace 2";
         "${mod}+3" = "workspace 3";
@@ -497,12 +497,12 @@ in
           "j" = "resize shrink height 10 px or 10 ppt";
           "k" = "resize grow height 10 px or 10 ppt";
           "l" = "resize grow width 10 px or 10 ppt";
-          "left" = "resize shrink width 10 px or 10 ppt";
-          "down" = "resize grow height 10 px or 10 ppt";
-          "up" = "resize shrink height 10 px or 10 ppt";
-          "right" = "resize grow width 10 px or 10 ppt";
-          "escape" = "mode default";
-          "return" = "mode default";
+          "Left" = "resize shrink width 10 px or 10 ppt";
+          "Down" = "resize grow height 10 px or 10 ppt";
+          "Up" = "resize shrink height 10 px or 10 ppt";
+          "Right" = "resize grow width 10 px or 10 ppt";
+          "Escape" = "mode default";
+          "Return" = "mode default";
         };
       };
     };
