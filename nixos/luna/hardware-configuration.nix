@@ -37,4 +37,11 @@
   nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.ckb-next.enable = true;
+
+  # My usb sound card is 44100Hz
+  # This fixes crackling when adjusting playback volume on youtube
+  hardware.pulseaudio.daemon.config = {
+    default-sample-rate = "44100";
+    avoid-resampling = "true";
+  };
 }
