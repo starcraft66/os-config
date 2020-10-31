@@ -416,6 +416,7 @@ in
       startup = [
         { command = "pkill picom; ${pkgs.picom}/bin/picom --backend xrender --xrender-sync-fence --no-vsync"; notification = false; }
         { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; }
+        { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
         # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
       ];
       keybindings = let mod = config.modifier; in {
