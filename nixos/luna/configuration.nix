@@ -77,6 +77,7 @@ in
   time.timeZone = "America/Toronto";
 
   nixpkgs.config = {
+    allowBroken = true;
     packageOverrides = pkgs: {
       unstable = import unstableTarball {
         config = config.nixpkgs.config;
