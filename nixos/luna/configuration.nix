@@ -126,13 +126,18 @@ in
     tcpdump gns3-gui wireguard dislocker obs-studio htop lm_sensors
     docker-compose bind wine-unstable winetricks-unstable unstable.zoom-us
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
-    unzip master.discord libreoffice mpv utillinux usbutils teleconsole
+    unzip discord libreoffice mpv utillinux usbutils teleconsole
     unstable.pulseaudio-dlna ghidra-bin gimp gwenview deluge
     ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
     unstable.spotify-tui flameshot rofi-pass zip obs-studio
-    bmon
+    bmon adoptopenjdk-hotspot-bin-8
     nmon
   ];
+
+  # Java
+  environment.etc = with pkgs; {
+    "jdk8".source = adoptopenjdk-hotspot-bin-8;
+  };
 
 
   # Virtualization
