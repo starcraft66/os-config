@@ -109,6 +109,9 @@
       # Theming section
       autoload -U colors
       colors
+
+      ## VERY IMPORTANT!!!!
+      unset RPS1 RPROMPT
     '';
   };
 }
