@@ -162,7 +162,10 @@ in
   programs.wireshark = { enable = true; package = pkgs.wireshark; };
 
   # List services that you want to enable:
-  location.provider = "geoclue2";
+  location = {
+    latitude = 45.50884;
+    longitude = -73.58781;
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
