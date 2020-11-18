@@ -15,6 +15,7 @@
   boot.extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
     '';
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/3624849c-d896-49c1-8089-a5ec19d607df";
