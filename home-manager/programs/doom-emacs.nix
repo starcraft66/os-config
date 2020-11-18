@@ -10,7 +10,10 @@ let
   unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
   unstable = import unstableTarball {};
 in {
- home.packages = [ unstable.pkgs.python-language-server ];
+  home.packages = with unstable.pkgs; [
+    python-language-server
+    yaml-language-server
+  ];
  services.emacs.enable = true;
  programs.emacs = {
    enable = true;
