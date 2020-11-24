@@ -2,6 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+let
+  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+  masterTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
+in
+
 { config, pkgs, lib, ... }:
 
 {
@@ -51,6 +56,18 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
+  nixpkgs.config = {
+    allowBroken = true;
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+      master = import masterTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   
@@ -71,7 +88,6 @@
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.wireshark = { enable = true; package = pkgs.wireshark; };
 
-  hardware.u2f.enable = true;
   services.pcscd.enable = true;
   services.fwupd.enable = true;
   programs.light.enable = true;
@@ -109,6 +125,19 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  services.xserver.windowManager.i3 = {
+    enable = true;
+    # package = pkgs.i3-gaps;
+    extraPackages = with pkgs; [
+      rofi #application launcher most people use
+      i3status # gives you the default i3 status bar
+      i3lock #default i3 screen locker
+      i3blocks #if you are planning on using i3blocks over i3status
+      picom # compositor
+      dunst # notification daemon
+    ];
+  };
+
   # Fonts
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [
@@ -143,7 +172,7 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 
 }
 
