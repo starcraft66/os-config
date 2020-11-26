@@ -84,6 +84,7 @@ in
     alacritty steam neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
     ncdu kdeApplications.spectacle kdeApplications.gwenview
+    unstable.flameshot
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
