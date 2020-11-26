@@ -135,11 +135,11 @@ in
     docker-compose bind wine-unstable winetricks-unstable unstable.zoom-us
     jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
     unzip discord libreoffice mpv utillinux usbutils teleconsole
-    ghidra-bin gimp gwenview deluge
+    ghidra-bin gimp gwenview deluge wmctrl mediainfo pwgen unstable.hugo
     ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
-    unstable.spotify-tui flameshot rofi-pass zip obs-studio
+    unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
     bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt
-    nmon unstable.youtube-dl
+    nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
   ];
 
   # Java
