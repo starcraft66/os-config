@@ -6,7 +6,9 @@ with lib;
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs; [
-      unstable.obs-v4l2sink
+      obs-v4l2sink
+      obs-linuxbrowser
+      unstable.obs-move-transition
     ];
   };
 }

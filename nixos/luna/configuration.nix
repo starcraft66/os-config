@@ -86,6 +86,14 @@ in
         config = config.nixpkgs.config;
       };
     };
+
+    overlays =
+    [ (self: super:
+      {
+        # override with newer version from nixpkgs-unstable
+        obs-studio = pkgs.unstable.obs-studio;
+      })
+    ];
   };
 
   # (((steam))) and (((nvidia)))
