@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  originalConfig = config;
   dpi = 144;
   theme = {
     color0 = "#1d1f21";
@@ -44,23 +45,6 @@ in
         position = 2;
         settings = {
           format = "<span background='#fec7cd'>  %free Free </span>";
-        };
-      };
-      "ethernet Home@enp3s0" = {
-        position = 3;
-        settings = {
-          format_up = "<span background='#88c0d0'> ﯱ %ip </span>";
-          format_down = "<span background='#88c0d0'>  Disconnected </span>";
-        };
-      };
-      "volume master" = {
-        position = 4;
-        settings = {
-          format = "<span background='#ebcb8b'>  %volume </span>";
-          format_muted = "<span background='#ebcb8b'> ﱝ Muted </span>";
-          device = "default";
-          mixer = "Master";
-          mixer_idx = 0;
         };
       };
       "tztime local" = {
@@ -341,7 +325,7 @@ in
 
   xsession.windowManager.i3 = rec {
     enable = true;
-    # package = pkgs.i3-gaps;
+    package = pkgs.unstable.i3-gaps;
     config = {
       modifier = "Mod4";
       bars = [
@@ -415,15 +399,16 @@ in
       menu = "${pkgs.rofi}/bin/rofi -show run";
       startup = [
         { command = "pkill picom; ${pkgs.picom}/bin/picom --backend xrender --xrender-sync-fence --no-vsync"; notification = false; }
-        { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; }
         { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
         # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
-      ];
+      ] ++ lib.optional (originalConfig.my.ckb)
+        { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
       keybindings = let mod = config.modifier; in {
         "${mod}+a" = "exec ${config.menu}";
         "${mod}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
         "Mod1+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${mod}+Return" = "exec ${config.terminal}";
+        "Control+Mod1+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
         "${mod}+w" = "exec chromium";
         "${mod}+e" = "exec thunar";
         "${mod}+q" = "exec dmenu_run";
@@ -507,6 +492,10 @@ in
         };
       };
     };
+    extraConfig = ''
+      for_window [class="^.*"] border pixel 1
+      new_window 1pixel
+    '';
   };
 
   xresources.properties = {
