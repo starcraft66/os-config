@@ -48,6 +48,8 @@
 
   # Make steam detect my DualShock 4 "Slim" controller (and others for reference)
   services.udev.extraRules = ''
+    # Unprivileged uinput
+    KERNEL=="uinput", MODE="0666"
     # DualShock 4 over USB hidraw
     KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", MODE="0666"
     # DualShock 4 wireless adapter over USB hidraw
