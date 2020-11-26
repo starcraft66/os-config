@@ -2,7 +2,6 @@
 
 let
   originalConfig = config;
-  dpi = 144;
   theme = {
     color0 = "#1d1f21";
     color1 = "#282a2e";
@@ -499,6 +498,6 @@ in
   };
 
   xresources.properties = {
-    "xft.dpi" = dpi;
+    "xft.dpi" = originalConfig.my.dpi;
   };
 }

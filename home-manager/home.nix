@@ -34,4 +34,10 @@
     type = lib.types.bool;
   };
 
+  options.my.dpi = lib.mkOption {
+    description = "DPI scale";
+    default = 96;
+    type = lib.types.int;
+  };
+
 }

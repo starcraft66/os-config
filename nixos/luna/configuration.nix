@@ -264,6 +264,7 @@ in
 
       config.my.terminalFontSize = 12;
       config.my.ckb = true;
+      config.my.dpi = 144;
     };
     useUserPackages = true;
     useGlobalPkgs = true;
