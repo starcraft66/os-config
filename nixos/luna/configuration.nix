@@ -261,6 +261,9 @@ in
   home-manager = {
     users.tristan = {
       imports = [ ../../home-manager/home.nix ];
+
+      config.my.terminalFontSize = 12;
+      config.my.ckb = true;
     };
     useUserPackages = true;
     useGlobalPkgs = true;

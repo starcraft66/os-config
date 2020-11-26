@@ -34,7 +34,4 @@
     type = lib.types.bool;
   };
 
-  config.my.terminalFontSize = 12;
-  config.my.ckb = true;
-
 }
