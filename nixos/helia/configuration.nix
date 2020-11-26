@@ -50,6 +50,10 @@ in
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
+  location = {
+    latitude = 45.50884;
+    longitude = -73.58781;
+  };
 
   # for (((steam)))
   nixpkgs.config.allowUnfree = true;
@@ -136,6 +140,27 @@ in
       picom # compositor
       dunst # notification daemon
     ];
+  };
+
+  services.xserver.dpi = 120;
+
+  # Remove screen tearing
+  environment.etc."X11/xorg.conf.d/20-intel.conf" = {
+    text = ''
+      Section "Device"
+        Identifier "Intel Graphics"
+        Driver "intel"
+        Option "TearFree" "true"
+        Option "AccelMethod" "sna"
+        Option "SwapbuffersWait" "true"
+      EndSection
+    '';
+  };
+
+  services.redshift = {
+    enable = true;
+    temperature.day = 6500;
+    temperature.night = 3000;
   };
 
   # Fonts
