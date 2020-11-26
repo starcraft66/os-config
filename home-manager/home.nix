@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   imports = [
@@ -21,6 +21,20 @@
     ./programs/zsh.nix
   ];
 
-  programs.home-manager.enable = true;
+  config.programs.home-manager.enable = true;
+
+  options.my.terminalFontSize = lib.mkOption {
+    description = "The terminal font size";
+    type = lib.types.int;
+  };
+
+  options.my.ckb = lib.mkOption {
+    description = "Autostart ckb-next daemon";
+    default = false;
+    type = lib.types.bool;
+  };
+
+  config.my.terminalFontSize = 12;
+  config.my.ckb = true;
 
 }
