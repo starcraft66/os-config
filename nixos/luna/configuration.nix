@@ -222,7 +222,7 @@ in
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 2049 111 ];
+  networking.firewall.allowedTCPPorts = [ 22 2049 111 6881 ];
   networking.firewall.allowedUDPPorts = [ 2049 111 ];
   networking.firewall.logRefusedConnections = true;
   networking.firewall.logRefusedUnicastsOnly = true;
