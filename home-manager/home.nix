@@ -7,6 +7,7 @@
     ./programs/doom-emacs.nix
     ./programs/fzf.nix
     ./programs/git.nix
+    ./programs/gtk.nix
     ./programs/i3.nix
     ./programs/kde.nix
     ./programs/neofetch.nix
