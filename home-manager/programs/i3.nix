@@ -62,19 +62,19 @@ in
       global = {
         #font = "MesloLGS Nerd Font 10";
         markup = "full";
-        format = "<b>%a</b>\\n<b>%s</b>\\n%b";
+        format = "<b>%s</b>\\n%b";
         sort = "no";
         indicate_hidden = "yes";
-        alignment = "center";
+        alignment = "left";
         bounce_freq = 0;
         show_age_threshold = -1;
         word_wrap = "yes";
         ignore_newline = "no";
         stack_duplicates = "yes";
         hide_duplicate_count = "yes";
-        geometry = "300x50-15+49";
+        geometry = "600x100-1620+50";
         shrink = "no";
-        transparency = 5;
+        transparency = 3;
         idle_threshold = 0;
         monitor = 0;
         follow = "none";
@@ -89,11 +89,12 @@ in
         startup_notification = "false";
         dmenu = "${pkgs.rofi}/bin/rofi -p dunst -dmenu";
         browser = "${pkgs.firefox}/bin/firefox -new-tab";
-        icon_position = "off";
+        icon_position = "left";
         max_icon_size = 80;
-        #icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/;
-        frame_width = 3;
-        frame_color = "#8EC07C";
+        frame_width = 2;
+        frame_color = theme.color5;
+        font = "Sans 10";
+        corner_radius = 2;
       };
       shortcuts = {
         close = "ctrl+space";
@@ -102,23 +103,28 @@ in
         context = "ctrl+shift+period";
       };
       urgency_low = {
-        frame_color = "#3B7C87";
-        foreground = "#3B7C87";
-        background = "#191311";
+        frame_color = theme.color5;
+        foreground = theme.color4;
+        background = theme.color1;
         timeout = 8;
       };
       urgency_normal = {
-        frame_color = "#5B8234";
-        foreground = "#5B8234";
-        background = "#191311";
+        frame_color = theme.color5;
+        foreground = theme.color4;
+        background = theme.color1;
         timeout = 8;
       };
       urgency_critical = {
-        frame_color = "#B7472A";
-        foreground = "#B7472A";
-        background = "#191311";
+        frame_color = theme.color5;
+        foreground = theme.color4;
+        background = theme.color1;
         timeout = 8;
       };
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+      size = "128x128";
     };
   };
 
