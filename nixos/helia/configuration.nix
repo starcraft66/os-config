@@ -77,14 +77,16 @@ in
   
   environment.systemPackages = with pkgs;
   let
+    wine-unstable = unstable.wineWowPackages.staging;
+    winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
     firefox-customized htop bind qt5.qttools
-    networkmanager element-desktop python3
+    networkmanager element-desktop python3 pciutils
     alacritty steam neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
     ncdu kdeApplications.spectacle kdeApplications.gwenview
-    unstable.flameshot
+    unstable.flameshot wine-unstable winetricks-unstable
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
