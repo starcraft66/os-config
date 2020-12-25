@@ -41,4 +41,22 @@
     type = lib.types.int;
   };
 
+  options.my.cursorDpi = lib.mkOption {
+    description = "Cursor DPI scale";
+    default = 24;
+    type = lib.types.int;
+  };
+
+  options.my.vsync = lib.mkOption {
+    description = "Enable compositor vsync";
+    default = true;
+    type = lib.types.bool;
+  };
+
+  options.my.picomBackend = lib.mkOption {
+    description = "Picom backend";
+    default = "glx";
+    type = lib.types.str;
+  };
+
 }

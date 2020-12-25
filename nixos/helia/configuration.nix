@@ -146,19 +146,6 @@ in
 
   services.xserver.dpi = 120;
 
-  # Remove screen tearing
-  environment.etc."X11/xorg.conf.d/20-intel.conf" = {
-    text = ''
-      Section "Device"
-        Identifier "Intel Graphics"
-        Driver "intel"
-        Option "TearFree" "true"
-        Option "AccelMethod" "sna"
-        Option "SwapbuffersWait" "true"
-      EndSection
-    '';
-  };
-
   services.redshift = {
     enable = true;
     temperature.day = 6500;
@@ -192,6 +179,9 @@ in
       config.my.terminalFontSize = 10;
       config.my.ckb = false;
       config.my.dpi = 120;
+      config.my.cursorDpi = 30;
+      config.my.vsync = true;
+      config.my.picomBackend = "glx";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

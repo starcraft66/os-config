@@ -283,6 +283,9 @@ in
       config.my.terminalFontSize = 12;
       config.my.ckb = true;
       config.my.dpi = 144;
+      config.my.cursorDpi = 48;
+      config.my.vsync = false;
+      config.my.picomBackend = "xrender";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

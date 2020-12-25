@@ -15,7 +15,7 @@
       gtk-icon-name="breeze-dark"
       gtk-font-name="Noto Sans,  10"
       gtk-cursor-theme-name="breeze_cursors"
-      gtk-cursor-theme-size="48"
+      gtk-cursor-theme-size="${toString config.my.cursorDpi}"
     '';
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
@@ -29,14 +29,13 @@
       "gtk-primary-button-warps-slider" = 0;
       "gtk-theme-name" = "Breeze-Dark";
       "gtk-toolbar-style" = "GTK_TOOLBAR_BOTH_HORIZ";
-      "gtk-icon-name" = "breeze-dark";
       "gtk-cursor-theme-name" = "breeze_cursors";
-      "gtk-cursor-theme-size" = 48;
+      "gtk-cursor-theme-size" = config.my.cursorDpi;
     };
   };
   xsession.pointerCursor = {
     package = pkgs.breeze-qt5;
     name = "breeze_cursors";
-    size = 48;
+    size = config.my.cursorDpi;
   };
 }
