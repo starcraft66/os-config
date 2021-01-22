@@ -42,18 +42,9 @@ in
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.vlans.Management = { id = 52; interface = "enp3s0"; };
-  networking.vlans.Home = { id = 51; interface = "enp3s0"; };
-  networking.interfaces.enp3s0.useDHCP = false;
-  networking.interfaces.Home.useDHCP = true;
-  networking.interfaces.Management.useDHCP = true;
-  networking.defaultGateway.address = "";
-  networking.defaultGateway.interface = "enp3s0.51";
-  networking.defaultGateway.metric = 10;
-  #networking.defaultGateway6.address = "";
-  #networking.defaultGateway6.interface = "enp3s0.51";
-  #networking.defaultGateway6.metric = 10;
+  networking.interfaces.enp3s0.useDHCP = true;
   networking.wireguard.enable = true;
+  services.lldpd.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
