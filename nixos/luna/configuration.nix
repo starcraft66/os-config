@@ -15,6 +15,7 @@ in
       ./hardware-configuration.nix
       ../../applications/core.nix
       <home-manager/nixos>
+      <sops-nix/modules/sops>
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -95,6 +96,39 @@ in
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [ libva ];
+
+  # Sops config
+  sops.defaultSopsFile = ../../secrets/luna.yaml;
+  
+  # Backup config
+  sops.secrets.borg-repo-passphrase = {};
+  sops.secrets.borg-ssh-private-key = {};
+  services.borgbackup.jobs.luna = {
+    paths = "/";
+    exclude = [
+      "/dev"
+      "/proc"
+      "/media"
+      "/sys"
+      "/mnt"
+      "/sys"
+      "/home/*/.local/share/steam"
+      "/nix"
+    ];
+    repo = "ssh://backup@bunker.tdude.co:7331/var/backup/luna";
+    encryption = {
+      mode = "repokey";
+      passCommand = "cat ${config.sops.secrets.borg-repo-passphrase.path}";
+    };
+    environment = { BORG_RSH = "ssh -i ${ config.sops.secrets.borg-ssh-private-key.path }"; };
+    compression = "auto,zstd";
+    startAt = "daily";
+    prune.keep = {
+      daily = 7;
+      weekly = 4;
+      monthly = 6;
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
