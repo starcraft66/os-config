@@ -112,7 +112,8 @@ in
       "/sys"
       "/mnt"
       "/sys"
-      "/home/*/.local/share/steam"
+      "/home/*/.local/share/Steam"
+      "/var/lib/docker"
       "/nix"
     ];
     repo = "ssh://backup@bunker.tdude.co:7331/var/backup/luna";
