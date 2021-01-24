@@ -121,6 +121,7 @@ in
       passCommand = "cat ${config.sops.secrets.borg-repo-passphrase.path}";
     };
     environment = { BORG_RSH = "ssh -i ${ config.sops.secrets.borg-ssh-private-key.path }"; };
+    doInit = false;
     compression = "auto,zstd";
     startAt = "daily";
     prune.keep = {
