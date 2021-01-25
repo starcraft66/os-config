@@ -113,6 +113,7 @@ in
       "/mnt"
       "/sys"
       "/home/*/.local/share/Steam"
+      "/run"
       "/var/lib/docker"
       "/nix"
     ];
