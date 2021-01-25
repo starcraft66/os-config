@@ -2,11 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-let
-  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  masterTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
-in
-
 { config, pkgs, lib, ... }:
 
 {
@@ -74,10 +69,10 @@ in
   nixpkgs.config = {
     allowBroken = true;
     packageOverrides = pkgs: {
-      unstable = import unstableTarball {
+      unstable = import <nixos-unstable> {
         config = config.nixpkgs.config;
       };
-      master = import masterTarball {
+      master = import <nixos-master> {
         config = config.nixpkgs.config;
       };
     };
@@ -99,7 +94,7 @@ in
 
   # Sops config
   sops.defaultSopsFile = ../../secrets/luna.yaml;
-  
+
   # Backup config
   sops.secrets.borg-repo-passphrase = {};
   sops.secrets.borg-ssh-private-key = {};
@@ -325,6 +320,4 @@ in
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "20.09"; # Did you read the comment?
-
 }
-

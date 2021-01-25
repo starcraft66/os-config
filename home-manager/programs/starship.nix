@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  unstable = import unstableTarball {};
+  unstable = import <nixos-unstable> {};
   inherit (pkgs.stdenv.targetPlatform) isDarwin isLinux;
 in
 {

@@ -7,8 +7,7 @@ let
   }) {
     doomPrivateDir = ../doom.d;  # Directory containing your config.el init.el and packages.el files
   };
-  unstableTarball = fetchTarball "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
-  unstable = import unstableTarball {};
+  unstable = import <nixos-unstable> {};
 in {
   home.packages = with unstable.pkgs; [
     python-language-server
