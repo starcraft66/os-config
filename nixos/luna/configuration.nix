@@ -151,16 +151,6 @@
     wine-unstable = unstable.wineWowPackages.staging;
     winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
-    multimc-dev = multimc.overrideAttrs (oldAttrs: rec {
-      version = "0.7-dev";
-      src = pkgs.fetchFromGitHub {
-        owner = "MultiMC";
-        repo = "MultiMC5";
-        rev = "6aa126be3014b231651cb6ca55e9efee2168c29d";
-        sha256 = "0qjjn5mv8vc0i89b16jbgh1bjz0zlqfwnmvzx9mffx7zq8sc7886";
-        fetchSubmodules = true;
-      };
-    });
   in [
     wireshark unstable.element-desktop slack qtpass pciutils
     alacritty steam neofetch spotify vscode unstable.minecraft roboto font-awesome
@@ -174,7 +164,7 @@
     ghidra-bin gimp gwenview deluge wmctrl mediainfo pwgen unstable.hugo
     ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
     unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
-    bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt multimc-dev
+    bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt master.multimc
     nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
     cava mtr virt-manager
   ];
