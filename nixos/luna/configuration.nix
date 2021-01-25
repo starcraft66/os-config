@@ -181,7 +181,7 @@ in
     unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
     bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt multimc-dev
     nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
-    cava mtr
+    cava mtr virt-manager
   ];
 
   # Java
