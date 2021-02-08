@@ -51,18 +51,20 @@
   };
 
   # for (((steam)))
-  nixpkgs.config.allowUnfree = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
-  nixpkgs.config = {
-    allowBroken = true;
-    packageOverrides = pkgs: {
-      unstable = import <nixos-unstable> {
-        config = config.nixpkgs.config;
-      };
-      master = import <nixos-master> {
-        config = config.nixpkgs.config;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+      packageOverrides = pkgs: {
+        unstable = import <nixos-unstable> {
+          config = config.nixpkgs.config;
+        };
+        master = import <nixos-master> {
+          config = config.nixpkgs.config;
+        };
       };
     };
   };

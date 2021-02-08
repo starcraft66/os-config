@@ -67,6 +67,7 @@
   time.timeZone = "America/Toronto";
 
   nixpkgs.config = {
+    allowUnfree = true;
     allowBroken = true;
     packageOverrides = pkgs: {
       unstable = import <nixos-unstable> {
@@ -87,7 +88,6 @@
   };
 
   # (((steam))) and (((nvidia)))
-  nixpkgs.config.allowUnfree = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [ libva ];
