@@ -11,7 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aes_x86_64" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
+  boot.extraModulePackages = [ pkgs.unstable.linuxPackages_5_10.v4l2loopback ];
   boot.extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
     '';
