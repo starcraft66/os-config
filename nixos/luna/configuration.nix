@@ -166,7 +166,7 @@
     unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
     bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt master.multimc
     nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
-    cava mtr virt-manager openfortivpn freerdp
+    cava mtr virt-manager openfortivpn freerdp mktorrent
   ];
 
   # Java
