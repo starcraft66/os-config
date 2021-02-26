@@ -130,6 +130,8 @@ in
 
   home.packages = with pkgs; [
     tint2
+    xss-lock
+    xsecurelock
   ];
 
   xdg.configFile."tint2/tint2rc".text = ''
