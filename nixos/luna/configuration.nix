@@ -166,7 +166,10 @@
     unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
     bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt master.multimc
     nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
-    cava mtr virt-manager openfortivpn freerdp mktorrent
+    cava mtr virt-manager openfortivpn freerdp mktorrent mediainfo i2c-tools inetutils
+    lolcat packer p7zip pamixer pavucontrol rclone pwgen psmisc
+    v4l-utils xorg.xdpyinfo xorg.xev xorg.xmodmap youtube-dl kind backblaze-b2
+    glxinfo ffmpeg iotop iperf lsof nix-index nmap audacity cmatrix figlet
   ];
 
   # Java
