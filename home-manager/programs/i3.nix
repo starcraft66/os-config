@@ -128,6 +128,276 @@ in
     };
   };
 
+  home.packages = with pkgs; [
+    tint2
+  ];
+
+  xdg.configFile."tint2/tint2rc".text = ''
+    # Background 1: Active task
+    rounded = 10
+    border_width = 1
+    border_sides = T
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #888888 0
+    border_color = #1793d1 100
+    background_color_hover = #888888 20
+    border_color_hover = #1793d1 100
+    background_color_pressed = #888888 20
+    border_color_pressed = #1793d1 100
+
+    # Background 2: Default task, Iconified task
+    rounded = 9
+    border_width = 1
+    border_sides = TBLR
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #000000 0
+    border_color = #000000 0
+    background_color_hover = #888888 20
+    border_color_hover = #888888 20
+    background_color_pressed = #888888 20
+    border_color_pressed = #888888 20
+
+    # Background 3: Urgent task
+    rounded = 9
+    border_width = 1
+    border_sides = T
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #888888 0
+    border_color = #e64141 100
+    background_color_hover = #888888 20
+    border_color_hover = #e64141 100
+    background_color_pressed = #888888 20
+    border_color_pressed = #e64141 100
+
+    # Background 4: Inactive taskbar
+    rounded = 9
+    border_width = 1
+    border_sides = LR
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #212121 90
+    border_color = #000000 0
+    background_color_hover = #888888 20
+    border_color_hover = #000000 0
+    background_color_pressed = #888888 20
+    border_color_pressed = #000000 0
+
+    # Background 5: Active taskbar, Battery, Button, Launcher icon, Systray
+    rounded = 9
+    border_width = 1
+    border_sides = LR
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #121212 90
+    border_color = #d8d8d8 0
+    background_color_hover = #d8d8d8 0
+    border_color_hover = #d8d8d8 0
+    background_color_pressed = #d8d8d8 0
+    border_color_pressed = #d8d8d8 0
+
+    # Background 6: Clock, Launcher, Tooltip
+    rounded = 9
+    border_width = 1
+    border_sides = TBLR
+    border_content_tint_weight = 3
+    background_content_tint_weight = 3
+    background_color = #000000 100
+    border_color = #222222 90
+    background_color_hover = #2b303b 100
+    border_color_hover = #222222 90
+    background_color_pressed = #2b303b 100
+    border_color_pressed = #222222 90
+
+    #-------------------------------------
+    # Panel
+    panel_items = TSC
+    panel_size = 100% 28
+    panel_margin = 1 0
+    panel_padding = 1 1 1
+    panel_background_id = 0
+    wm_menu = 1
+    panel_dock = 0
+    panel_pivot_struts = 0
+    panel_position = top left horizontal
+    panel_layer = normal
+    panel_monitor = all
+    panel_shrink = 0
+    primary = 1
+    autohide = 0
+    autohide_show_timeout = 0.3
+    autohide_hide_timeout = 1.4
+    autohide_height = 6
+    strut_policy = follow_size
+    panel_window_name = tint2
+    disable_transparency = 0
+    mouse_effects = 1
+    font_shadow = 0
+    mouse_hover_icon_asb = 100 0 10
+    mouse_pressed_icon_asb = 100 0 0
+    # Huge hack because tint2's HiDPI is a POS, find out what DPI your monitor has, according to xrandr,
+    # not as defined in your X config, then find another value you can divide it by to achieve your desired
+    # scale and input it here. It's awful.
+    scale_relative_to_dpi = 108
+    scale_relative_to_screen_height = 0
+
+    #-------------------------------------
+    # Taskbar
+    taskbar_mode = single_monitor #multi_desktop
+    taskbar_hide_if_empty = 1
+    taskbar_padding = 1 2 1
+    taskbar_background_id = 4
+    taskbar_active_background_id = 5
+    taskbar_name = 1
+    taskbar_hide_inactive_tasks = 0
+    taskbar_hide_different_monitor = 1
+    taskbar_hide_different_desktop = 0
+    taskbar_always_show_all_desktop_tasks = 0
+    taskbar_name_padding = 1 1
+    taskbar_name_background_id = 0
+    taskbar_name_active_background_id = 0
+    taskbar_name_font = MesloLGS Nerd Font Mono 10
+    taskbar_name_font_color = #828282 100
+    taskbar_name_active_font_color = #a0a0bd 100
+    taskbar_distribute_size = 0
+    taskbar_sort_order = title
+    task_align = left
+
+    #-------------------------------------
+    # Task
+    task_text = 0
+    task_icon = 1
+    task_centered = 1
+    urgent_nb_of_blink = 20
+    task_maximum_size = 30 30
+    task_padding = 6 1 4
+    task_font = MesloLGS Nerd Font Mono 10
+    task_tooltip = 1
+    task_thumbnail = 0
+    task_thumbnail_size = 210
+    task_font_color = #828282 60
+    task_active_font_color = #828282 100
+    task_urgent_font_color = #ffffff 100
+    task_iconified_font_color = #d8d8d8 60
+    task_active_icon_asb = 100 0 0
+    task_urgent_icon_asb = 100 0 0
+    task_iconified_icon_asb = 80 0 0
+    task_background_id = 2
+    task_active_background_id = 1
+    task_urgent_background_id = 3
+    task_iconified_background_id = 2
+    mouse_left = toggle_iconify
+    mouse_middle = close
+    mouse_right = none
+    mouse_scroll_up = toggle
+    mouse_scroll_down = iconify
+
+    #-------------------------------------
+    # System tray (notification area)
+    systray_padding = 1 1 1
+    systray_background_id = 5
+    systray_sort = right2left
+    systray_icon_size = 0
+    systray_icon_asb = 100 0 0
+    systray_monitor = 2
+    systray_name_filter =
+    #-------------------------------------
+    # Launcher
+    launcher_padding = 1 0 1
+    launcher_background_id = 6
+    launcher_icon_background_id = 5
+    launcher_icon_size = 0
+    launcher_icon_asb = 100 0 0
+    launcher_icon_theme = Numix-Circle
+    launcher_icon_theme_override = 0
+    startup_notifications = 1
+    launcher_tooltip = 1
+    launcher_item_app = /usr/share/applications/exo-terminal-emulator.desktop
+    launcher_item_app = /usr/share/applications/exo-file-manager.desktop
+    launcher_item_app = /usr/share/applications/firefox.desktop
+    launcher_item_app = /usr/share/applications/geany.desktop
+    launcher_item_app = /usr/share/applications/org.manjaro.pamac.manager.desktop
+    launcher_item_app = /usr/share/applications/org.qbittorrent.qBittorrent.desktop
+    launcher_item_app = /usr/share/applications/thunderbird.desktop
+
+    #-------------------------------------
+    # Clock
+    time1_format = %a %b %d %H:%M
+    time2_format =
+    time1_font = MesloLGS Nerd Font Mono 10
+    time1_timezone = America/Toronto
+    time2_timezone =
+    time2_font = sans 0
+    clock_font_color = #ffffff 100
+    clock_padding = 10 0
+    clock_background_id = 6
+    clock_tooltip =
+    clock_tooltip_timezone =
+    clock_lclick_command = gsimplecal
+    clock_rclick_command = gsimplecal
+    clock_mclick_command =
+    clock_uwheel_command =
+    clock_dwheel_command =
+
+    #-------------------------------------
+    # Battery
+    battery_tooltip = 1
+    battery_low_status = 20
+    battery_low_cmd = notify-send "Battery Low"
+    battery_full_cmd =
+    bat1_font = MesloLGS Nerd Font Mono 10
+    bat2_font = sans 0
+    battery_font_color = #b5b5b5 100
+    bat1_format =
+    bat2_format =
+    battery_padding = 6 1
+    battery_background_id = 5
+    battery_hide = 101
+    battery_lclick_command = xfce4-power-manager-settings
+    battery_rclick_command = xfce4-power-manager-settings
+    battery_mclick_command =
+    battery_uwheel_command =
+    battery_dwheel_command =
+    ac_connected_cmd =
+    ac_disconnected_cmd =
+
+    #-------------------------------------
+    # Separator 1
+    separator = new
+    separator_background_id = 0
+    separator_color = #240c0c 85
+    separator_style = line
+    separator_size = 4
+    separator_padding = 2 0
+
+    #-------------------------------------
+    # Button 1
+    # button = new
+    # button_icon = ~/Hämtningar/AL.png
+    # button_text =
+    # button_lclick_command = jgmenu_run >/dev/null 2>&1 &
+    # button_rclick_command = exo-open ~/.config/jgmenu/jgmenurc
+    # button_mclick_command =
+    # button_uwheel_command =
+    # button_dwheel_command =
+    # button_font_color = #000000 100
+    # button_padding = 8 1
+    # button_background_id = 5
+    # button_centered = 1
+    # button_max_icon_size = 26
+
+    #-------------------------------------
+    # Tooltip
+    tooltip_show_timeout = 0
+    tooltip_hide_timeout = 0
+    tooltip_padding = 10 1
+    tooltip_background_id = 6
+    tooltip_font_color = #d8d8d8 100
+    tooltip_font = MesloLGS Nerd Font Mono 10
+    '';
+
   xdg.configFile."rofi/flat-orange.rasi".text = ''
     /**
     * ROFI Color theme
