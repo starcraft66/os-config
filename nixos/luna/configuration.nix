@@ -170,6 +170,7 @@
     lolcat packer p7zip pamixer pavucontrol rclone pwgen psmisc
     v4l-utils xorg.xdpyinfo xorg.xev xorg.xmodmap youtube-dl kind backblaze-b2
     glxinfo ffmpeg iotop iperf lsof nix-index nmap audacity cmatrix figlet
+    smartmontools
   ];
 
   # Java
