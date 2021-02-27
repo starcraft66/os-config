@@ -245,6 +245,26 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # No comment...
+  sops.secrets.nocom-wireguard-private-key = {};
+  networking.wireguard.interfaces = {
+    nocom = {
+      privateKey = lib.readFile config.sops.secrets.nocom-wireguard-private-key.path;
+      ips = [
+        "192.168.69.72/24"
+      ];
+      peers = [
+        {
+          allowedIPs = [
+            "192.168.69.0/24"
+          ];
+          publicKey = "r+4gwEuOKEXMJEQvM1YX5jc5WHIpjjZGAKW8SkRVyVQ=";
+          endpoint = "fiki.dev:14030";
+        }
+      ];
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
