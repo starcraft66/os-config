@@ -602,7 +602,7 @@ in
 
   xsession.windowManager.i3 = rec {
     enable = true;
-    package = pkgs.unstable.i3-gaps;
+    package = pkgs.i3-gaps;
     config = {
       modifier = "Mod4";
       bars = [

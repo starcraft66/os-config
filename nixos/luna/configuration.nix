@@ -4,6 +4,11 @@
 
 { config, pkgs, lib, ... }:
 
+let
+  unfreeConfig = { allowUnfree = true; };
+  unstable = import <nixos-unstable>  { config = unfreeConfig; };
+  master = import <nixos-master> { config = unfreeConfig; };
+in
 {
   imports =
     [
@@ -19,7 +24,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Use the latest linux kernel
-  boot.kernelPackages = pkgs.unstable.linuxPackages_5_10;
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   networking.hostName = "luna"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -66,28 +71,42 @@
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-    packageOverrides = pkgs: {
-      unstable = import <nixos-unstable> {
-        config = config.nixpkgs.config;
-      };
-      master = import <nixos-master> {
-        config = config.nixpkgs.config;
-      };
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
     };
-
-    overlays =
-    [ (self: super:
-      {
-        # override with newer version from nixpkgs-unstable
-        obs-studio = pkgs.unstable.obs-studio;
-      })
+    overlays = [
+      (self: super:
+        {
+          # override with newer version from nixpkgs-unstable
+          steam = unstable.steam;
+          lutris = unstable.lutris;
+          i3-gaps = unstable.i3-gaps;
+          steam-run = unstable.steam-run;
+          steam-run-native = unstable.steam-run-native;
+          hugo = unstable.hugo;
+          linuxPackages_5_10 = unstable.linuxPackages_5_10;
+          wineWowPackages.staging = unstable.wineWowPackages.staging;
+          winetricks = unstable.winetricks;
+          element-desktop = unstable.element-desktop;
+          minecraft = unstable.minecraft;
+          multimc = unstable.multimc;
+          zoom-us = unstable.zoom-us;
+          jetbrains.idea-ultimate = unstable.jetbrains.idea-ultimate;
+          jitsi-meet-electron = unstable.jitsi-meet-electron;
+          spotify-tui = unstable.spotify-tui;
+          flameshot = unstable.flameshot;
+          obs-studio = unstable.obs-studio;
+          obs-move-transition = unstable.obs-move-transition;
+          youtube-dl = unstable.youtube-dl;
+        }
+      )
     ];
   };
 
   # (((steam))) and (((nvidia)))
+  programs.steam.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [ libva ];
@@ -148,29 +167,29 @@
       pycryptodome
     ];
     python-with-my-packages = python3.withPackages my-python-packages;
-    wine-unstable = unstable.wineWowPackages.staging;
-    winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
+    wine-staging = wineWowPackages.staging;
+    winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
-    wireshark unstable.element-desktop slack qtpass pciutils
-    alacritty steam neofetch spotify vscode unstable.minecraft roboto font-awesome
+    wireshark element-desktop slack qtpass pciutils
+    alacritty neofetch spotify vscode minecraft roboto font-awesome
     unzip traceroute signal-desktop iperf ethtool irssi qogir-theme libsForQt5.qtstyleplugins
     spectacle firefox-customized python-with-my-packages thunderbird speedtest-cli
     chromium vagrant unrar patchelf fuse zlib appimage-run net_snmp
-    tcpdump gns3-gui wireguard dislocker obs-studio htop lm_sensors
-    docker-compose bind wine-unstable winetricks-unstable unstable.zoom-us
-    jdk11 unstable.jetbrains.idea-ultimate unstable.jitsi-meet-electron
+    tcpdump gns3-gui wireguard dislocker htop lm_sensors
+    docker-compose bind wine-staging winetricks-staging zoom-us
+    jdk11 jetbrains.idea-ultimate jitsi-meet-electron
     unzip discord libreoffice mpv utillinux usbutils teleconsole
-    ghidra-bin gimp gwenview deluge wmctrl mediainfo pwgen unstable.hugo
+    ghidra-bin gimp gwenview deluge wmctrl mediainfo pwgen hugo
     ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
-    unstable.spotify-tui unstable.flameshot rofi-pass zip unstable.obs-studio
-    bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt master.multimc
-    nmon unstable.youtube-dl python38Packages.ds4drv backblaze-b2
-    cava mtr virt-manager openfortivpn freerdp mktorrent mediainfo i2c-tools inetutils
+    spotify-tui flameshot rofi-pass zip obs-studio
+    bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt multimc
+    nmon youtube-dl python38Packages.ds4drv backblaze-b2
+    cava mtr virt-manager openfortivpn freerdp mktorrent mediainfo i2c-tools
     lolcat packer p7zip pamixer pavucontrol rclone pwgen psmisc
-    v4l-utils xorg.xdpyinfo xorg.xev xorg.xmodmap youtube-dl kind backblaze-b2
+    v4l-utils xorg.xdpyinfo xorg.xev xorg.xmodmap kind backblaze-b2
     glxinfo ffmpeg iotop iperf lsof nix-index nmap audacity cmatrix figlet
-    smartmontools
+    smartmontools lutris
   ];
 
   # Java
@@ -289,7 +308,7 @@
 
   services.xserver.windowManager.i3 = {
     enable = true;
-    package = pkgs.unstable.i3-gaps;
+    package = pkgs.i3-gaps;
     extraPackages = with pkgs; [
       rofi #application launcher most people use
       i3status # gives you the default i3 status bar
