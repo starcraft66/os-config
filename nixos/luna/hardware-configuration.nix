@@ -44,6 +44,10 @@
   hardware.pulseaudio.daemon.config = {
     default-sample-rate = "44100";
     avoid-resampling = "true";
+    # configFile = pkgs.runCommand "default.pa" {} ''
+    #   sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
+    #     ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
+    # '';
   };
 
   # Make steam detect my DualShock 4 "Slim" controller (and others for reference)
