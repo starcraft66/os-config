@@ -10,13 +10,18 @@ let
   master = import <nixos-master> { config = unfreeConfig; };
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../../applications/core.nix
-      <home-manager/nixos>
-      <sops-nix/modules/sops>
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../applications/core.nix
+    <home-manager/nixos>
+    <sops-nix/modules/sops>
+    <nixos-unstable/nixos/modules/programs/steam.nix>
+  ];
+
+  # Use the steam wrapper from nixos unstable
+  disabledModules = [
+    "programs/steam.nix"
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
