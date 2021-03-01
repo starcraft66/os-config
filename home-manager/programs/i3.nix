@@ -677,6 +677,7 @@ in
       startup = [
         { command = "pkill picom; ${pkgs.picom}/bin/picom --backend ${originalConfig.my.picomBackend} ${if originalConfig.my.picomBackend == "xrender" then "--xrender-sync-fence" else ""} ${if originalConfig.my.vsync then "--vsync" else "--no-vsync"}"; notification = false; }
         { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
+        { command = "pkill flameshot; ${pkgs.flameshot}/bin/flameshot"; notification = false; }
         # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
       ] ++ lib.optional (originalConfig.my.ckb)
         { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
@@ -686,10 +687,7 @@ in
         "Mod1+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${mod}+Return" = "exec ${config.terminal}";
         "Control+Mod1+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
-        "${mod}+w" = "exec chromium";
-        "${mod}+e" = "exec thunar";
-        "${mod}+q" = "exec dmenu_run";
-        "${mod}+Print" = "exec flameshot gui";
+        "${mod}+Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
         "${mod}+Shift+q" = "kill";
 
         "${mod}+r" = "mode resize";
