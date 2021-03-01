@@ -14,7 +14,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "Helia"; # Define your hostname.
   networking.firewall.allowedUDPPorts = [ 69 ];
@@ -50,21 +50,12 @@
   };
 
   # for (((steam)))
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
+  programs.steam.enable = true;
 
   nixpkgs = {
     config = {
       allowUnfree = true;
       allowBroken = true;
-      packageOverrides = pkgs: {
-        unstable = import <nixos-unstable> {
-          config = config.nixpkgs.config;
-        };
-        master = import <nixos-master> {
-          config = config.nixpkgs.config;
-        };
-      };
     };
   };
 
@@ -73,16 +64,15 @@
 
   environment.systemPackages = with pkgs;
   let
-    wine-unstable = unstable.wineWowPackages.staging;
-    winetricks-unstable = unstable.winetricks.override { wine = wine-unstable; };
+    wine-staging = wineWowPackages.staging;
+    winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils
-    alacritty steam neofetch spotify vscode glib minecraft
+    alacritty neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
-    ncdu kdeApplications.spectacle kdeApplications.gwenview
-    unstable.flameshot wine-unstable winetricks-unstable
+    ncdu gwenview flameshot wine-staging winetricks-staging
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
