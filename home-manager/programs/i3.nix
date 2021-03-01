@@ -609,7 +609,7 @@ in
         {
           statusCommand = "${pkgs.i3status}/bin/i3status";
           fonts = config.fonts;
-          trayOutput = "DP-4";
+          trayOutput = originalConfig.my.trayOutput;
           position = "top";
           colors = {
             background = theme.color1;

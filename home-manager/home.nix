@@ -60,4 +60,9 @@
     type = lib.types.str;
   };
 
+  options.my.trayOutput = lib.mkOption {
+    description = "X11 output to show systray on";
+    default = "DP-4";
+    type = lib.types.str;
+  };
 }

@@ -433,6 +433,7 @@
       config.my.cursorDpi = 48;
       config.my.vsync = false;
       config.my.picomBackend = "xrender";
+      config.my.trayOutput = "DP-4";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

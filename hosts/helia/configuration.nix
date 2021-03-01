@@ -170,6 +170,7 @@
       config.my.cursorDpi = 30;
       config.my.vsync = true;
       config.my.picomBackend = "glx";
+      config.my.trayOutput = "eDP-1";
     };
     useUserPackages = true;
     useGlobalPkgs = true;
