@@ -703,6 +703,10 @@ in
         "${mod}+Down" = "focus down";
         "${mod}+Up" = "focus up";
         "${mod}+Right" = "focus right";
+        "${mod}+Mod1+h" = "move workspace to output left";
+        "${mod}+Mod1+j" = "move workspace to output down";
+        "${mod}+Mod1+k" = "move workspace to output up";
+        "${mod}+Mod1+l" = "move workspace to output right";
         "${mod}+Shift+h" = "move left";
         "${mod}+Shift+j" = "move down";
         "${mod}+Shift+k" = "move up";
