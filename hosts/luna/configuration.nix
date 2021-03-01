@@ -50,7 +50,9 @@
   };
 
   fonts = {
-    enableFontDir = true;
+    fontDir = {
+      enable = true;
+    };
     fonts = with pkgs; [
       nerdfonts
       emacs-all-the-icons-fonts

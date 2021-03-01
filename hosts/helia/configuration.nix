@@ -151,7 +151,7 @@
   };
 
   # Fonts
-  fonts.enableFontDir = true;
+  fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     nerdfonts
     emacs-all-the-icons-fonts
