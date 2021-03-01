@@ -15,6 +15,7 @@
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/tmux.nix
+    ./programs/udiskie.nix
     ./programs/vim.nix
 # VSCode behaves horribly with a read-only config
 #    ./programs/vscode.nix
