@@ -5,12 +5,11 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../../applications/core.nix
-      <home-manager/nixos>
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../applications/core.nix
+    ../../applications/flake.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

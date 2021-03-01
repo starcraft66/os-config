@@ -4,23 +4,11 @@
 
 { config, pkgs, lib, ... }:
 
-let
-  unfreeConfig = { allowUnfree = true; };
-  unstable = import <nixos-unstable>  { config = unfreeConfig; };
-  master = import <nixos-master> { config = unfreeConfig; };
-in
 {
   imports = [
     ./hardware-configuration.nix
     ../../applications/core.nix
-    <home-manager/nixos>
-    <sops-nix/modules/sops>
-    <nixos-unstable/nixos/modules/programs/steam.nix>
-  ];
-
-  # Use the steam wrapper from nixos unstable
-  disabledModules = [
-    "programs/steam.nix"
+    ../../applications/flake.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -32,7 +20,6 @@ in
   boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   networking.hostName = "luna"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Garbage Collection
   nix = {
@@ -82,39 +69,36 @@ in
       allowBroken = true;
     };
     overlays = [
-      (self: super:
-        {
-          # override with newer version from nixpkgs-unstable
-          steam = unstable.steam;
-          lutris = unstable.lutris;
-          i3-gaps = unstable.i3-gaps;
-          steam-run = unstable.steam-run;
-          steam-run-native = unstable.steam-run-native;
-          hugo = unstable.hugo;
-          linuxPackages_5_10 = unstable.linuxPackages_5_10;
-          wineWowPackages.staging = unstable.wineWowPackages.staging;
-          winetricks = unstable.winetricks;
-          element-desktop = unstable.element-desktop;
-          minecraft = unstable.minecraft;
-          multimc = unstable.multimc;
-          zoom-us = unstable.zoom-us;
-          jetbrains.idea-ultimate = unstable.jetbrains.idea-ultimate;
-          jitsi-meet-electron = unstable.jitsi-meet-electron;
-          spotify-tui = unstable.spotify-tui;
-          flameshot = unstable.flameshot;
-          obs-studio = unstable.obs-studio;
-          obs-move-transition = unstable.obs-move-transition;
-          youtube-dl = unstable.youtube-dl;
-        }
-      )
+      # (self: super:
+      #   {
+      #     # override with newer version from nixpkgs-unstable
+      #     steam = unstable.steam;
+      #     lutris = unstable.lutris;
+      #     i3-gaps = unstable.i3-gaps;
+      #     steam-run = unstable.steam-run;
+      #     steam-run-native = unstable.steam-run-native;
+      #     hugo = unstable.hugo;
+      #     linuxPackages_5_10 = unstable.linuxPackages_5_10;
+      #     wineWowPackages.staging = unstable.wineWowPackages.staging;
+      #     winetricks = unstable.winetricks;
+      #     element-desktop = unstable.element-desktop;
+      #     minecraft = unstable.minecraft;
+      #     multimc = unstable.multimc;
+      #     zoom-us = unstable.zoom-us;
+      #     jetbrains.idea-ultimate = unstable.jetbrains.idea-ultimate;
+      #     jitsi-meet-electron = unstable.jitsi-meet-electron;
+      #     spotify-tui = unstable.spotify-tui;
+      #     flameshot = unstable.flameshot;
+      #     obs-studio = unstable.obs-studio;
+      #     obs-move-transition = unstable.obs-move-transition;
+      #     youtube-dl = unstable.youtube-dl;
+      #   }
+      # )
     ];
   };
 
   # (((steam))) and (((nvidia)))
   programs.steam.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.opengl.extraPackages = with pkgs; [ libva ];
 
   # Sops config
   sops.defaultSopsFile = ../../secrets/luna.yaml;
@@ -176,25 +160,125 @@ in
     winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
-    wireshark element-desktop slack qtpass pciutils
-    alacritty neofetch spotify vscode minecraft roboto font-awesome
-    unzip traceroute signal-desktop iperf ethtool irssi qogir-theme libsForQt5.qtstyleplugins
-    spectacle firefox-customized python-with-my-packages thunderbird speedtest-cli
-    chromium vagrant unrar patchelf fuse zlib appimage-run net_snmp
-    tcpdump gns3-gui wireguard dislocker htop lm_sensors
-    docker-compose bind wine-staging winetricks-staging zoom-us
-    jdk11 jetbrains.idea-ultimate jitsi-meet-electron
-    unzip discord libreoffice mpv utillinux usbutils teleconsole
-    ghidra-bin gimp gwenview deluge wmctrl mediainfo pwgen hugo
-    ark pipenv qt5.qttools peek ncdu gdb pwndbg rarcrack yubioath-desktop
-    spotify-tui flameshot rofi-pass zip obs-studio
-    bmon adoptopenjdk-hotspot-bin-8 kdenlive openshot-qt multimc
-    nmon youtube-dl python38Packages.ds4drv backblaze-b2
-    cava mtr virt-manager openfortivpn freerdp mktorrent mediainfo i2c-tools
-    lolcat packer p7zip pamixer pavucontrol rclone pwgen psmisc
-    v4l-utils xorg.xdpyinfo xorg.xev xorg.xmodmap kind backblaze-b2
-    glxinfo ffmpeg iotop iperf lsof nix-index nmap audacity cmatrix figlet
-    smartmontools lutris
+    wireshark
+    element-desktop
+    slack
+    qtpass
+    pciutils
+    alacritty
+    neofetch
+    spotify
+    vscode
+    minecraft
+    roboto
+    font-awesome
+    unzip
+    traceroute
+    signal-desktop
+    iperf
+    ethtool
+    irssi
+    qogir-theme
+    libsForQt5.qtstyleplugins
+    spectacle
+    firefox-customized
+    python-with-my-packages
+    thunderbird
+    speedtest-cli
+    chromium
+    vagrant
+    unrar
+    patchelf
+    fuse
+    zlib
+    appimage-run
+    net_snmp
+    tcpdump
+    gns3-gui
+    wireguard
+    dislocker
+    htop
+    lm_sensors
+    docker-compose
+    bind
+    wine-staging
+    winetricks-staging
+    zoom-us
+    jdk11
+    jetbrains.idea-ultimate
+    jitsi-meet-electron
+    unzip
+    discord
+    libreoffice
+    mpv
+    utillinux
+    usbutils
+    teleconsole
+    ghidra-bin
+    gimp
+    gwenview
+    deluge
+    wmctrl
+    mediainfo
+    pwgen
+    hugo
+    ark
+    pipenv
+    qt5.qttools
+    peek
+    ncdu
+    gdb
+    pwndbg
+    rarcrack
+    yubioath-desktop
+    spotify-tui
+    flameshot
+    rofi-pass
+    zip
+    obs-studio
+    bmon
+    adoptopenjdk-hotspot-bin-8
+    kdenlive
+    openshot-qt
+    multimc
+    nmon
+    youtube-dl
+    python38Packages.ds4drv
+    backblaze-b2
+    cava
+    mtr
+    virt-manager
+    openfortivpn
+    freerdp
+    mktorrent
+    mediainfo
+    i2c-tools
+    lolcat
+    packer
+    p7zip
+    pamixer
+    pavucontrol
+    rclone
+    pwgen
+    psmisc
+    v4l-utils
+    xorg.xdpyinfo
+    xorg.xev
+    xorg.xmodmap
+    kind
+    backblaze-b2
+    glxinfo
+    ffmpeg
+    iotop
+    iperf
+    lsof
+    nix-index
+    nmap
+    audacity
+    cmatrix
+    figlet
+    smartmontools
+    lutris
   ];
 
   # Java
@@ -274,7 +358,7 @@ in
   sops.secrets.nocom-wireguard-private-key = {};
   networking.wireguard.interfaces = {
     nocom = {
-      privateKey = lib.readFile config.sops.secrets.nocom-wireguard-private-key.path;
+      privateKeyFile = config.sops.secrets.nocom-wireguard-private-key.path;
       ips = [
         "192.168.69.72/24"
       ];

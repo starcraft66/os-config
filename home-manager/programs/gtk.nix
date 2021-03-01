@@ -8,7 +8,7 @@
     };
     theme = {
       name = "breeze-dark";
-      package = pkgs.plasma5.breeze-qt5;
+      package = pkgs.plasma5Packages.breeze-qt5;
     };
     gtk2.extraConfig = ''
       gtk-theme-name="breeze-dark"

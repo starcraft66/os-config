@@ -4,11 +4,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    ];
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aes_x86_64" "aesni_intel" "cryptd" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
   boot.extraModulePackages = [ pkgs.linuxPackages_5_10.v4l2loopback ];

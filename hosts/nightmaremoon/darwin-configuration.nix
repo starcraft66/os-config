@@ -3,7 +3,7 @@
 {
   imports = [
     ../../applications/core.nix
-    <home-manager/nix-darwin>
+    ../../applications/flake.nix
   ];
   
   # List packages installed in system profile. To search by name, run:

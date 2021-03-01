@@ -591,9 +591,9 @@ in
     #     };
     #   };
     # };
-    extraConfig = ''
-      rofi.dpi: 0
-    '';
+    extraConfig = {
+      dpi = 0;
+    };
   };
 
   services.picom = {

@@ -1,13 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let
-  unstable = import <nixos-unstable> {};
-  inherit (pkgs.stdenv.targetPlatform) isDarwin isLinux;
-in
 {
   programs.starship = {
     enable = true;
-    package = unstable.starship;
     enableBashIntegration = true;
     enableZshIntegration = true;
     enableFishIntegration = false;

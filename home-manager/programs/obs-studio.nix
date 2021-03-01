@@ -7,7 +7,6 @@ with lib;
     enable = true;
     plugins = with pkgs; [
       obs-v4l2sink
-      obs-linuxbrowser
       obs-move-transition
     ];
   };
