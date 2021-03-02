@@ -176,6 +176,7 @@
     font-awesome
     unzip
     traceroute
+    inetutils
     signal-desktop
     iperf
     ethtool
@@ -201,7 +202,7 @@
     dislocker
     htop
     lm_sensors
-    docker-compose
+    # docker-compose
     bind
     wine-staging
     winetricks-staging
@@ -305,7 +306,7 @@
   services.apcupsd.enable = true;
 
   # onedrive syncing
-  services.onedrive.enable = true;
+  # services.onedrive.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
