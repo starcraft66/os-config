@@ -101,6 +101,9 @@
 
   # (((steam))) and (((nvidia)))
   programs.steam.enable = true;
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.driSupport = true;
 
   # Sops config
   sops.defaultSopsFile = ../../secrets/luna.yaml;
@@ -177,6 +180,7 @@
     unzip
     traceroute
     inetutils
+    vulkan-tools
     signal-desktop
     iperf
     ethtool
