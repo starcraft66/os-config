@@ -9,6 +9,7 @@
   boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
   boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/43f8fb10-f299-4c8e-ba37-36734291dd59";
