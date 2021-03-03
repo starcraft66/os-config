@@ -254,16 +254,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1614626723,
-        "narHash": "sha256-yysy0QHXA1t8jSFPY6UOaMbu3Tapf22ZRd6uT7eXYI8=",
-        "owner": "LuigiPiucco",
+        "lastModified": 1614321075,
+        "narHash": "sha256-9HeGjJlQoGpV5ppDzDSB9JB6uy8MyvMcqFe7q/mWr3k=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d3f90b2d0423b5e099a722bd15fb5df88eb353d3",
+        "rev": "870dbb751f4d851a3dfb554835a0c2f528386982",
         "type": "github"
       },
       "original": {
-        "owner": "LuigiPiucco",
-        "ref": "pressure-vessel",
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }

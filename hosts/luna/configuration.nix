@@ -71,10 +71,15 @@
       allowBroken = true;
     };
     overlays = [
-      # (self: super:
-      #   {
-      #     # override with newer version from nixpkgs-unstable
-      #     steam = unstable.steam;
+      (self: super:
+        {
+          # override with newer version from nixpkgs-unstable
+          # steam = super.steam.override {
+          #   extraLibraries = pkgs: with config.hardware.opengl;
+          #     if pkgs.hostPlatform.is64bit
+          #     then [ package pkgs.vulkan-validation-layers ] ++ extraPackages
+          #     else [ package32 pkgs.vulkan-validation-layers ] ++ extraPackages32;
+          # };
       #     lutris = unstable.lutris;
       #     i3-gaps = unstable.i3-gaps;
       #     steam-run = unstable.steam-run;
@@ -94,8 +99,8 @@
       #     obs-studio = unstable.obs-studio;
       #     obs-move-transition = unstable.obs-move-transition;
       #     youtube-dl = unstable.youtube-dl;
-      #   }
-      # )
+        }
+      )
     ];
   };
 
@@ -206,7 +211,7 @@
     dislocker
     htop
     lm_sensors
-    # docker-compose
+    docker-compose
     bind
     wine-staging
     winetricks-staging
@@ -310,7 +315,7 @@
   services.apcupsd.enable = true;
 
   # onedrive syncing
-  # services.onedrive.enable = true;
+  services.onedrive.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
