@@ -24,20 +24,18 @@
 
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  users.users.tristan = {
-    home = "/Users/tristan";
-    isHidden = false;
-    shell = pkgs.zsh;
+  users = {
+    users.tristan = {
+      home = "/Users/tristan";
+      isHidden = false;
+      shell = pkgs.zsh;
+    };
+    nix.configureBuildUsers = true;
   };
 
   home-manager = {
     users.tristan = {
       imports = [ ../../home-manager/home.nix ];
-
-      options.my.terminalFontSize = lib.mkOption {
-        description = "The terminal font size";
-        type = lib.types.int;
-      };
 
       config.my.terminalFontSize = 18;
     };
@@ -57,7 +55,7 @@
   services.activate-system.enable = true;
   nix.gc.automatic = true;
   
-  nix.useSandbox = true;
+  nix.useSandbox = false;
   nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
 
   # Used for backwards compatibility, please read the changelog before changing.

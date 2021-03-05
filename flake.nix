@@ -2,14 +2,14 @@
   inputs = {
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.url = "github:lnl7/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nixpkgs, sops-nix, home-manager, nix-doom-emacs, ... }: {
+  outputs = inputs@{ self, nixpkgs, nix-darwin, sops-nix, home-manager, nix-doom-emacs, ... }: {
     nixosConfigurations = {
       luna = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -42,7 +42,15 @@
     };
     darwinConfigurations = {
       NightmareMoon = inputs.nix-darwin.lib.darwinSystem {
-        modules = [ ./hosts/nightmaremoon/darwin-configuration.nix ];
+        modules = [
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.users.tristan = {pkgs, ...}: {
+              imports = [ nix-doom-emacs.hmModule ];
+            };
+          }
+          ./hosts/nightmaremoon/darwin-configuration.nix
+        ];
       };
     };
     devShell.x86_64-linux = let
