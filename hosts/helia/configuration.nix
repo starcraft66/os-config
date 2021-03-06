@@ -147,6 +147,12 @@
     emacs-all-the-icons-fonts
   ];
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "qt";
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tristan = {
     isNormalUser = true;
