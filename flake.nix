@@ -1,6 +1,7 @@
 {
   inputs = {
     home-manager.url = "github:nix-community/home-manager/master";
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -9,9 +10,9 @@
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nixpkgs, nix-darwin, sops-nix, home-manager, nix-doom-emacs, ... }: {
+  outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, ... }: {
     nixosConfigurations = {
-      luna = nixpkgs.lib.nixosSystem {
+      luna = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
@@ -25,7 +26,7 @@
         ];
         specialArgs = { inherit inputs; };
       };
-      helia = nixpkgs.lib.nixosSystem {
+      helia = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
