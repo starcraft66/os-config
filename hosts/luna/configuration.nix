@@ -291,6 +291,7 @@
     figlet
     smartmontools
     lutris
+    nextcloud-client
   ];
 
   # Java
