@@ -71,36 +71,6 @@
       allowBroken = true;
     };
     overlays = [
-      (self: super:
-        {
-          # override with newer version from nixpkgs-unstable
-          # steam = super.steam.override {
-          #   extraLibraries = pkgs: with config.hardware.opengl;
-          #     if pkgs.hostPlatform.is64bit
-          #     then [ package pkgs.vulkan-validation-layers ] ++ extraPackages
-          #     else [ package32 pkgs.vulkan-validation-layers ] ++ extraPackages32;
-          # };
-      #     lutris = unstable.lutris;
-      #     i3-gaps = unstable.i3-gaps;
-      #     steam-run = unstable.steam-run;
-      #     steam-run-native = unstable.steam-run-native;
-      #     hugo = unstable.hugo;
-      #     linuxPackages_5_10 = unstable.linuxPackages_5_10;
-      #     wineWowPackages.staging = unstable.wineWowPackages.staging;
-      #     winetricks = unstable.winetricks;
-      #     element-desktop = unstable.element-desktop;
-      #     minecraft = unstable.minecraft;
-      #     multimc = unstable.multimc;
-      #     zoom-us = unstable.zoom-us;
-      #     jetbrains.idea-ultimate = unstable.jetbrains.idea-ultimate;
-      #     jitsi-meet-electron = unstable.jitsi-meet-electron;
-      #     spotify-tui = unstable.spotify-tui;
-      #     flameshot = unstable.flameshot;
-      #     obs-studio = unstable.obs-studio;
-      #     obs-move-transition = unstable.obs-move-transition;
-      #     youtube-dl = unstable.youtube-dl;
-        }
-      )
     ];
   };
 
