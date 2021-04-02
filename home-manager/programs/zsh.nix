@@ -38,7 +38,10 @@
       ln      = "ln -v";
       mkdir   = "mkdir -vp";
       mv      = "mv -iv";
-      rm      = "rm -Iv";
+      rm      = lib.mkMerge [
+        (lib.mkIf pkgs.stdenv.targetPlatform.isDarwin "rm -v")
+        (lib.mkIf (!pkgs.stdenv.targetPlatform.isDarwin) "rm -Iv")
+      ];
       dh      = "du -h";
       df      = "df -h";
       su      = "sudo -E su -m";
