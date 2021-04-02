@@ -54,13 +54,12 @@
       squash-all = ''!f(){ git reset $(git commit-tree HEAD^{tree} -m "''${1:-A new start}");};f'';
     };
 
-    # Not in 20.03, wait until 20.09
-    # delta.enable = true;
-    # delta.options = {
-    #   line-numbers = true;
-    #   side-by-side = true;
-    #   whitespace-error-style = "22 reverse";
-    #   syntax-theme = "ansi-dark";
-    # };
+    delta.enable = true;
+    delta.options = {
+      line-numbers = true;
+      side-by-side = true;
+      whitespace-error-style = "22 reverse";
+      syntax-theme = "ansi-dark";
+    };
   };
 }
