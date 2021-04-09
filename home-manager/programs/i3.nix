@@ -22,36 +22,45 @@ let
   };
 in
 {
-  programs.i3status = {
+  programs.i3status-rust = {
     enable = true;
-    enableDefault = false;
-    general = {
-      output_format = "i3bar";
-      colors = "false";
-      markup = "pango";
-      color_good = "#2f343f";
-      color_degraded = "#ebcb8b";
-      color_bad = "#ba5e57";
-    };
-    modules = {
-      "load" = {
-        position = 1;
-        settings = {
-          format = "<span background='#f59335'>  %5min Load </span>";
-        };
-      };
-      "disk /" = {
-        position = 2;
-        settings = {
-          format = "<span background='#fec7cd'>  %free Free </span>";
-        };
-      };
-      "tztime local" = {
-        position = 5;
-        settings = {
-          format = "<span background='#81a1c1'> %time </span>";
-          format_time = " %a %-d %b %H:%M";
-        };
+    bars = {
+      default = {
+        blocks = [
+          {
+            block = "disk_space";
+            path = "/";
+            alias = "/";
+            info_type = "available";
+            unit = "GB";
+            interval = 60;
+            warning = 20.0;
+            alert = 10.0;
+          }
+          {
+            block = "memory";
+            display_type = "memory";
+            format_mem = "{Mup}%";
+            format_swap = "{SUp}%";
+          }
+          {
+            block = "cpu";
+            interval = 1;
+          }
+          {
+            block = "load";
+            interval = 1;
+            format = "{1m}";
+          }
+          { block = "sound"; }
+          {
+            block = "time";
+            interval = 60;
+            format = "%a %d/%m %R";
+          }
+        ];
+        icons = "none";
+        theme = "space-villain";
       };
     };
   };
@@ -607,7 +616,7 @@ in
       modifier = "Mod4";
       bars = [
         {
-          statusCommand = "${pkgs.i3status}/bin/i3status";
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
           fonts = config.fonts;
           trayOutput = originalConfig.my.trayOutput;
           position = "top";
