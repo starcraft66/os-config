@@ -100,7 +100,7 @@
       "/var/lib/docker"
       "/nix"
     ];
-    repo = "ssh://backup@bunker.tdude.co:7331/var/backup/luna";
+    repo = "ssh://backup@borgbackup.235.tdude.co/mnt/borgbackup/luna";
     encryption = {
       mode = "repokey";
       passCommand = "cat ${config.sops.secrets.borg-repo-passphrase.path}";
