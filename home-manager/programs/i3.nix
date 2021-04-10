@@ -787,6 +787,6 @@ in
   };
 
   xresources.properties = {
-    "xft.dpi" = originalConfig.my.dpi;
+    "Xft.dpi" = originalConfig.my.dpi;
   };
 }
