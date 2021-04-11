@@ -11,6 +11,7 @@
     ./programs/gtk.nix
     ./programs/i3.nix
     ./programs/kde.nix
+    ./programs/kitty.nix
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
     ./programs/obs-studio.nix
