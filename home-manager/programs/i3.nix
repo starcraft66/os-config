@@ -2,24 +2,6 @@
 
 let
   originalConfig = config;
-  theme = {
-    color0 = "#1d1f21";
-    color1 = "#282a2e";
-    color2 = "#373b41";
-    color3 = "#969896";
-    color4 = "#b4b7b4";
-    color5 = "#c5c8c6";
-    color6 = "#e0e0e0";
-    color7 = "#ffffff";
-    color8 = "#cc6666";
-    color9 = "#de935f";
-    colorA = "#f0c674";
-    colorB = "#b5bd68";
-    colorC = "#8abeb7";
-    colorD = "#81a2be";
-    colorE = "#b294bb";
-    colorF = "#a3685a";
-  };
 in
 {
   programs.i3status-rust = {
@@ -101,7 +83,7 @@ in
         icon_position = "left";
         max_icon_size = 80;
         frame_width = 2;
-        frame_color = theme.color5;
+        frame_color = originalConfig.my.theme.color5;
         font = "Sans 10";
         corner_radius = 2;
       };
@@ -112,21 +94,21 @@ in
         context = "ctrl+shift+period";
       };
       urgency_low = {
-        frame_color = theme.color5;
-        foreground = theme.color4;
-        background = theme.color1;
+        frame_color = originalConfig.my.theme.color5;
+        foreground = originalConfig.my.theme.color4;
+        background = originalConfig.my.theme.color1;
         timeout = 8;
       };
       urgency_normal = {
-        frame_color = theme.color5;
-        foreground = theme.color4;
-        background = theme.color1;
+        frame_color = originalConfig.my.theme.color5;
+        foreground = originalConfig.my.theme.color4;
+        background = originalConfig.my.theme.color1;
         timeout = 8;
       };
       urgency_critical = {
-        frame_color = theme.color5;
-        foreground = theme.color4;
-        background = theme.color1;
+        frame_color = originalConfig.my.theme.color5;
+        foreground = originalConfig.my.theme.color4;
+        background = originalConfig.my.theme.color1;
         timeout = 8;
       };
     };
@@ -566,36 +548,36 @@ in
     theme = "${config.xdg.configHome}/rofi/flat-orange.rasi";
     # colors = {
     #   window = {
-    #     background = theme.color1;
-    #     border = theme.color1;
-    #     separator = theme.color0;
+    #     background = originalConfig.my.theme.color1;
+    #     border = originalConfig.my.theme.color1;
+    #     separator = originalConfig.my.theme.color0;
     #   };
     #   rows = {
     #     normal = {
-    #       background = theme.color1;
-    #       foreground = theme.color5;
-    #       backgroundAlt = theme.color1;
+    #       background = originalConfig.my.theme.color1;
+    #       foreground = originalConfig.my.theme.color5;
+    #       backgroundAlt = originalConfig.my.theme.color1;
     #       highlight = {
-    #         background = theme.color1;
-    #         foreground = theme.color7;
+    #         background = originalConfig.my.theme.color1;
+    #         foreground = originalConfig.my.theme.color7;
     #       };
     #     };
     #     active = {
-    #       background = theme.color1;
-    #       foreground = theme.colorD;
-    #       backgroundAlt = theme.color1;
+    #       background = originalConfig.my.theme.color1;
+    #       foreground = originalConfig.my.theme.colorD;
+    #       backgroundAlt = originalConfig.my.theme.color1;
     #       highlight = {
-    #         background = theme.color1;
-    #         foreground = theme.colorD;
+    #         background = originalConfig.my.theme.color1;
+    #         foreground = originalConfig.my.theme.colorD;
     #       };
     #     };
     #     urgent = {
-    #       background = theme.color1;
-    #       foreground = theme.color8;
-    #       backgroundAlt = theme.color1;
+    #       background = originalConfig.my.theme.color1;
+    #       foreground = originalConfig.my.theme.color8;
+    #       backgroundAlt = originalConfig.my.theme.color1;
     #       highlight = {
-    #         background = theme.color1;
-    #         foreground = theme.color8;
+    #         background = originalConfig.my.theme.color1;
+    #         foreground = originalConfig.my.theme.color8;
     #       };
     #     };
     #   };
@@ -621,60 +603,60 @@ in
           trayOutput = originalConfig.my.trayOutput;
           position = "top";
           colors = {
-            background = theme.color1;
-            statusline = theme.color1;
+            background = originalConfig.my.theme.color1;
+            statusline = originalConfig.my.theme.color1;
             separator = "#515151";
             focusedWorkspace = {
-              border = theme.colorD;
-              background = theme.colorD;
-              text = theme.color0;
+              border = originalConfig.my.theme.colorD;
+              background = originalConfig.my.theme.colorD;
+              text = originalConfig.my.theme.color0;
             };
             activeWorkspace = {
               border = "#333333";
               background = "#333333";
-              text = theme.colorF;
+              text = originalConfig.my.theme.colorF;
             };
             inactiveWorkspace = {
-              border = theme.color1;
-              background = theme.color1;
+              border = originalConfig.my.theme.color1;
+              background = originalConfig.my.theme.color1;
               text = "#999999";
             };
             urgentWorkspace = {
-              border = theme.color8;
-              background = theme.color8;
-              text = theme.colorF;
+              border = originalConfig.my.theme.color8;
+              background = originalConfig.my.theme.color8;
+              text = originalConfig.my.theme.colorF;
             };
           };
         }
       ];
       colors = {
         focused = {
-          border = theme.colorD;
-          childBorder = theme.colorD;
-          background = theme.colorD;
-          text = theme.color0;
-          indicator = theme.color1;
+          border = originalConfig.my.theme.colorD;
+          childBorder = originalConfig.my.theme.colorD;
+          background = originalConfig.my.theme.colorD;
+          text = originalConfig.my.theme.color0;
+          indicator = originalConfig.my.theme.color1;
         };
         focusedInactive = {
-          border = theme.color2;
-          childBorder = theme.color2;
-          background = theme.color2;
-          text = theme.color3;
+          border = originalConfig.my.theme.color2;
+          childBorder = originalConfig.my.theme.color2;
+          background = originalConfig.my.theme.color2;
+          text = originalConfig.my.theme.color3;
           indicator = "#292d2e";
         };
         unfocused = {
-          border = theme.color1;
-          childBorder = theme.color1;
-          background = theme.color1;
+          border = originalConfig.my.theme.color1;
+          childBorder = originalConfig.my.theme.color1;
+          background = originalConfig.my.theme.color1;
           text = "#999999";
           indicator = "#292d2e";
         };
         urgent= {
           border = "#2f343a";
           childBorder = "#2f343a";
-          background = theme.color8;
-          text = theme.colorF;
-          indicator = theme.color8;
+          background = originalConfig.my.theme.color8;
+          text = originalConfig.my.theme.colorF;
+          indicator = originalConfig.my.theme.color8;
         };
       };
       fonts = [
