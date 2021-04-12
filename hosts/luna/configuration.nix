@@ -197,7 +197,7 @@
     usbutils
     teleconsole
     ghidra-bin
-    gimp
+    gimp-with-plugins
     gwenview
     deluge
     wmctrl
