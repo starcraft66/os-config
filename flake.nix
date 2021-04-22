@@ -9,8 +9,9 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
   };
-  outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, ... }: {
+  outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, ... }: {
     nixosConfigurations = {
       luna = nixos.lib.nixosSystem {
         system = "x86_64-linux";
@@ -22,6 +23,7 @@
             };
           }
           sops-nix.nixosModules.sops
+          nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
           ./hosts/luna/configuration.nix
         ];
         specialArgs = { inherit inputs; };
