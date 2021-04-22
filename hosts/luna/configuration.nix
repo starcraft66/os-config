@@ -17,7 +17,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Use the latest linux kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_11;
+  boot.kernelPackages = pkgs.linuxPackages_5_4;
 
   networking.hostName = "luna"; # Define your hostname.
 
