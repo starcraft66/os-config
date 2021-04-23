@@ -71,6 +71,34 @@
       allowBroken = true;
     };
     overlays = [
+      (self: super:
+        {
+          looking-glass-client = super.looking-glass-client.overrideAttrs (oldAttrs: rec {
+            version = "B3";
+            src = pkgs.fetchFromGitHub {
+              owner = "gnif";
+              repo = "LookingGlass";
+              rev = "B3";
+              sha256 = "sha256-DrBhB6QjnCo/sjVSMJH9T6WB5V00WRVbXuAWZL9cqu4=";
+              fetchSubmodules =  true;
+            };
+
+            buildInputs = with pkgs; [  SDL2 SDL2_ttf spice-protocol fontconfig xorg.libX11 freefont_ttf nettle
+    xorg.libpthreadstubs xorg.libXau xorg.libXdmcp xorg.libXi xorg.libXext wayland wayland-protocols
+    libffi libGLU xorg.libXScrnSaver expat libbfd ];
+
+            patches = [
+              (pkgs.fetchpatch {
+                url = "https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/virtualization/looking-glass-client/0001-client-all-fix-more-maybe-uninitialized-when-O3-is-i.patch";
+                sha256 = "sha256-Tg0UjNB3bhk4nXgyFymQYvx83/K/JprU/0nROjwIFq4=";
+                name = "support-inkscape-1-in-numix-cursor-theme.patch";
+              })
+            ];
+            patchFlags = "-p2";
+
+            NIX_CFLAGS_COMPILE = "-mavx";
+          });
+        })
     ];
   };
 
@@ -261,6 +289,7 @@
     figlet
     smartmontools
     lutris
+    looking-glass-client
   ];
 
   # Java
@@ -407,6 +436,10 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqvCOuh+/tsBgxY8I9lYauzLAQgtHSSPBLgyFzM5W0jOKsf/ijNfIFbFsNHisNLJJKCM/x03uQ6o21RHxv4OlNw/0ivLES+ZEnWpLzcQ5HZwmv95LsQRSCTNJC7R60JJVdWXUHAMuCOTzt7mVICsBSLosAI+Nw0ynlUy0OMAmnbgmQHEzWQYcWXoajS06HliPq3VoQBbgcZxLSoBtK6y3imVCqkYUB+1UzghJpWN5U0GGgqau2PVLjsi7mrGMfttDbXrQ5/0ndeEQVJs/r9RpZ+C4qZtyRqCCRnjFr5dVNRb/7HIXpVd2AEN4rNMiBLXJ4iWWExk0GVq3pKp/YeJcesMrPLQn3s+xwAPJfRB49kdHafWCGMt8yhTxMTahUwsUQeX04Sa1Yk+fehHfsxvEk5mZ8viQH27pbSNGPxfvbvhXiMftai0mvtQwDYvp7xa78Ztfogea9yZk8QpQ/M/3B9HWF7bxTlR9Hx7g2hyMBngvmEzBjEgolDXuu++B3O/pOHUikdC6dteI3gdHMW9Vgs6QR94VTXVng5ioo0Ff3UlB1f7MwkBkny+AMwSTssTq/cDa53m/aekU9REZREwHla1p1lGA6vL7RQHO9p5j4bRJ3mqJbjC4H5o0O3cdUZZBkvzi/0Pwtl+NP7aa5JG3mCP3B/BCPCqq9STl7dVpqmQ== cardno:000606923500"
     ];
   };
+
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0666 tristan qemu-libvirtd -"
+  ];
 
   home-manager = {
     users.tristan = {
