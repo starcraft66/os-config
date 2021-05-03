@@ -12,10 +12,6 @@
       add_newline = false;
       format = "$username$hostname$directory$git_branch$git_commit$git_state$git_status$cmd_duration$jobs$status$character";
 
-      character = {
-        symbol = "$";
-      };
-
       cmd_duration = {
         disabled = false;
         min_time = 10000;
