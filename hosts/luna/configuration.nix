@@ -148,7 +148,7 @@
     enable = true;
     description = "Scream Audio Receiver";
     serviceConfig = {
-      ExecStart = "${pkgs.scream-receivers}/bin/scream-alsa -i virbr0";
+      ExecStart = "${pkgs.scream}/bin/scream-alsa -i virbr0";
       Restart = "always";
       RestartSec = "5";
     };
@@ -267,7 +267,6 @@
     nmon
     youtube-dl
     python38Packages.ds4drv
-    backblaze-b2
     cava
     mtr
     virt-manager
@@ -289,7 +288,6 @@
     xorg.xev
     xorg.xmodmap
     kind
-    backblaze-b2
     glxinfo
     ffmpeg
     iotop
