@@ -301,6 +301,8 @@
     smartmontools
     lutris
     looking-glass-client
+    qbittorrent
+    parallel
   ];
 
   # Java
