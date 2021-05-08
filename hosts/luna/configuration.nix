@@ -176,7 +176,7 @@
       requests
       pycryptodome
     ];
-    python-with-my-packages = python3.withPackages my-python-packages;
+    python-with-my-packages = python39.withPackages my-python-packages;
     wine-staging = wineWowPackages.staging;
     winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
