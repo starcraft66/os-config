@@ -76,7 +76,7 @@
       zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/completion-cache"
       zstyle ':completion:*' menu select
       WORDCHARS=''${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
-    '' + lib.readFile ./kubectl_aliases.sh;
+    '';
 
     initExtra = ''
       if [ -z $ZSH_RELOADING_SHELL - ]; then
@@ -115,6 +115,6 @@
 
       ## VERY IMPORTANT!!!!
       unset RPS1 RPROMPT
-    '';
+    '' + lib.readFile ./kubectl_aliases.sh;
   };
 }
