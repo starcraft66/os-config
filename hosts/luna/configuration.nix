@@ -303,6 +303,8 @@
     looking-glass-client
     qbittorrent
     parallel
+    jq
+    yq
   ];
 
   # Java
