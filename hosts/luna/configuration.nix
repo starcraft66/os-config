@@ -305,6 +305,7 @@
     parallel
     jq
     yq
+    mupen64plus
   ];
 
   # Java
