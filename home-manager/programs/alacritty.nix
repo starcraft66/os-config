@@ -108,10 +108,24 @@ in
 
     mouse = {
       hide_when_typing = false;
-      url = {
-        launcher = launcher;
-        modifiers = "Shift";
-      };
+    };
+
+    hints = {
+      enabled = [
+        {
+          regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\\u0000-\u001F\\u007F-\\u009F<>\"\\\\s{-}\\\\^⟨⟩`]+";
+          command = "xdg-open";
+          post_processing = true;
+          mouse = {
+            enabled = true;
+            mods = "None";
+          };
+          binding = {
+            key = "U";
+            mods = "Control|Shift";
+          };
+        }
+      ];
     };
 
     selection = {
