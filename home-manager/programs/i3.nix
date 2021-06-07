@@ -22,8 +22,8 @@ in
           {
             block = "memory";
             display_type = "memory";
-            format_mem = "{mem_used_percents}%";
-            format_swap = "{swap_used_percents}%";
+            format_mem = "{mem_used_percents}";
+            format_swap = "{swap_used_percents}";
           }
           {
             block = "cpu";
