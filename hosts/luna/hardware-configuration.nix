@@ -16,7 +16,7 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/3624849c-d896-49c1-8089-a5ec19d607df";
       fsType = "btrfs";
-      options = [ "subvol=nixos" ];
+      options = [ "subvol=nixos" "compress=zstd:3" ];
     };
 
   boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/64905e66-de9d-4269-862d-2560465bb487";
