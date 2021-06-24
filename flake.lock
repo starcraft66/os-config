@@ -240,11 +240,11 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1623452631,
-        "narHash": "sha256-C7ebfOIiIWwHKmHuOCGv2G23CpEm8uZ862Ix1HgHW+8=",
+        "lastModified": 1624516009,
+        "narHash": "sha256-A2gWRuq1usdakWv9k3a0+7vzs56P3qrVkIGiLGNpvaE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c3173699c74b0f68ceb6afee77f258a7e98cbc01",
+        "rev": "955df801e838248711ff44c1a5e7b06e5e2836fd",
         "type": "github"
       },
       "original": {
@@ -256,11 +256,11 @@
     },
     "nixos-nvidia-vgpu": {
       "locked": {
-        "lastModified": 1620440887,
-        "narHash": "sha256-wxhjiTqYTskAaW7eBVkvYQlAsAoCdiiY/G76P3vnZf4=",
+        "lastModified": 1624420541,
+        "narHash": "sha256-hY0i/yBDpIlP1sjQ4Fxp+AwVtKNzQYp/0LmBiBufRP8=",
         "owner": "danielfullmer",
         "repo": "nixos-nvidia-vgpu",
-        "rev": "83d8bc9962bc75929555cfe243ba80858cde06e4",
+        "rev": "3c1f0d45e27e6750d55f2a5e66f1bfa38bdd73b0",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1623176226,
-        "narHash": "sha256-54a9uvHlIlK3i0b36HfGMc4zqM0BpMOOiFYBxEhQFK8=",
+        "lastModified": 1624492865,
+        "narHash": "sha256-y0sgj+z1qdfdtd5gmYbdSK3zx1SsJnyM8gZqZVH2g5c=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "51bb9f3e9ab6161a3bf7746e20b955712cef618b",
+        "rev": "65db0350fe3962c41b8604046ec9166976f80793",
         "type": "github"
       },
       "original": {
