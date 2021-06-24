@@ -305,12 +305,14 @@
     parallel
     jq
     yq
+    (retroarch.override { cores = with libretro; [ bsnes-mercury ]; })
     mupen64plus
   ];
 
   # Java
   environment.etc = with pkgs; {
     "jdk8".source = adoptopenjdk-hotspot-bin-8;
+    "jdk16".source = adoptopenjdk-openj9-bin-16;
   };
 
 
