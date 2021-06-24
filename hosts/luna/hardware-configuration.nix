@@ -7,7 +7,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_5_4.v4l2loopback ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_5_12.v4l2loopback ];
   boot.extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
     '';
@@ -36,8 +36,8 @@
   hardware.ckb-next.enable = true;
 
   # Enable nvidia vgpu
-  hardware.nvidia.vgpu.enable = true; # Enable NVIDIA KVM vGPU + GRID driver
-  hardware.nvidia.vgpu.unlock.enable = true; # Unlock vGPU functionality on consumer cards using DualCoder/vgpu_unlock project.
+  # hardware.nvidia.vgpu.enable = true; # Enable NVIDIA KVM vGPU + GRID driver
+  # hardware.nvidia.vgpu.unlock.enable = true; # Unlock vGPU functionality on consumer cards using DualCoder/vgpu_unlock project.
 
   # My usb sound card is 44100Hz
   # This fixes crackling when adjusting playback volume on youtube
