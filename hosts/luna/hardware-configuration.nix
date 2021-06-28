@@ -4,7 +4,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aesni_intel" "cryptd" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
   boot.extraModulePackages = [ pkgs.linuxPackages_5_12.v4l2loopback ];
@@ -14,21 +14,33 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3624849c-d896-49c1-8089-a5ec19d607df";
+    { device = "/dev/disk/by-uuid/1a997aa3-9ee5-487b-bc03-e6754bb979a3";
       fsType = "btrfs";
-      options = [ "subvol=nixos" ];
+      options = [ "subvol=root" "noatime" "compress=zstd:3" "space_cache=v2" "autodefrag" ];
     };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/64905e66-de9d-4269-862d-2560465bb487";
-  boot.initrd.luks.devices."swap".device = "/dev/disk/by-uuid/0ac23874-84fb-4e47-b270-221c0c8f672e";
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/1a997aa3-9ee5-487b-bc03-e6754bb979a3";
+      fsType = "btrfs";
+      options = [ "subvol=nix" "noatime" "compress=zstd:3" "space_cache=v2" "autodefrag" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/1a997aa3-9ee5-487b-bc03-e6754bb979a3";
+      fsType = "btrfs";
+      options = [ "subvol=home" "noatime" "compress=zstd:3" "space_cache=v2" "autodefrag" ];
+    };
+
+  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/f7e04385-e734-4331-8f80-f15a578a33b4";
+  boot.initrd.luks.devices."swap".device = "/dev/disk/by-uuid/710c288d-ed1e-4d65-bf77-726e6153edd9";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9CC3-5E76";
+    { device = "/dev/disk/by-uuid/52FC-EBC9";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f62aa82a-a8a1-4c88-9749-210efdbd2144"; }
+    [ { device = "/dev/disk/by-uuid/4db3a053-e37b-4337-8c9c-cb77c1d63bcb"; }
     ];
 
   nix.maxJobs = lib.mkDefault 8;
