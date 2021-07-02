@@ -208,16 +208,17 @@
         "rotate-text": "rotate-text"
       },
       "locked": {
-        "lastModified": 1625000663,
-        "narHash": "sha256-Q/3w8uX1eAMkaA/oQ98OicZQJXxnDaQsaxoQnKIXBr8=",
+        "lastModified": 1623349643,
+        "narHash": "sha256-wuMqKQiFKrsYrOwW7I0NnxOPAO5I7+coiRdLA2nVOGA=",
         "owner": "vlaci",
         "repo": "nix-doom-emacs",
-        "rev": "71a2ea289967ca81708a1b4820c6e6a8361fca0a",
+        "rev": "ef203e3b3b9c91bb5268142c2297321fc8e9ca24",
         "type": "github"
       },
       "original": {
         "owner": "vlaci",
         "repo": "nix-doom-emacs",
+        "rev": "ef203e3b3b9c91bb5268142c2297321fc8e9ca24",
         "type": "github"
       }
     },
