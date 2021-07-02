@@ -13,7 +13,34 @@
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
   };
-  outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, ... }: {
+  outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, ... }: let
+    inherit (nixpkgs) lib;
+
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+
+    forAllPlatforms = f: lib.genAttrs platforms (platform: f platform);
+
+    nixpkgsFor = forAllPlatforms (platform: import nixpkgs {
+      system = platform;
+      # overlays = builtins.attrValues self.overlays;
+      config.allowUnfree = true;
+    });
+  in {
+
+    devShell = forAllPlatforms (platform: let
+        pkgs = nixpkgsFor.${platform};
+      in pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [ git nixFlakes ];
+
+        NIX_CONF_DIR = let
+          current = lib.optionalString (builtins.pathExists /etc/nix/nix.conf) (builtins.readFile /etc/nix/nix.conf);
+          nixConf = pkgs.writeTextDir "etc/nix.conf" ''
+            ${current}
+            experimental-features = nix-command flakes
+          '';
+        in "${nixConf}/etc";
+      });
+
     nixosConfigurations = {
       luna = nixos.lib.nixosSystem {
         system = "x86_64-linux";
@@ -57,20 +84,6 @@
           ./hosts/nightmaremoon/darwin-configuration.nix
         ];
       };
-    };
-    devShell.x86_64-linux = let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    in
-    pkgs.mkShell {
-      nativeBuildInputs = with pkgs; [ git nixFlakes ];
-
-      NIX_CONF_DIR = let
-        current = pkgs.lib.optionalString (builtins.pathExists /etc/nix/nix.conf) (builtins.readFile /etc/nix/nix.conf);
-        nixConf = pkgs.writeTextDir "etc/nix.conf" ''
-          ${current}
-          experimental-features = nix-command flakes
-        '';
-      in "${nixConf}/etc";
     };
   };
 }
