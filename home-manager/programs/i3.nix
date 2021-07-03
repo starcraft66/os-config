@@ -37,7 +37,7 @@ in
           { block = "sound"; }
           {
             block = "time";
-            interval = 60;
+            interval = 1;
             format = "%a %d/%m %R";
           }
         ];
