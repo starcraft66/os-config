@@ -659,9 +659,11 @@ in
           indicator = originalConfig.my.theme.color8;
         };
       };
-      fonts = [
-        "pango:MesloLGS Nerd Font Mono 10"
-      ];
+      fonts = {
+        names = [ "pango:MesloLGS Nerd Font Mono" ];
+        style = "Regular";
+        size = 10.0;
+      };
       workspaceAutoBackAndForth = true;
       terminal = "${pkgs.alacritty}/bin/alacritty";
       menu = "${pkgs.rofi}/bin/rofi -show run";
