@@ -7,7 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    emacs-overlay.url = "github:nix-community/emacs-overlay/a92dd2525b24f1d6f99dbde22410caba1c067e3d";
+    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/ef203e3b3b9c91bb5268142c2297321fc8e9ca24";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
