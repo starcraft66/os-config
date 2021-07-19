@@ -73,32 +73,8 @@
     overlays = [
       (self: super:
         {
-          looking-glass-client = super.looking-glass-client.overrideAttrs (oldAttrs: rec {
-            version = "B3";
-            src = pkgs.fetchFromGitHub {
-              owner = "gnif";
-              repo = "LookingGlass";
-              rev = "B3";
-              sha256 = "sha256-DrBhB6QjnCo/sjVSMJH9T6WB5V00WRVbXuAWZL9cqu4=";
-              fetchSubmodules =  true;
-            };
-
-            buildInputs = with pkgs; [  SDL2 SDL2_ttf spice-protocol fontconfig xorg.libX11 freefont_ttf nettle
-    xorg.libpthreadstubs xorg.libXau xorg.libXdmcp xorg.libXi xorg.libXext wayland wayland-protocols
-    libffi libGLU xorg.libXScrnSaver expat libbfd ];
-
-            patches = [
-              (pkgs.fetchpatch {
-                url = "https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/virtualization/looking-glass-client/0001-client-all-fix-more-maybe-uninitialized-when-O3-is-i.patch";
-                sha256 = "sha256-Tg0UjNB3bhk4nXgyFymQYvx83/K/JprU/0nROjwIFq4=";
-                name = "support-inkscape-1-in-numix-cursor-theme.patch";
-              })
-            ];
-            patchFlags = "-p2";
-
-            NIX_CFLAGS_COMPILE = "-mavx";
-          });
-        })
+        }
+      )
     ];
   };
 
