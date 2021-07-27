@@ -83,6 +83,7 @@
           }
           ./hosts/nightmaremoon/darwin-configuration.nix
         ];
+        specialArgs = { inputs = inputs // { darwin = inputs.nix-darwin; }; };
       };
     };
   };
