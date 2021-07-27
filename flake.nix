@@ -8,7 +8,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/ef203e3b3b9c91bb5268142c2297321fc8e9ca24";
+    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/master";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
