@@ -5,6 +5,7 @@
     sensibleOnTop = false;
     enable = true;
     clock24 = true;
+    # gimmi dat history
     historyLimit = 999999999;
     newSession = false;
 
@@ -23,9 +24,6 @@
 
       # Reload the running-config
       bind r source-file ~/.config/tmux/tmux.conf
-
-      # gimmi dat history
-      set-option -g history-limit 999999999
 
       # Nice Yellow Status Line
       set -g status-style bg=yellow,fg=black
