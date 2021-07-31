@@ -22,7 +22,7 @@
       unbind %
 
       # Reload the running-config
-      bind r source-file ~/.tmux.conf
+      bind r source-file ~/.config/tmux/tmux.conf
 
       # gimmi dat history
       set-option -g history-limit 999999999
