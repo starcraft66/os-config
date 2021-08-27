@@ -3,7 +3,7 @@
 {
   imports = [
     ../../applications/core.nix
-    ../../applications/flake.nix
+    ../../applications/nix.nix
   ];
   
   # List packages installed in system profile. To search by name, run:

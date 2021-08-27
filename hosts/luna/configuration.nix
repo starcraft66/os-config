@@ -8,7 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../applications/core.nix
-    ../../applications/flake.nix
+    ../../applications/nix.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
