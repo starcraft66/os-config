@@ -23,7 +23,7 @@ in
       enabled_layouts = "Vertical";
       window_padding_width = "2";
       window_padding_height = "2";
-      background_opacity = "0.96";
+      background_opacity = "0.98";
 
       # https://github.com/chriskempson/base16-shell/blob/master/scripts/base16-tomorrow-night.sh
       background = config.my.theme.color0;
