@@ -16,7 +16,7 @@
   outputs = inputs@{ self, nixos, nix-darwin, nixpkgs, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, ... }: let
     inherit (nixpkgs) lib;
 
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
 
     forAllPlatforms = f: lib.genAttrs platforms (platform: f platform);
 
@@ -25,6 +25,10 @@
       # overlays = builtins.attrValues self.overlays;
       config.allowUnfree = true;
     });
+
+    nixpkgsX86darwin = import nixpkgs {
+      localSystem = "x86_64-darwin";
+    };
   in {
 
     devShell = forAllPlatforms (platform: let
@@ -84,6 +88,36 @@
           ./hosts/nightmaremoon/darwin-configuration.nix
         ];
         specialArgs = { inputs = inputs // { darwin = inputs.nix-darwin; }; };
+      };
+      CocoPommel = inputs.nix-darwin.lib.darwinSystem {
+        modules = [
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.users."tristan.gosselin-hane" = {pkgs, ...}: {
+              imports = [ nix-doom-emacs.hmModule ];
+            };
+          }
+          ./hosts/cocopommel/darwin-configuration.nix
+        ];
+        specialArgs = {
+          # Was having trouble getting nix to serve me arm64 packages
+          # so we are being explicit here :)
+          pkgs = import nixpkgs {
+            localSystem = "aarch64-darwin";
+            overlays = [
+              (self: super: {
+                # This is bad for libraries but okay for programs.
+                # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
+                # For libs, I will use pkgsX86 defined below.
+                inherit (nixpkgsX86darwin) kitty;
+              })
+            ];
+          };
+          # Rosetta 2 is installed, define a special pkgsX86 to install
+          # packages that don't build on aarch64-darwin yet as a fallback
+          pkgsX86 = nixpkgsX86darwin;
+          inputs = inputs // { darwin = inputs.nix-darwin; };
+        };
       };
     };
   };
