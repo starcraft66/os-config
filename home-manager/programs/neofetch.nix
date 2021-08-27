@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ neofetch ];
   xdg.configFile."neofetch/config.conf".text = ''
     # See this wiki page for more info:
     # https://github.com/dylanaraps/neofetch/wiki/Customizing-Info
@@ -38,5 +39,5 @@
     refresh_rate="on"
     battery_display="barinfo"
     thumbnail_dir="${config.xdg.cacheHome}/thumbnails/neofetch"
-'';
+  '';
 }
