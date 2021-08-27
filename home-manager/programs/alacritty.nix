@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  launcher = if pkgs.stdenv.hostPlatform.system == "x86_64-darwin" then "open" else "xdg-open";
+  launcher = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
   fontFamily = "MesloLGS Nerd Font Mono";
 in
 {
