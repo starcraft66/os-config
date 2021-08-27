@@ -44,11 +44,25 @@
     verbose = true;
   };
 
-  # Use a custom configuration.nid location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
+  # Homebrew integration
+  homebrew = {
+    enable = true;
+    brewPrefix = "/opt/homebrew/bin";
+    brews = [
+      "redis"
+    ];
+    casks = [
+      "discord"
+      "spotify"
+      "insomnia"
+      "kitty"
+      "openmtp"
+      "rectangle"
+    ];
+    masApps = {
+    };
+  };
 
-  # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix.trustedUsers = [ "tristan.gosselin-hane" "@admin" ];
   services.activate-system.enable = true;
