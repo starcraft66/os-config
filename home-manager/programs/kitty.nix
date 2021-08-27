@@ -31,7 +31,7 @@ in
       selection_background = config.my.theme.color7;
       selection_foreground = config.my.theme.color0;
       url_color = config.my.theme.colorC;
-      cursor = config.my.theme.color1;
+      cursor = config.my.theme.color5;
       active_border_color = config.my.theme.color8;
       inactive_border_color = config.my.theme.colorA;
       active_tab_background = config.my.theme.colorC;
