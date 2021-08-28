@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
-{
+let inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+in (lib.mkIf isLinux {
   gtk = {
     enable = true;
     iconTheme = {
@@ -38,4 +39,4 @@
     name = "breeze_cursors";
     size = config.my.cursorDpi;
   };
-}
+})

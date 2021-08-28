@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  originalConfig = config;
+ inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+ originalConfig = config;
 in
-{
+(lib.mkIf isLinux {
   programs.i3status-rust = {
     enable = true;
     bars = {
@@ -773,4 +774,4 @@ in
   xresources.properties = {
     "Xft.dpi" = originalConfig.my.dpi;
   };
-}
+})

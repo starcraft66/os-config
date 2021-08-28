@@ -49,9 +49,6 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Python language server stupidity
-(setq lsp-python-ms-executable (executable-find "python-language-server"))
-
 (setq
  projectile-project-search-path '("~/src")
  )

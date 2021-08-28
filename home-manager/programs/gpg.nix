@@ -1,16 +1,26 @@
 { config, lib, pkgs, ... }:
 
-{
-  programs.gpg = {
-    enable = true;
-  };
+let inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+in
+lib.mkMerge [
+  {
+    programs.gpg = {
+      enable = true;
+    };
 
-  services.gpg-agent = {
-    enable = true;
-    enableExtraSocket = true;
-    enableScDaemon = true;
-    enableSshSupport = true;
-    grabKeyboardAndMouse = true;
-    pinentryFlavor = "qt";
-  };
-}
+    home.packages = with pkgs; [
+      pass
+      pwgen
+    ];
+  }
+  (lib.mkIf isLinux {
+    services.gpg-agent = {
+      enable = true;
+      enableExtraSocket = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      grabKeyboardAndMouse = true;
+      pinentryFlavor = "qt";
+    };
+  })
+]
