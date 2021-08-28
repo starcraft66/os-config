@@ -67,6 +67,7 @@
   nix.trustedUsers = [ "tristan.gosselin-hane" "@admin" ];
   services.activate-system.enable = true;
   nix.gc.automatic = true;
+  nix.maxJobs = lib.mkDefault 8;
   
   nix.useSandbox = false;
   nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
