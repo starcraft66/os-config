@@ -48,7 +48,7 @@
     devShell = forAllPlatforms (platform: let
         pkgs = nixpkgsFor.${platform};
       in pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ git nixFlakes ];
+        nativeBuildInputs = with pkgs; [ git nixFlakes nixfmt ];
 
         NIX_CONF_DIR = let
           current = lib.optionalString (builtins.pathExists /etc/nix/nix.conf) (builtins.readFile /etc/nix/nix.conf);
