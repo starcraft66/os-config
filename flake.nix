@@ -5,7 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    sops-nix.url = "github:Mic92/sops-nix";
+    # Using my fork while I wait for my PR to be merged.
+    sops-nix.url = "github:starcraft66/sops-nix/patch-1";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/master";
@@ -47,8 +48,19 @@
 
     devShell = forAllPlatforms (platform: let
         pkgs = nixpkgsFor.${platform};
+        sops = inputs.sops-nix.packages.${platform};
       in pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ git nixFlakes nixfmt ];
+        sopsPGPKeyDirs = [
+          "./secrets/keys/hosts"
+          "./secrets/keys/users"
+        ];
+
+        nativeBuildInputs = with pkgs; [
+          git
+          nixFlakes
+          nixfmt
+          sops.sops-import-keys-hook
+        ];
 
         NIX_CONF_DIR = let
           current = lib.optionalString (builtins.pathExists /etc/nix/nix.conf) (builtins.readFile /etc/nix/nix.conf);
