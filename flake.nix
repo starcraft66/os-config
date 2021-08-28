@@ -5,8 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    # Using my fork while I wait for my PR to be merged.
-    sops-nix.url = "github:starcraft66/sops-nix/patch-1";
+    sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/master";
