@@ -22,7 +22,21 @@
 
     nixpkgsFor = forAllPlatforms (platform: import nixpkgs {
       system = platform;
-      # overlays = builtins.attrValues self.overlays;
+      overlays = builtins.concatLists [
+        (if (platform == "aarch64-darwin") then
+          [
+            # Apple Silicon backport overlay:
+            # In other words, x86 packages to install instead of
+            # arm packages which don't build yet for any reason
+            (self: super: {
+              # This is bad for libraries but okay for programs.
+              # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
+              # For libs, I will use pkgsX86 defined below.
+              inherit (nixpkgsX86darwin) kitty nixfmt;
+            })
+          ]
+        else [])
+      ];
       config.allowUnfree = true;
     });
 
@@ -102,17 +116,7 @@
         specialArgs = {
           # Was having trouble getting nix to serve me arm64 packages
           # so we are being explicit here :)
-          pkgs = import nixpkgs {
-            localSystem = "aarch64-darwin";
-            overlays = [
-              (self: super: {
-                # This is bad for libraries but okay for programs.
-                # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
-                # For libs, I will use pkgsX86 defined below.
-                inherit (nixpkgsX86darwin) kitty;
-              })
-            ];
-          };
+          pkgs = nixpkgsFor.aarch64-darwin;
           # Rosetta 2 is installed, define a special pkgsX86 to install
           # packages that don't build on aarch64-darwin yet as a fallback
           pkgsX86 = nixpkgsX86darwin;
