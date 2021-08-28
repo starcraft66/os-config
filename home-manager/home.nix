@@ -27,6 +27,11 @@
 
   config.programs.home-manager.enable = true;
 
+  config.home.sessionPath = builtins.concatLists [
+    # Add aarch64-darwin homebrew to path
+    (if pkgs.stdenv.targetPlatform.system == "aarch64-darwin" then [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ] else [])
+  ];
+
   options.my.terminalFontSize = lib.mkOption {
     description = "The terminal font size";
     type = lib.types.int;
