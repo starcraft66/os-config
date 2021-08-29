@@ -1,6 +1,10 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  imports = [
+    ../caches/nix-community.nix
+  ];
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -16,4 +20,5 @@
       emacs-overlay.flake = inputs.emacs-overlay;
     };
   };
+  environment.systemPackages = with pkgs; [ nixfmt ];
 }
