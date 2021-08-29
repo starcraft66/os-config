@@ -44,12 +44,16 @@
     verbose = true;
   };
 
+  services.redis = {
+    enable = true;
+    dataDir = "/var/db/redis";
+  };
+
   # Homebrew integration
   homebrew = {
     enable = true;
     brewPrefix = "/opt/homebrew/bin";
     brews = [
-      "redis"
     ];
     casks = [
       "discord"
