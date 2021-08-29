@@ -29,7 +29,7 @@
 
   config.home.sessionPath = builtins.concatLists [
     # Add aarch64-darwin homebrew to path
-    (if pkgs.stdenv.targetPlatform.system == "aarch64-darwin" then [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ] else [])
+    (lib.optionals (pkgs.stdenv.targetPlatform.system == "aarch64-darwin") [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ] )
   ];
 
   options.my.terminalFontSize = lib.mkOption {

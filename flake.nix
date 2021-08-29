@@ -23,19 +23,16 @@
     nixpkgsFor = forAllPlatforms (platform: import nixpkgs {
       system = platform;
       overlays = builtins.concatLists [
-        (if (platform == "aarch64-darwin") then
-          [
-            # Apple Silicon backport overlay:
-            # In other words, x86 packages to install instead of
-            # arm packages which don't build yet for any reason
-            (self: super: {
-              # This is bad for libraries but okay for programs.
-              # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
-              # For libs, I will use pkgsX86 defined below.
-              inherit (nixpkgsX86darwin) kitty nixfmt;
-            })
-          ]
-        else [])
+        (lib.optional (platform == "aarch64-darwin")
+        # Apple Silicon backport overlay:
+        # In other words, x86 packages to install instead of
+        # arm packages which don't build yet for any reason
+        (self: super: {
+          # This is bad for libraries but okay for programs.
+          # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
+          # For libs, I will use pkgsX86 defined below.
+          inherit (nixpkgsX86darwin) kitty nixfmt;
+        }))
       ];
       config.allowUnfree = true;
     });
