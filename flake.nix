@@ -31,7 +31,7 @@
           # This is bad for libraries but okay for programs.
           # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
           # For libs, I will use pkgsX86 defined below.
-          inherit (nixpkgsX86darwin) kitty nixfmt;
+          inherit (nixpkgsX86darwin) kitty;
         }))
       ];
       config.allowUnfree = true;
