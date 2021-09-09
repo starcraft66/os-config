@@ -283,6 +283,7 @@
     yq
     (retroarch.override { cores = with libretro; [ bsnes-mercury ]; })
     mupen64plus
+    asciinema
   ];
 
   # Java
