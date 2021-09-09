@@ -460,6 +460,16 @@
     verbose = true;
   };
 
+  systemd.packages = [
+    (pkgs.runCommandNoCC "delegate.conf" {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    } ''
+      mkdir -p $out/etc/systemd/system/user@.service.d/
+      echo -e "[Service]\nDelegate=yes" > $out/etc/systemd/system/user@.service.d/delegate.conf
+    '')
+  ];
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
