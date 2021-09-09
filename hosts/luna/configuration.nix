@@ -311,7 +311,7 @@
   services.apcupsd.enable = true;
 
   # onedrive syncing
-  # services.onedrive.enable = true;
+  services.onedrive.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
