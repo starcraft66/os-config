@@ -401,8 +401,8 @@ in
 
     /* rofi 1.7.0 fix */
     element-text, element-icon {
-        background-color: inherit;
-        text-color:       inherit;
+      background-color: inherit;
+      text-color:       inherit;
     }
 
     /* global settings and color variables */
