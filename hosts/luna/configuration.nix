@@ -21,6 +21,8 @@
 
   networking.hostName = "luna"; # Define your hostname.
 
+  services.tor.enable = true;
+
   # Garbage Collection
   nix = {
     gc = {
