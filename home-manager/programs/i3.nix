@@ -550,7 +550,6 @@ in
 
   programs.rofi = {
     enable = true;
-    separator = "solid";
     font = "MesloLGS Nerd Font Mono 10";
     theme = "${config.xdg.configHome}/rofi/flat-orange.rasi";
     # colors = {
