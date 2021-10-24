@@ -758,6 +758,8 @@ in
         "${mod}+Shift+c" = "reload";
         "${mod}+Shift+r" = "restart";
         "${mod}+Shift+e" = "exec \"i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'\"";
+        "${mod}+g" = "gaps inner all set 10";
+        "${mod}+Shift+g" = "gaps inner all set 0";
 
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";
