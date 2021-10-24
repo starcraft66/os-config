@@ -73,7 +73,7 @@
     alacritty neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
     ncdu gwenview flameshot wine-staging winetricks-staging
-    breeze-gtk breeze-qt5
+    breeze-gtk breeze-qt5 gnome.nautilus
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

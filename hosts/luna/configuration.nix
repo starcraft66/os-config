@@ -289,6 +289,7 @@
     (retroarch.override { cores = with libretro; [ bsnes-mercury ]; })
     mupen64plus
     asciinema
+    gnome.nautilus
   ];
 
   # Java
