@@ -73,6 +73,7 @@
     alacritty neofetch spotify vscode glib minecraft
     roboto font-awesome unzip traceroute signal-desktop iperf ethtool
     ncdu gwenview flameshot wine-staging winetricks-staging
+    breeze-gtk breeze-qt5
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -115,7 +116,7 @@
   services.xserver.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
   services.xserver.windowManager.i3 = {
@@ -143,6 +144,7 @@
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     nerdfonts
+    noto-fonts
     emacs-all-the-icons-fonts
   ];
 

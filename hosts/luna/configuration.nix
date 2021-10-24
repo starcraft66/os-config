@@ -57,6 +57,7 @@
     };
     fonts = with pkgs; [
       nerdfonts
+      noto-fonts
       emacs-all-the-icons-fonts
     ];
   };
@@ -159,6 +160,8 @@
     winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
+    breeze-gtk
+    breeze-qt5
     wireshark
     element-desktop
     slack
@@ -408,9 +411,7 @@
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
 
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.wallpaper.combineScreens = true;
 
   services.xserver.windowManager.i3 = {
