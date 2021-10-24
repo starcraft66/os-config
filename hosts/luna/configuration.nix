@@ -297,7 +297,7 @@
 
   # Virtualization
   virtualisation.libvirtd.enable = true;
-  virtualisation.libvirtd.qemuRunAsRoot = false;
+  virtualisation.libvirtd.qemu.runAsRoot = false;
   virtualisation.libvirtd.onBoot = "ignore";
 
   # podman
