@@ -682,7 +682,7 @@ in
         };
       };
       fonts = {
-        names = [ "pango:MesloLGS Nerd Font Mono" ];
+        names = [ "Noto Sans" ];
         style = "Regular";
         size = 10.0;
       };
