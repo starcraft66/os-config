@@ -48,6 +48,17 @@ in
     };
   };
 
+  services.dunst.package = pkgs.dunst.overrideAttrs (old: rec {
+    version = "1.7.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "dunst-project";
+      repo = "dunst";
+      rev = "v${version}";
+      # hash = "${lib.fakeHash}";
+      hash = "sha256-BWbvGetXXCXbfPRY+u6gEfzBmX8PLSnI6a5vfCByiC0=";
+    };
+  });
+
   services.dunst = {
     enable = true;
     settings = {
@@ -55,38 +66,43 @@ in
         #font = "MesloLGS Nerd Font 10";
         markup = "full";
         format = "<b>%s</b>\\n%b";
-        sort = "no";
-        indicate_hidden = "yes";
+        sort = false;
+        indicate_hidden = true;
         alignment = "left";
+        vertical_alignment = "top";
         bounce_freq = 0;
         show_age_threshold = -1;
-        word_wrap = "yes";
-        ignore_newline = "no";
-        stack_duplicates = "yes";
-        hide_duplicate_count = "yes";
-        geometry = "600x100-1620+50";
-        shrink = "no";
+        word_wrap = true;
+        ignore_newline = false;
+        stack_duplicates = true;
+        hide_duplicate_count = true;
+        origin = "top-center";
+        shrink = false;
         transparency = 3;
         idle_threshold = 0;
         monitor = 0;
         follow = "none";
-        sticky_history = "yes";
+        sticky_history = true;
         history_length = 15;
-        show_indicators = "no";
+        show_indicators = false;
         line_height = 3;
         separator_height = 2;
         padding = 6;
         horizontal_padding = 6;
         separator_color = "frame";
-        startup_notification = "false";
+        startup_notification = false;
         dmenu = "${pkgs.rofi}/bin/rofi -p dunst -dmenu";
-        browser = "${pkgs.firefox}/bin/firefox -new-tab";
+        browser = "${pkgs.firefox}/bin/firefox --new-tab";
         icon_position = "left";
-        max_icon_size = 80;
+        max_icon_size = 64;
         frame_width = 2;
         frame_color = originalConfig.my.theme.color5;
         font = "Sans 10";
         corner_radius = 2;
+        height = "150";
+        width = "350";
+        offet = "0x60";
+        ellipsize = "end";
       };
       shortcuts = {
         close = "ctrl+space";
