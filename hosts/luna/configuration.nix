@@ -458,6 +458,8 @@
       config.my.vsync = false;
       config.my.picomBackend = "xrender";
       config.my.trayOutput = "DP-4";
+      config.my.leftMonitor = "DP-2";
+      config.my.rightMonitor = "DP-4";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

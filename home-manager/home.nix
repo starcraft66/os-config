@@ -73,6 +73,18 @@
     type = lib.types.str;
   };
 
+  options.my.leftMonitor = lib.mkOption {
+    description = "X11 Left Monitor";
+    default = "DP-2";
+    type = lib.types.str;
+  };
+
+  options.my.rightMonitor = lib.mkOption {
+    description = "X11 Right Monitor";
+    default = "DP-4";
+    type = lib.types.str;
+  };
+
   options.my.theme = lib.mkOption {
     description = "Color theme";
     default = {

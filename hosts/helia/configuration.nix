@@ -180,6 +180,8 @@
       config.my.vsync = true;
       config.my.picomBackend = "glx";
       config.my.trayOutput = "eDP-1";
+      config.my.leftMonitor = "eDP-1";
+      config.my.rightMonitor = "eDP-1";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

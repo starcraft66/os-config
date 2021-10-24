@@ -1,8 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
- inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
- originalConfig = config;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  originalConfig = config;
+  workspaces = {
+    messenger = "1:";
+    signal = "2:";
+    spotify = "3:";
+    emardes = "9:";
+    browser = "10:";
+  };
 in
 (lib.mkIf isLinux {
   programs.i3status-rust = {
@@ -649,6 +656,9 @@ in
               text = originalConfig.my.theme.colorF;
             };
           };
+          extraConfig = ''
+            strip_workspace_numbers yes
+          '';
         }
       ];
       colors = {
@@ -693,7 +703,13 @@ in
         { command = "pkill picom; ${pkgs.picom}/bin/picom --backend ${originalConfig.my.picomBackend} ${if originalConfig.my.picomBackend == "xrender" then "--xrender-sync-fence" else ""} ${if originalConfig.my.vsync then "--vsync" else "--no-vsync"}"; notification = false; }
         { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
         { command = "pkill flameshot; ${pkgs.flameshot}/bin/flameshot"; notification = false; }
-        # { command = "pkill dunst; ${pkgs.dunst}/bin/dunst"; notification = false; }
+        { command = "pkill discord; ${pkgs.discord}/bin/discord"; notification = false; }
+        { command = "pkill element-desktop; ${pkgs.element-desktop}/bin/element-desktop"; notification = false; }
+        { command = "pkill signal-desktop; ${pkgs.signal-desktop}/bin/signal-desktop"; notification = false; }
+        { command = "pkill spotify; ${pkgs.spotify}/bin/spotify"; notification = false; }
+        # Not doom-emacs but it will connect to the doom server so it should be fine
+        { command = "pkill emacsclient; ${pkgs.emacs}/bin/emacsclient -c"; notification = false; }
+        { command = "pkill firefox; ${pkgs.firefox}/bin/firefox"; notification = false; }
       ] ++ lib.optional (originalConfig.my.ckb)
         { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
       keybindings = let mod = config.modifier; in {
@@ -735,16 +751,16 @@ in
         "${mod}+Shift+t" = "layout tabbed";
         "${mod}+Shift+f" = "floating toggle";
         "${mod}+Space" = "focus mode_toggle";
-        "${mod}+1" = "workspace 1";
-        "${mod}+2" = "workspace 2";
-        "${mod}+3" = "workspace 3";
+        "${mod}+1" = "workspace ${workspaces.messenger}";
+        "${mod}+2" = "workspace ${workspaces.signal}";
+        "${mod}+3" = "workspace ${workspaces.spotify}";
         "${mod}+4" = "workspace 4";
         "${mod}+5" = "workspace 5";
         "${mod}+6" = "workspace 6";
         "${mod}+7" = "workspace 7";
         "${mod}+8" = "workspace 8";
-        "${mod}+9" = "workspace 9";
-        "${mod}+0" = "workspace 10";
+        "${mod}+9" = "workspace ${workspaces.emardes}";
+        "${mod}+0" = "workspace ${workspaces.browser}";
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+2" = "move container to workspace 2";
         "${mod}+Shift+3" = "move container to workspace 3";
@@ -786,6 +802,41 @@ in
           "Escape" = "mode default";
           "Return" = "mode default";
         };
+      };
+      workspaceOutputAssign = [
+        { workspace = "${workspaces.messenger}";
+          output = originalConfig.my.leftMonitor;
+        }
+        { workspace = "${workspaces.signal}";
+          output = originalConfig.my.leftMonitor;
+        }
+        { workspace = "${workspaces.spotify}";
+          output = originalConfig.my.leftMonitor;
+        }
+        { workspace = "${workspaces.emardes}";
+          output = originalConfig.my.rightMonitor;
+        }
+        { workspace = "${workspaces.browser}";
+          output = originalConfig.my.rightMonitor;
+        }
+      ];
+      window.commands = [
+        { command = "move container to workspace ${workspaces.spotify}"; criteria = { class = "Spotify"; }; }
+      ];
+      assigns = {
+        "${workspaces.messenger}" = [
+          { class = "discord"; }
+          { class = "Element"; }
+        ];
+        "${workspaces.signal}" = [
+          { class = "Signal"; }
+        ];
+        "${workspaces.emardes}" = [
+          { class = "Emacs"; }
+        ];
+        "${workspaces.browser}" = [
+          { class = "Firefox"; }
+        ];
       };
     };
     extraConfig = ''
