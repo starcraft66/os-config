@@ -8,8 +8,11 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/master";
+    doom-emacs = { url = "github:hlissner/doom-emacs/develop"; flake = false; };
+    # For now, until https://github.com/vlaci/nix-doom-emacs/pull/361 is merged
+    nix-doom-emacs.url = "github:he-la/nix-doom-emacs/develop";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+    nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
   };

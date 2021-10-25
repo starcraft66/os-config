@@ -3,11 +3,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1626604817,
-        "narHash": "sha256-z+dvjB02cHU+VQ5EMkzqSdX817PZar9AkmmfK27q0vo=",
+        "lastModified": 1634812062,
+        "narHash": "sha256-LL6aP+Y/L4TPfYzO2v1WCeRY6v9MW9vX7kC6sxgWah0=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "46732c0adaef147144418f9f284ca6b1183ab96f",
+        "rev": "0869d28483b5d81b818b110af351fd5c4dc04dd9",
         "type": "github"
       },
       "original": {
@@ -186,7 +186,9 @@
     },
     "nix-doom-emacs": {
       "inputs": {
-        "doom-emacs": "doom-emacs",
+        "doom-emacs": [
+          "doom-emacs"
+        ],
         "doom-snippets": "doom-snippets",
         "emacs-overlay": [
           "emacs-overlay"
@@ -208,19 +210,20 @@
         "org-yt": "org-yt",
         "php-extras": "php-extras",
         "revealjs": "revealjs",
-        "rotate-text": "rotate-text"
+        "rotate-text": "rotate-text",
+        "straight": "straight"
       },
       "locked": {
-        "lastModified": 1627398156,
-        "narHash": "sha256-Ru1aV3NuIFXAsvUE3de8KR7xDZOo1GCBJdsWKJn+Ebw=",
-        "owner": "vlaci",
+        "lastModified": 1634893900,
+        "narHash": "sha256-ReDCet6ZpcAlH+/QrZBaTEut7pYHVJJdOoKYCVEtm2o=",
+        "owner": "he-la",
         "repo": "nix-doom-emacs",
-        "rev": "fee14d217b7a911aad507679dafbeaa8c1ebf5ff",
+        "rev": "e74b5547aac7ce60de312b6433114614e52c692c",
         "type": "github"
       },
       "original": {
-        "owner": "vlaci",
-        "ref": "master",
+        "owner": "he-la",
+        "ref": "develop",
         "repo": "nix-doom-emacs",
         "type": "github"
       }
@@ -228,16 +231,15 @@
     "nix-straight": {
       "flake": false,
       "locked": {
-        "lastModified": 1621543597,
-        "narHash": "sha256-E/m2Hrw2og//CfOCOWe2yapYC01Tqhozn4YMPYJsC3o=",
+        "lastModified": 1628630968,
+        "narHash": "sha256-eh5QpnX3F8/0iKv1BvyU3KyZ/ksLlRegcd5c41pm/L8=",
         "owner": "vlaci",
         "repo": "nix-straight.el",
-        "rev": "8e84d04f10b2298de856b2b8b9a0d13abc91b5ca",
+        "rev": "e3f8aaff9ba889c6f2ee6c6d349736d21f21c685",
         "type": "github"
       },
       "original": {
         "owner": "vlaci",
-        "ref": "v2.2.0",
         "repo": "nix-straight.el",
         "type": "github"
       }
@@ -417,6 +419,7 @@
     },
     "root": {
       "inputs": {
+        "doom-emacs": "doom-emacs",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
@@ -460,6 +463,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "straight": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1632765185,
+        "narHash": "sha256-Mh555zVj4joLqnCzDzv4lu9RKRnmtYqVR9SbNs7A6tY=",
+        "owner": "raxod502",
+        "repo": "straight.el",
+        "rev": "af5437f2afd00936c883124d6d3098721c2d306c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "raxod502",
+        "repo": "straight.el",
         "type": "github"
       }
     }
