@@ -425,6 +425,7 @@ in
         { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
       keybindings = let mod = config.modifier; in {
         "${mod}+a" = "exec ${config.menu}";
+        "${mod}+e" = "exec ${(pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; })}/bin/rofi -show emoji -modi emoji";
         "${mod}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
         "Mod1+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${mod}+Return" = "exec ${config.terminal}";
