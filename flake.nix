@@ -23,9 +23,10 @@
 
     forAllPlatforms = f: lib.genAttrs platforms (platform: f platform);
 
-    nixpkgsFor = forAllPlatforms (platform: import nixpkgs {
+    nixpkgsFor = forAllPlatforms (platform: nixpkgs: import nixpkgs {
       system = platform;
-      overlays = builtins.concatLists [
+      overlays = lib.flatten [
+        inputs.emacs-overlay.overlay
         (lib.optional (platform == "aarch64-darwin")
         # Apple Silicon backport overlay:
         # In other words, x86 packages to install instead of
@@ -46,7 +47,7 @@
   in {
 
     devShell = forAllPlatforms (platform: let
-        pkgs = nixpkgsFor.${platform};
+        pkgs = nixpkgsFor.${platform} inputs.nixpkgs;
         sops = inputs.sops-nix.packages.${platform};
       in pkgs.mkShell {
         sopsPGPKeyDirs = [
@@ -84,6 +85,7 @@
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
           ./hosts/luna/configuration.nix
         ];
+        pkgs = nixpkgsFor.x86_64-linux nixos;
         specialArgs = { inherit inputs; };
       };
       helia = nixos.lib.nixosSystem {
@@ -98,6 +100,7 @@
           sops-nix.nixosModules.sops
           ./hosts/helia/configuration.nix
         ];
+        pkgs = nixpkgsFor.x86_64-linux nixos;
         specialArgs = { inherit inputs; };
       };
     };
@@ -127,7 +130,7 @@
         specialArgs = {
           # Was having trouble getting nix to serve me arm64 packages
           # so we are being explicit here :)
-          pkgs = nixpkgsFor.aarch64-darwin;
+          pkgs = nixpkgsFor.aarch64-darwin inputs.nix-darwin;
           # Rosetta 2 is installed, define a special pkgsX86 to install
           # packages that don't build on aarch64-darwin yet as a fallback
           pkgsX86 = nixpkgsX86darwin;
