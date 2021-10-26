@@ -52,3 +52,16 @@
 (setq
  projectile-project-search-path '("~/src")
  )
+
+(dimmer-configure-magit)
+(dimmer-configure-org)
+(dimmer-mode t)
+
+;; Move stuff with C-S-hjkl
+(map! :ne "C-S-k" #'drag-stuff-up)
+(map! :ne "C-S-j" #'drag-stuff-down)
+(map! :ne "C-S-l" #'drag-stuff-right)
+(map! :ne "C-S-h" #'drag-stuff-left)
+
+(map! :ne "SPC =" #'indent-buffer)
+(map! :ne "SPC #" #'comment-or-uncomment-region)
