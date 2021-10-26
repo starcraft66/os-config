@@ -5,6 +5,7 @@
     ./programs/alacritty.nix
     ./programs/direnv.nix
     ./programs/doom-emacs.nix
+    ./programs/dunst.nix
     ./programs/fzf.nix
     ./programs/git.nix
     ./programs/gpg.nix
