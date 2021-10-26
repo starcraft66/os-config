@@ -408,7 +408,7 @@ in
         size = 10.0;
       };
       workspaceAutoBackAndForth = true;
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.rofi}/bin/rofi -show run";
       startup = [
         { command = "pkill picom; ${pkgs.picom}/bin/picom --backend ${originalConfig.my.picomBackend} ${if originalConfig.my.picomBackend == "xrender" then "--xrender-sync-fence" else ""} ${if originalConfig.my.vsync then "--vsync" else "--no-vsync"}"; notification = false; }
