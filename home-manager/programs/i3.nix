@@ -7,6 +7,7 @@ let
     messenger = "1:";
     signal = "2:";
     spotify = "3:";
+    minecraft = "6:";
     emardes = "9:";
     browser = "10:";
   };
@@ -468,7 +469,7 @@ in
         "${mod}+3" = "workspace ${workspaces.spotify}";
         "${mod}+4" = "workspace 4";
         "${mod}+5" = "workspace 5";
-        "${mod}+6" = "workspace 6";
+        "${mod}+6" = "workspace ${workspaces.minecraft}";
         "${mod}+7" = "workspace 7";
         "${mod}+8" = "workspace 8";
         "${mod}+9" = "workspace ${workspaces.emardes}";
@@ -525,6 +526,9 @@ in
         { workspace = "${workspaces.spotify}";
           output = originalConfig.my.leftMonitor;
         }
+        { workspace = "${workspaces.minecraft}";
+          output = originalConfig.my.rightMonitor;
+        }
         { workspace = "${workspaces.emardes}";
           output = originalConfig.my.rightMonitor;
         }
@@ -534,6 +538,7 @@ in
       ];
       window.commands = [
         { command = "move container to workspace ${workspaces.spotify}"; criteria = { class = "Spotify"; }; }
+        { command = "layout tabbed"; criteria = { class = "MultiMC5"; }; }
       ];
       assigns = {
         "${workspaces.messenger}" = [
@@ -542,6 +547,9 @@ in
         ];
         "${workspaces.signal}" = [
           { class = "Signal"; }
+        ];
+        "${workspaces.minecraft}" = [
+          { class = "MultiMC5"; }
         ];
         "${workspaces.emardes}" = [
           { class = "Emacs"; }
