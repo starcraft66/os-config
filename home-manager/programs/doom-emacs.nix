@@ -16,6 +16,7 @@ lib.mkMerge [
   programs.doom-emacs = {
     enable = true;
     doomPrivateDir = ../doom.d;
+    emacsPackage = pkgs.emacsGit;
   };
 
   home.file.".emacs.d/init.el".text = ''
