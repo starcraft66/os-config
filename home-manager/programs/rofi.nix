@@ -49,6 +49,11 @@ in
     extraConfig = {
       dpi = 0;
     };
+    plugins = with pkgs; [
+      rofi-emoji
+    ];
+    cycle = true;
+    pass.enable = true;
   };
 
   xdg.configFile."rofi/flat-orange.rasi".text = ''
