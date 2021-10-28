@@ -33,7 +33,7 @@
     nix.configureBuildUsers = true;
   };
 
-  home-manager = {
+  home-manager = { config, osConfig, ... }: {
     users."tristan.gosselin-hane" = {
       imports = [ ../../home-manager/home.nix ];
 

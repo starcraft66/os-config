@@ -34,7 +34,7 @@
   };
 
   home-manager = {
-    users.tristan = {
+    users.tristan = { config, osConfig, ...}: {
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 18;
