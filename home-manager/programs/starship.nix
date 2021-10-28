@@ -10,7 +10,7 @@
     settings = {
       # This line replaces add_newline = false
       add_newline = false;
-      format = "$username$hostname$directory$git_branch$git_commit$git_state$git_status$cmd_duration$jobs$status$character";
+      format = "$username$hostname$directory$git_branch$nix_shell$git_commit$git_state$git_status$cmd_duration$jobs$status$character";
 
       cmd_duration = {
         disabled = false;
@@ -39,7 +39,8 @@
       };
 
       nix_shell = {
-        use_name = false;
+        disabled = false;
+        format = "[$symbol]($style)";
         impure_msg = "";
         pure_msg = "";
         symbol = "❄️";
