@@ -19,7 +19,8 @@
 
       directory = {
         disabled = false;
-        truncation_length = 999;
+        truncation_length = 1;
+        fish_style_pwd_dir_length = 1;
         truncate_to_repo = false;
       };
 
