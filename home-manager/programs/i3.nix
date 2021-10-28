@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, osConfig, lib, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
@@ -329,7 +329,13 @@ in
   '';
 
   services.picom = {
-    backend = originalConfig.my.picomBackend;
+    enable = true;
+    shadow = true;
+    backend = config.my.picomBackend;
+    vSync = config.my.vsync;
+    extraOptions = lib.mkIf (builtins.elem "nvidia" osConfig.services.xserver.videoDrivers) ''
+      xrender-sync-fence = true;
+    '';
   };
 
   xsession.windowManager.i3 = rec {
@@ -412,7 +418,6 @@ in
       terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.rofi}/bin/rofi -show run";
       startup = [
-        { command = "pkill picom; ${pkgs.picom}/bin/picom --backend ${originalConfig.my.picomBackend} ${if originalConfig.my.picomBackend == "xrender" then "--xrender-sync-fence" else ""} ${if originalConfig.my.vsync then "--vsync" else "--no-vsync"}"; notification = false; }
         { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
         { command = "pkill flameshot; ${pkgs.flameshot}/bin/flameshot"; notification = false; }
         { command = "pkill discord; ${pkgs.discord}/bin/discord"; notification = false; }
