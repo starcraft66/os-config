@@ -15,6 +15,7 @@
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
     ./programs/obs-studio.nix
+    ./programs/polybar.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/rofi.nix

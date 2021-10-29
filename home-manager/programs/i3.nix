@@ -14,7 +14,7 @@ let
 in
 (lib.mkIf isLinux {
   programs.i3status-rust = {
-    enable = true;
+    enable = false;
     bars = {
       default = {
         blocks = [
@@ -344,40 +344,40 @@ in
     config = {
       modifier = "Mod4";
       bars = [
-        {
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
-          fonts = config.fonts;
-          trayOutput = originalConfig.my.trayOutput;
-          position = "top";
-          colors = {
-            background = originalConfig.my.theme.color1;
-            statusline = originalConfig.my.theme.color1;
-            separator = "#515151";
-            focusedWorkspace = {
-              border = originalConfig.my.theme.colorD;
-              background = originalConfig.my.theme.colorD;
-              text = originalConfig.my.theme.color0;
-            };
-            activeWorkspace = {
-              border = "#333333";
-              background = "#333333";
-              text = originalConfig.my.theme.colorF;
-            };
-            inactiveWorkspace = {
-              border = originalConfig.my.theme.color1;
-              background = originalConfig.my.theme.color1;
-              text = "#999999";
-            };
-            urgentWorkspace = {
-              border = originalConfig.my.theme.color8;
-              background = originalConfig.my.theme.color8;
-              text = originalConfig.my.theme.colorF;
-            };
-          };
-          extraConfig = ''
-            strip_workspace_numbers yes
-          '';
-        }
+        # {
+        #   statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+        #   fonts = config.fonts;
+        #   trayOutput = originalConfig.my.trayOutput;
+        #   position = "top";
+        #   colors = {
+        #     background = originalConfig.my.theme.color1;
+        #     statusline = originalConfig.my.theme.color1;
+        #     separator = "#515151";
+        #     focusedWorkspace = {
+        #       border = originalConfig.my.theme.colorD;
+        #       background = originalConfig.my.theme.colorD;
+        #       text = originalConfig.my.theme.color0;
+        #     };
+        #     activeWorkspace = {
+        #       border = "#333333";
+        #       background = "#333333";
+        #       text = originalConfig.my.theme.colorF;
+        #     };
+        #     inactiveWorkspace = {
+        #       border = originalConfig.my.theme.color1;
+        #       background = originalConfig.my.theme.color1;
+        #       text = "#999999";
+        #     };
+        #     urgentWorkspace = {
+        #       border = originalConfig.my.theme.color8;
+        #       background = originalConfig.my.theme.color8;
+        #       text = originalConfig.my.theme.colorF;
+        #     };
+        #   };
+        #   extraConfig = ''
+        #     strip_workspace_numbers yes
+        #   '';
+        # }
       ];
       colors = {
         focused = {
