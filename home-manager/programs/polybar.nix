@@ -122,7 +122,7 @@ in
 
       "module/wlan" = {
         type = "internal/network";
-        interface = "wlp4s0";
+        interface = config.my.wirelessInterface;
         interval = 3;
         format-connected-margin = 2;
         format-connected-foreground = config.my.theme.color4;
@@ -138,7 +138,7 @@ in
 
       "module/eth" = {
         type = "internal/network";
-        interface = "enp5s0";
+        interface = config.my.wiredInterface;
         interval = 3;
 
         format-connected-prefix = " ";
