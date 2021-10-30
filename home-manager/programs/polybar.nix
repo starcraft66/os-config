@@ -35,11 +35,11 @@ in
         height = 42;
 
         # Set the width to 100% of screen - 40 pixels
-        width = "100%:-30";
+        width = "100%:-20";
         # Set an x offset of 40/2 = 20 pixels to center the bar
-        offset-x = 15;
+        offset-x = 10;
         # Set a y offset of 20 to make the bar have a fake gap at the top
-        offset-y = 10;
+        offset-y = 5;
 
         # Set a border
         border-size = 2;
