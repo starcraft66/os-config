@@ -507,6 +507,7 @@ in
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
       };
       gaps = {
+        top = 33;
         inner = 10;
       };
       modes = {
