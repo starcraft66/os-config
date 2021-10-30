@@ -48,17 +48,20 @@ in
         line-size = 5;
         line-color = config.my.theme.colorD;
 
-        radius = 16;
+        # radius = 16;
 
         tray-position = "right";
         tray-detached = false;
+        tray-maxsize = 24;
 
         background = config.my.theme.color0;
         foreground = config.my.theme.colorE;
 
         padding = 3;
         font-0 = "Noto Sans:size=10";
-        font-1 = "FontAwesome:pixelsize=10";
+        font-1 = "Font Awesome 5 Free Regular:pixelsize=10";
+        font-2 = "Font Awesome 5 Free Solid:pixelsize=10";
+        font-3 = "Font Awesome 5 Brands:pixelsize=10";
         monitor = config.my.rightMonitor;
 
         modules-left = "i3";
