@@ -71,6 +71,9 @@ in
         # Don't make i3 aware of the bar (requires more top gaps to compensate)
         override-redirect = "true";
 
+        # Switch i3 workspaces by scrolling on the entire bar
+        scroll-up = "#i3.prev";
+        scroll-down = "#i3.next";
 
         # HiDPI
         dpi = config.my.dpi;
