@@ -507,6 +507,10 @@ in
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
       };
+      gaps = {
+        inner = 10;
+        top = 35;
+      };
       modes = {
         resize = {
           "h" = "resize shrink width 10 px or 10 ppt";
