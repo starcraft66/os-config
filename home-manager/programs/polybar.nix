@@ -86,6 +86,11 @@ in
         # Don't make i3 aware of the bar (requires more top gaps to compensate)
         override-redirect = "true";
 
+        # Put polybar at the bottom of the stack (behind other windows)
+        # This is needed so that things like full screen apps, floating apps
+        # or i3-nagbar get rendered on top of polybar
+        wm-restack = "i3";
+
         # Switch i3 workspaces by scrolling on the entire bar
         scroll-up = "#i3.prev";
         scroll-down = "#i3.next";
