@@ -509,7 +509,6 @@ in
       };
       gaps = {
         inner = 10;
-        top = 35;
       };
       modes = {
         resize = {

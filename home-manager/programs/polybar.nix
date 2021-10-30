@@ -30,6 +30,21 @@ in
         margin-bottom = 0;
       };
 
+      "bar/spacer" = {
+        height = 42;
+
+        # Set the width to 100% of screen
+        width = "100%";
+
+        # Fully transparent
+        background = "#00000000";
+        foreground = "#00000000";
+
+        modules-center = "time";
+
+        # HiDPI
+        dpi = config.my.dpi;
+      };
       "bar/main" = {
         enable-ipc = "true";
         height = 42;
@@ -270,6 +285,7 @@ in
     script = ''
       for m in $(polybar --list-monitors | ${pkgs.coreutils}/bin/cut -d":" -f1); do
         PATH=$PATH:${pkgs.i3-gaps}/bin MONITOR=$m polybar --reload main &
+        PATH=$PATH:${pkgs.i3-gaps}/bin MONITOR=$m polybar --reload spacer &
       done
     '';
   };
