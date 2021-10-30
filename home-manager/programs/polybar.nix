@@ -236,55 +236,8 @@ in
         adapter = "ADP0";
         format-charging = "<animation-charging> <label-charging>";
         label-charging = "%percentage%% (%time%)";
-        # label-charging = "%percentage%%";
-        format-discharging = "<ramp-capacity> <label-discharging>";
-        # label-discharging = "%percentage%% (%time%)";
-        label-discharging = "%percentage%%";
-        format-full = "<label-full>";
-        label-charging-underline = config.my.theme.color3;
-        label-discharging-underline = config.my.theme.color3;
-
-        # format-charging-underline = config.my.theme.color0;
-        # format-discharging-underline = "#ffffff";
-        format-full-prefix = " ";
-        ramp-capacity-0 = "";
-        ramp-capacity-1 = "";
-        ramp-capacity-2 = "";
-        ramp-capacity-3 = "";
-        ramp-capacity-4 = "";
-
-        ramp-capacity-0-foreground = config.my.theme.color0;
-        ramp-capacity-foreground = config.my.theme.colorF;
-        bar-capacity-width = 10;
-
-        animation-charging-0 = "";
-        animation-charging-1 = "";
-        animation-charging-2 = "";
-        animation-charging-3 = "";
-        animation-charging-4 = "";
-
-        animation-charging-framerate = 750;
-
-        label-font = 1;
-      };
-      "module/battery2" = {
-        type = "internal/battery";
-        format-charging-margin = 2;
-        format-charging-foreground = config.my.theme.color2;
-        format-discharging-margin = 2;
-        format-discharging-foreground = config.my.theme.color1;
-        format-full-margin = 2;
-        format-full-foreground = config.my.theme.color3;
-        full-at = 99;
-        time-format = "%H:%M";
-        battery = "BAT1";
-        adapter = "ADP1";
-        format-charging = "<animation-charging> <label-charging>";
-        label-charging = "%percentage%% (%time%)";
-        # label-charging = "%percentage%%";
         format-discharging = "<ramp-capacity> <label-discharging>";
         label-discharging = "%percentage%% (%time%)";
-        # label-discharging = "%percentage%%";
         format-full = "<label-full>";
         label-charging-underline = config.my.theme.color3;
         label-discharging-underline = config.my.theme.color3;
