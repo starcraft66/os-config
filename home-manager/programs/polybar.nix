@@ -85,11 +85,18 @@ in
         enable-click = "true";
         reverse-scroll = "false";
 
-        label-active-underline = config.my.theme.color2;
-        label-occupied-underline = config.my.theme.color6;
-        label-empty-padding = 1;
-        label-active-padding = 1;
-        label-occupied-padding = 1;
+        label-focused-padding = 2;
+        label-visible-padding = 2;
+        label-unfocused-padding = 2;
+        label-urgent-padding = 2;
+
+        label-focused-underline = config.my.theme.color2;
+        label-visible-underline = config.my.theme.color6;
+        label-unfocused-underline = config.my.theme.color6;
+        label-urgent-underline = config.my.theme.color8;
+        # label-empty-padding = 1;
+        # label-active-padding = 1;
+        # label-occupied-padding = 1;
 
         # only show workspaces on the current monitor
         pin-workspaces = "true";
@@ -100,7 +107,7 @@ in
         interval = 2;
         format-prefix = " ";
         format-padding = 2;
-        format-foreground = config.my.theme.color2;
+        format-foreground = config.my.theme.color3;
         label = "%percentage%%";
       };
 
@@ -108,7 +115,7 @@ in
         type = "internal/memory";
         interval = 2;
         format-padding = 2;
-        format-prefix = " ";
+        format-prefix = " ";
         format-foreground = config.my.theme.color3;
         label = "%percentage_used%%";
       };
@@ -163,22 +170,20 @@ in
         headphone-id = 9;
         format-volume-padding = 2;
         format-muted-padding = 2;
-        label-volume-font = 3;
-        label-muted = " Muted";
-        label-muted-font = 3;
+        label-muted = " Mute";
         ramp-volume-0 = "";
         ramp-volume-1 = "";
         ramp-volume-2 = "";
 
         format-volume-margin = 2;
-        format-volume-foreground = config.my.theme.color6;
+        format-volume-foreground = config.my.theme.color3;
         format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
         use-ui-max = "false";
         interval = 5;
 
         label-muted-background = config.my.theme.color0;
-        label-muted-foreground = config.my.theme.color7;
+        label-muted-foreground = config.my.theme.color3;
       };
 
       "module/powermenu" = {
@@ -220,9 +225,9 @@ in
       "module/battery" = {
         type = "internal/battery";
         format-charging-margin = 2;
-        format-charging-foreground = config.my.theme.color2;
+        format-charging-foreground = config.my.theme.color3;
         format-discharging-margin = 2;
-        format-discharging-foreground = config.my.theme.color1;
+        format-discharging-foreground = config.my.theme.colorE;
         format-full-margin = 2;
         format-full-foreground = config.my.theme.color3;
         full-at = 99;
@@ -287,21 +292,21 @@ in
         # format-charging-underline = config.my.theme.color0;
         # format-discharging-underline = "#ffffff";
         format-full-prefix = " ";
-        ramp-capacity-0 = "";
-        ramp-capacity-1 = "";
-        ramp-capacity-2 = "";
-        ramp-capacity-3 = "";
-        ramp-capacity-4 = "";
+        ramp-capacity-0 = "";
+        ramp-capacity-1 = "";
+        ramp-capacity-2 = "";
+        ramp-capacity-3 = "";
+        ramp-capacity-4 = "";
 
         ramp-capacity-0-foreground = config.my.theme.color0;
         ramp-capacity-foreground = config.my.theme.colorF;
         bar-capacity-width = 10;
 
-        animation-charging-0 = "";
-        animation-charging-1 = "";
-        animation-charging-2 = "";
-        animation-charging-3 = "";
-        animation-charging-4 = "";
+        animation-charging-0 = "";
+        animation-charging-1 = "";
+        animation-charging-2 = "";
+        animation-charging-3 = "";
+        animation-charging-4 = "";
 
         animation-charging-framerate = 750;
 
