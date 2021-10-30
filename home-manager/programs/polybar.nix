@@ -63,6 +63,7 @@ in
         line-size = 5;
         line-color = config.my.theme.colorD;
 
+        # Radius disabled because the systray ignores it and it looks bad
         # radius = 16;
 
         tray-position = "right";
@@ -83,7 +84,9 @@ in
         modules-center = "time";
         modules-right = "cpu memory pulseaudio wlan eth battery";
 
-        # Don't make i3 aware of the bar (requires more top gaps to compensate)
+        # Don't make i3 aware of the bar (requires fake transparent spacer bar)
+        # This is required or else the x offset is ignored and the left side of the
+        # bar is stuck to the side of the monitor, ruining the floating effect
         override-redirect = "true";
 
         # Put polybar at the bottom of the stack (behind other windows)
