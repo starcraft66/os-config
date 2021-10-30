@@ -460,6 +460,7 @@
       config.my.trayOutput = "DP-4";
       config.my.leftMonitor = "DP-2";
       config.my.rightMonitor = "DP-4";
+      config.my.wiredInterface = "enp5s0";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

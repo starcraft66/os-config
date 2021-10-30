@@ -182,6 +182,8 @@
       config.my.trayOutput = "eDP-1";
       config.my.leftMonitor = "eDP-1";
       config.my.rightMonitor = "eDP-1";
+      config.my.wiredInterface = "enp0s31f6";
+      config.my.wirelessInterface = "wlp4s0";
     };
     useUserPackages = true;
     useGlobalPkgs = true;

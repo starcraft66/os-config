@@ -88,6 +88,18 @@
     type = lib.types.str;
   };
 
+  options.my.wiredInterface = lib.mkOption {
+    description = "Wired network interface name";
+    default = "eno1";
+    type = lib.types.str;
+  };
+
+  options.my.wirelessInterface = lib.mkOption {
+    description = "Wireless network interface name";
+    default = "";
+    type = lib.types.str;
+  };
+
   options.my.theme = lib.mkOption {
     description = "Color theme";
     default = {
