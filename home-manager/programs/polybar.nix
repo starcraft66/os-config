@@ -69,7 +69,8 @@ in
         modules-right = "cpu memory pulseaudio wlan eth battery";
 
         # Don't make i3 aware of the bar (requires more top gaps to compensate)
-        # override-redirect = "true";
+        override-redirect = "true";
+
 
         # HiDPI
         dpi = config.my.dpi;
