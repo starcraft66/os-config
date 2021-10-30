@@ -419,7 +419,6 @@ in
       menu = "${pkgs.rofi}/bin/rofi -show run";
       startup = [
         { command = "pkill xsecurelock; ${pkgs.xss-lock}/bin/xss-lock ${pkgs.coreutils}/bin/env XSECURELOCK_PASSWORD_PROMPT=time_hex XSECURELOCK_NO_COMPOSITE=1 XSECURELOCK_BLANK_DPMS_STATE=off XSECURELOCK_BLANK_TIMEOUT=30 ${pkgs.xsecurelock}/bin/xsecurelock"; notification = false; }
-        { command = "pkill flameshot; ${pkgs.flameshot}/bin/flameshot"; notification = false; }
         { command = "pkill discord; ${pkgs.discord}/bin/discord"; notification = false; }
         { command = "pkill element-desktop; ${pkgs.element-desktop}/bin/element-desktop"; notification = false; }
         { command = "pkill signal-desktop; ${pkgs.signal-desktop}/bin/signal-desktop"; notification = false; }

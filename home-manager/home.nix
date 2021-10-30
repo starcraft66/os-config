@@ -6,6 +6,7 @@
     ./programs/direnv.nix
     ./programs/doom-emacs.nix
     ./programs/dunst.nix
+    ./programs/flameshot.nix
     ./programs/fzf.nix
     ./programs/git.nix
     ./programs/gpg.nix
