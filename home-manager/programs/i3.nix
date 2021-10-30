@@ -425,8 +425,8 @@ in
         { command = "pkill signal-desktop; ${pkgs.signal-desktop}/bin/signal-desktop"; notification = false; }
         { command = "pkill spotify; ${pkgs.spotify}/bin/spotify"; notification = false; }
         # Not doom-emacs but it will connect to the doom server so it should be fine
-        { command = "pkill emacsclient; ${pkgs.emacs}/bin/emacsclient -c"; notification = false; }
-        { command = "pkill firefox; ${pkgs.firefox}/bin/firefox"; notification = false; }
+        { command = "pkill emacsclient; sleep 5; ${pkgs.emacs}/bin/emacsclient -c"; notification = false; }
+        { command = "pkill firefox; sleep 10; ${pkgs.firefox}/bin/firefox"; notification = false; }
       ] ++ lib.optional (originalConfig.my.ckb)
         { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
       keybindings = let mod = config.modifier; in {
