@@ -267,6 +267,10 @@ in
       };
     };
 
-    script = "";
+    script = ''
+      for m in $(polybar --list-monitors | ${pkgs.coreutils}/bin/cut -d":" -f1); do
+        PATH=$PATH:${pkgs.i3-gaps}/bin MONITOR=$m polybar --reload main &
+      done
+    '';
   };
 })
