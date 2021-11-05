@@ -28,17 +28,17 @@ in
       # https://github.com/chriskempson/base16-shell/blob/master/scripts/base16-tomorrow-night.sh
       background = config.my.theme.color0;
       foreground = config.my.theme.color5;
-      selection_background = config.my.theme.color7;
+      selection_background = config.my.theme.color5;
       selection_foreground = config.my.theme.color0;
-      url_color = config.my.theme.colorC;
+      url_color = config.my.theme.color4;
       cursor = config.my.theme.color5;
-      active_border_color = config.my.theme.color8;
-      inactive_border_color = config.my.theme.colorA;
-      active_tab_background = config.my.theme.colorC;
-      active_tab_foreground = config.my.theme.color7;
-      inactive_tab_background = config.my.theme.color8;
-      inactive_tab_foreground = config.my.theme.color7;
-      tab_bar_background = config.my.theme.colorA;
+      active_border_color = config.my.theme.color3;
+      inactive_border_color = config.my.theme.color1;
+      active_tab_background = config.my.theme.color0;
+      active_tab_foreground = config.my.theme.color5;
+      inactive_tab_background = config.my.theme.color1;
+      inactive_tab_foreground = config.my.theme.color4;
+      tab_bar_background = config.my.theme.color1;
 
       # normal
       color0 = config.my.theme.color0;
@@ -59,12 +59,6 @@ in
       color13 = config.my.theme.colorE;
       color14 = config.my.theme.colorC;
       color15 = config.my.theme.color7;
-      color16 = config.my.theme.color9;
-      color17 = config.my.theme.colorF;
-      color18 = config.my.theme.color1;
-      color19 = config.my.theme.color2;
-      color20 = config.my.theme.color4;
-      color21 = config.my.theme.color6;
     };
   };
 }
