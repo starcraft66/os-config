@@ -17,6 +17,12 @@
     matchBlocks."*.tzone.org *.ga-safety.net *.wi-flight.net *.tdude.co" = {
       forwardAgent = true;
     };
+    matchBlocks."ssh.dev.azure.com" = {
+      extraOptions = {
+        HostKeyAlgorithms = "+ssh-rsa";
+        PubkeyAcceptedKeyTypes = "+ssh-rsa";
+      };
+    };
   };
 }
 
