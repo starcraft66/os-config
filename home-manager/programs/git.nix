@@ -12,6 +12,7 @@
     };
 
     extraConfig = {
+      core.sshCommand = "${pkgs.openssh}/bin/ssh";
       pull.ff = "only";
       push.default = "current";
       merge.tool = "vimdiff";
