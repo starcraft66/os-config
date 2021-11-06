@@ -289,22 +289,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-emilazy-libiconv-fix": {
-      "locked": {
-        "lastModified": 1632864786,
-        "narHash": "sha256-gwtdCdQqGl+iAnh8rS5eS6jOVKZsUiYxGlGV/ME4jcM=",
-        "owner": "emilazy",
-        "repo": "nixpkgs",
-        "rev": "577cd7432625092dbe3cc2bb78e1b7a3f5c34d59",
-        "type": "github"
-      },
-      "original": {
-        "owner": "emilazy",
-        "ref": "libxml2-libiconv-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1635934775,
@@ -443,7 +427,6 @@
         "nixos": "nixos",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-emilazy-libiconv-fix": "nixpkgs-emilazy-libiconv-fix",
         "sops-nix": "sops-nix"
       }
     },
