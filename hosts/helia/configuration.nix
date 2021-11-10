@@ -71,7 +71,7 @@
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils
     alacritty neofetch spotify vscode glib minecraft
-    roboto font-awesome unzip traceroute signal-desktop iperf ethtool
+    roboto unzip traceroute signal-desktop iperf ethtool
     ncdu gwenview flameshot wine-staging winetricks-staging
     breeze-gtk breeze-qt5 gnome.nautilus discord
   ];
@@ -146,6 +146,7 @@
     nerdfonts
     noto-fonts
     emacs-all-the-icons-fonts
+    font-awesome
   ];
 
   programs.gnupg.agent = {

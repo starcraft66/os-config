@@ -58,6 +58,7 @@
     fonts = with pkgs; [
       nerdfonts
       noto-fonts
+      font-awesome
       emacs-all-the-icons-fonts
     ];
   };
@@ -173,7 +174,6 @@
     vscode
     minecraft
     roboto
-    font-awesome
     unzip
     traceroute
     inetutils
