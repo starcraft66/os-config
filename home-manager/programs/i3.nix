@@ -15,49 +15,6 @@ in
 (lib.mkIf isLinux {
   home.file.".background-image".source = ../../wallpapers/wallpaper_20211110.jpg;
 
-  programs.i3status-rust = {
-    enable = false;
-    bars = {
-      default = {
-        blocks = [
-          {
-            block = "disk_space";
-            path = "/";
-            alias = "/";
-            info_type = "available";
-            unit = "GB";
-            interval = 60;
-            warning = 20.0;
-            alert = 10.0;
-          }
-          {
-            block = "memory";
-            display_type = "memory";
-            format_mem = "{mem_used_percents}";
-            format_swap = "{swap_used_percents}";
-          }
-          {
-            block = "cpu";
-            interval = 1;
-          }
-          {
-            block = "load";
-            interval = 1;
-            format = "{1m}";
-          }
-          { block = "sound"; }
-          {
-            block = "time";
-            interval = 1;
-            format = "%a %d/%m %R";
-          }
-        ];
-        icons = "none";
-        theme = "space-villain";
-      };
-    };
-  };
-
   home.packages = with pkgs; [
     tint2
     xss-lock
@@ -346,40 +303,6 @@ in
     config = {
       modifier = "Mod4";
       bars = [
-        # {
-        #   statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
-        #   fonts = config.fonts;
-        #   trayOutput = originalConfig.my.trayOutput;
-        #   position = "top";
-        #   colors = {
-        #     background = originalConfig.my.theme.color1;
-        #     statusline = originalConfig.my.theme.color1;
-        #     separator = "#515151";
-        #     focusedWorkspace = {
-        #       border = originalConfig.my.theme.colorD;
-        #       background = originalConfig.my.theme.colorD;
-        #       text = originalConfig.my.theme.color0;
-        #     };
-        #     activeWorkspace = {
-        #       border = "#333333";
-        #       background = "#333333";
-        #       text = originalConfig.my.theme.colorF;
-        #     };
-        #     inactiveWorkspace = {
-        #       border = originalConfig.my.theme.color1;
-        #       background = originalConfig.my.theme.color1;
-        #       text = "#999999";
-        #     };
-        #     urgentWorkspace = {
-        #       border = originalConfig.my.theme.color8;
-        #       background = originalConfig.my.theme.color8;
-        #       text = originalConfig.my.theme.colorF;
-        #     };
-        #   };
-        #   extraConfig = ''
-        #     strip_workspace_numbers yes
-        #   '';
-        # }
       ];
       colors = {
         focused = {
