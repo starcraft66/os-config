@@ -33,8 +33,8 @@
     nix.configureBuildUsers = true;
   };
 
-  home-manager = { config, osConfig, ... }: {
-    users."tristan.gosselin-hane" = {
+  home-manager = {
+    users."tristan.gosselin-hane" = { config, osConfig, ... }: {
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 18;
