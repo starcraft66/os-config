@@ -60,8 +60,8 @@ in
         border-size = 2;
         border-color = config.my.theme.color2;
 
-        line-size = 5;
-        line-color = config.my.theme.colorD;
+        # Completely disable underlines
+        line-size = 0;
 
         # Radius disabled because the systray ignores it and it looks bad
         # radius = 16;
@@ -74,10 +74,16 @@ in
         foreground = config.my.theme.colorE;
 
         padding = 3;
-        font-0 = "Noto Sans:size=10";
-        font-1 = "Font Awesome 5 Free Regular:pixelsize=10";
-        font-2 = "Font Awesome 5 Free Solid:pixelsize=10";
-        font-3 = "Font Awesome 5 Brands:pixelsize=10";
+
+        # font-N = <fontconfig pattern>;<vertical offset>
+        # The vertical offset is very important because polybar
+        # renders the font too high which makes it look like there
+        # is padding/margin at the bottom of the bar. We need a y
+        # offset to make the text render lower, a.k.a. "centered"
+        font-0 = "Noto Sans:size=10;3";
+        font-1 = "Font Awesome 5 Free Regular:pixelsize=10;3";
+        font-2 = "Font Awesome 5 Free Solid:pixelsize=10;3";
+        font-3 = "Font Awesome 5 Brands:pixelsize=10;3";
         monitor = "\${env:MONITOR}";
 
         modules-left = "i3";
