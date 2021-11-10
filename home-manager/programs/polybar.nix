@@ -50,9 +50,9 @@ in
         height = 42;
 
         # Set the width to 100% of screen - 40 pixels
-        width = "100%:-20";
+        width = "100%:-28";
         # Set an x offset of 40/2 = 20 pixels to center the bar
-        offset-x = 10;
+        offset-x = 14;
         # Set a y offset of 20 to make the bar have a fake gap at the top
         offset-y = 5;
 
@@ -78,7 +78,7 @@ in
         font-1 = "Font Awesome 5 Free Regular:pixelsize=10";
         font-2 = "Font Awesome 5 Free Solid:pixelsize=10";
         font-3 = "Font Awesome 5 Brands:pixelsize=10";
-        monitor = config.my.rightMonitor;
+        monitor = "\${env:MONITOR}";
 
         modules-left = "i3";
         modules-center = "time";
