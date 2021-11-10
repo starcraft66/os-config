@@ -122,10 +122,10 @@ in
         label-unfocused-padding = 2;
         label-urgent-padding = 2;
 
-        label-focused-underline = config.my.theme.color2;
-        label-visible-underline = config.my.theme.color6;
-        label-unfocused-underline = config.my.theme.color6;
-        label-urgent-underline = config.my.theme.color8;
+        label-focused-background = config.my.theme.color2;
+        label-visible-background = config.my.theme.color2;
+        label-unfocused-background = config.my.theme.color0;
+        label-urgent-background = config.my.theme.colorA;
         # label-empty-padding = 1;
         # label-active-padding = 1;
         # label-occupied-padding = 1;
@@ -179,7 +179,6 @@ in
 
         format-disconnected = "";
         # ;format-disconnected = <label-disconnected>
-        # ;format-disconnected-underline = ${self.format-connected-underline}
         # ;label-disconnected = %ifname% disconnected
         # ;label-disconnected-color1 = ${colors.color1-alt}
       };
@@ -271,11 +270,6 @@ in
         format-discharging = "<ramp-capacity> <label-discharging>";
         label-discharging = "%percentage%% (%time%)";
         format-full = "<label-full>";
-        label-charging-underline = config.my.theme.color3;
-        label-discharging-underline = config.my.theme.color3;
-
-        # format-charging-underline = config.my.theme.color0;
-        # format-discharging-underline = "#ffffff";
         format-full-prefix = " ";
         ramp-capacity-0 = "";
         ramp-capacity-1 = "";
