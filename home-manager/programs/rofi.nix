@@ -71,17 +71,17 @@ in
 
     /* global settings and color variables */
     * {
-      maincolor:        #ed8712;
-      highlight:        bold #ed8712;
-      urgentcolor:      #e53714;
+      maincolor:        ${config.my.theme.colorE};
+      highlight:        bold ${config.my.theme.colorE};
+      urgentcolor:      ${config.my.theme.colorF};
 
-      fgwhite:          #cfcfcf;
-      blackdarkest:     #1d1d1d;
-      blackwidget:      #262626;
-      blackentry:       #292929;
-      blackselect:      #303030;
-      darkgray:         #848484;
-      scrollbarcolor:   #505050;
+      fgwhite:          ${config.my.theme.color7};
+      blackdarkest:     ${config.my.theme.color0};
+      blackwidget:      ${config.my.theme.color1};
+      blackentry:       ${config.my.theme.color1};
+      blackselect:      ${config.my.theme.color2};
+      darkgray:         ${config.my.theme.color3};
+      scrollbarcolor:   ${config.my.theme.color4};
       font: "MesloLGS Nerd Font Mono 10";
       background-color: @blackdarkest;
     }
