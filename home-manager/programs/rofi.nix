@@ -10,42 +10,6 @@ in
     enable = true;
     font = "MesloLGS Nerd Font Mono 10";
     theme = "${config.xdg.configHome}/rofi/flat-orange.rasi";
-    # colors = {
-    #   window = {
-    #     background = originalConfig.my.theme.color1;
-    #     border = originalConfig.my.theme.color1;
-    #     separator = originalConfig.my.theme.color0;
-    #   };
-    #   rows = {
-    #     normal = {
-    #       background = originalConfig.my.theme.color1;
-    #       foreground = originalConfig.my.theme.color5;
-    #       backgroundAlt = originalConfig.my.theme.color1;
-    #       highlight = {
-    #         background = originalConfig.my.theme.color1;
-    #         foreground = originalConfig.my.theme.color7;
-    #       };
-    #     };
-    #     active = {
-    #       background = originalConfig.my.theme.color1;
-    #       foreground = originalConfig.my.theme.colorD;
-    #       backgroundAlt = originalConfig.my.theme.color1;
-    #       highlight = {
-    #         background = originalConfig.my.theme.color1;
-    #         foreground = originalConfig.my.theme.colorD;
-    #       };
-    #     };
-    #     urgent = {
-    #       background = originalConfig.my.theme.color1;
-    #       foreground = originalConfig.my.theme.color8;
-    #       backgroundAlt = originalConfig.my.theme.color1;
-    #       highlight = {
-    #         background = originalConfig.my.theme.color1;
-    #         foreground = originalConfig.my.theme.color8;
-    #       };
-    #     };
-    #   };
-    # };
     extraConfig = {
       dpi = 0;
     };
