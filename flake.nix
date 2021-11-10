@@ -120,7 +120,7 @@
           ./hosts/nightmaremoon/darwin-configuration.nix
         ];
         specialArgs = {
-          pkgs = nixpkgsFor.aarch64-darwin inputs.nixpkgs;
+          pkgs = nixpkgsFor.x86_64-darwin inputs.nixpkgs;
           inputs = inputs // { darwin = inputs.nix-darwin; };
         };
       };
