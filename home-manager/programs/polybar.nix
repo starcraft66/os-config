@@ -146,7 +146,7 @@ in
         interval = 2;
         format-prefix = " ";
         format-padding = 2;
-        format-foreground = config.my.theme.color3;
+        format-foreground = config.my.theme.colorE;
         label = "%percentage%%";
       };
 
@@ -155,7 +155,7 @@ in
         interval = 2;
         format-padding = 2;
         format-prefix = " ";
-        format-foreground = config.my.theme.color3;
+        format-foreground = config.my.theme.colorE;
         label = "%percentage_used%%";
       };
 
@@ -164,14 +164,14 @@ in
         interface = config.my.wirelessInterface;
         interval = 3;
         format-connected-margin = 2;
-        format-connected-foreground = config.my.theme.color4;
+        format-connected-foreground = config.my.theme.colorB;
 
         format-connected = " <label-connected>";
         label-connected = "%essid%";
 
         format-disconnected = "<label-disconnected>";
         format-disconnected-margin = "2";
-        format-disconnected-foreground = config.my.theme.color5;
+        format-disconnected-foreground = config.my.theme.colorF;
         label-disconnected = "%ifname% disconnected";
       };
 
@@ -181,7 +181,7 @@ in
         interval = 3;
 
         format-connected-prefix = " ";
-        format-connected-prefix-color1 = config.my.theme.color1;
+        format-connected-prefix-foreground = config.my.theme.colorB;
         label-connected = "%local_ip%";
 
         format-disconnected = "";
@@ -223,7 +223,7 @@ in
         ramp-volume-2 = "";
 
         format-volume-margin = 2;
-        format-volume-foreground = config.my.theme.color3;
+        format-volume-foreground = config.my.theme.colorE;
         format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
         use-ui-max = "false";
