@@ -84,6 +84,9 @@ in
         font-1 = "Font Awesome 5 Free Regular:pixelsize=10;3";
         font-2 = "Font Awesome 5 Free Solid:pixelsize=10;3";
         font-3 = "Font Awesome 5 Brands:pixelsize=10;3";
+
+        # Read the MONITOR env variable set by the start script
+        # to start the same bar on different monitors.
         monitor = "\${env:MONITOR}";
 
         modules-left = "i3";
