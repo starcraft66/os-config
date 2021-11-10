@@ -413,7 +413,6 @@
   # services.xserver.libinput.enable = true;
 
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.wallpaper.combineScreens = true;
 
   services.xserver.windowManager.i3 = {
     enable = true;

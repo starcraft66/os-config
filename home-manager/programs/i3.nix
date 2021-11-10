@@ -13,6 +13,8 @@ let
   };
 in
 (lib.mkIf isLinux {
+  home.file.".background-image".source = ../../wallpapers/wallpaper_20211110.jpg;
+
   programs.i3status-rust = {
     enable = false;
     bars = {
