@@ -91,6 +91,7 @@ in
       anchor: north;
       location: north;
       y-offset: 20%;
+      width: 25%;
     }
 
     mainbox {
