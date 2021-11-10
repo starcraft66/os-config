@@ -7,6 +7,10 @@ lib.mkMerge [
     home.packages = with pkgs; [
       nodePackages.pyright
       yaml-language-server
+      terraform-ls
+      rust-analyzer
+      elixir_ls
+      erlang-ls
     ];
 
     programs.doom-emacs = {
