@@ -127,9 +127,15 @@ in
         label-visible-background = config.my.theme.color2;
         label-unfocused-background = config.my.theme.color0;
         label-urgent-background = config.my.theme.colorA;
-        # label-empty-padding = 1;
-        # label-active-padding = 1;
-        # label-occupied-padding = 1;
+
+        # https://github.com/polybar/polybar/issues/847
+        # >This is because the default label for the workspaces is %icon% %name%,
+        # and because you did not define the icons, the label now has an extra
+        # space on the left. You can solve this by setting following in your i3 module:
+        label-focused = "%name%";
+        label-unfocused = "%name%";
+        label-visible = "%name%";
+        label-urgent = "%name%";
 
         # only show workspaces on the current monitor
         pin-workspaces = "true";
