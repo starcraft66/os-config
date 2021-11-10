@@ -81,9 +81,10 @@ in
         # is padding/margin at the bottom of the bar. We need a y
         # offset to make the text render lower, a.k.a. "centered"
         font-0 = "Noto Sans:size=10;3";
-        font-1 = "Font Awesome 5 Free Regular:pixelsize=10;3";
-        font-2 = "Font Awesome 5 Free Solid:pixelsize=10;3";
-        font-3 = "Font Awesome 5 Brands:pixelsize=10;3";
+        font-1 = "Noto Sans:size=10:style=Bold;3";
+        font-2 = "Font Awesome 5 Free Regular:pixelsize=10;3";
+        font-3 = "Font Awesome 5 Free Solid:pixelsize=10;3";
+        font-4 = "Font Awesome 5 Brands:pixelsize=10;3";
 
         # Read the MONITOR env variable set by the start script
         # to start the same bar on different monitors.
@@ -193,6 +194,15 @@ in
 
         label = "%date%, %time%";
         label-padding = 2;
+
+        # Bold font for date
+        #
+        # From: https://gitlab.com/polybar/polybar/-/wikis/Fonts#fonts
+        # >NOTE: The -font property is a 1-based index of available fonts (which means that 1 is the first font).
+        # Quite possibly the stupidest shit I've ever read in this project's docs
+        # who in their right mind thought this wouldn't cause a headache?
+        # This font is defined as font-1 but we actually need to say font = 2 here
+        label-font = 2;
       };
 
       "module/pulseaudio" = {
