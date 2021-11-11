@@ -454,7 +454,7 @@
       config.my.dpi = 144;
       config.my.cursorDpi = 48;
       config.my.vsync = false;
-      config.my.picomBackend = "glx";
+      config.my.picomBackend = "xrender";
       config.my.trayOutput = "DP-4";
       config.my.leftMonitor = "DP-2";
       config.my.rightMonitor = "DP-4";
