@@ -65,14 +65,13 @@
   environment.systemPackages = with pkgs;
   let
     wine-staging = wineWowPackages.staging;
-    winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils
     alacritty neofetch spotify vscode glib minecraft
     roboto unzip traceroute signal-desktop iperf ethtool
-    ncdu gwenview flameshot wine-staging winetricks-staging
+    ncdu gwenview flameshot wine-staging winetricks
     breeze-gtk breeze-qt5 gnome.nautilus discord
   ];
 

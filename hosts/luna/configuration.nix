@@ -158,7 +158,6 @@
     ];
     python-with-my-packages = python39.withPackages my-python-packages;
     wine-staging = wineWowPackages.staging;
-    winetricks-staging = winetricks.override { wine = wine-staging; };
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
     breeze-gtk
@@ -206,7 +205,7 @@
     podman-compose
     bind
     wine-staging
-    winetricks-staging
+    winetricks
     zoom-us
     jdk11
     jetbrains.idea-ultimate
