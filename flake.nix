@@ -1,6 +1,7 @@
 {
   inputs = {
-    home-manager.url = "github:nix-community/home-manager/master";
+    # Until https://nixpk.gs/pr-tracker.html?pr=145236 hits unstable
+    home-manager.url = "github:nix-community/home-manager/2917ef23b398a22ee33fb34b5766b28728228ab1";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
