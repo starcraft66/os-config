@@ -55,7 +55,19 @@
     brewPrefix = "/opt/homebrew/bin";
     brews = [
     ];
+    cleanup = "zap";
+    taps = [
+      "homebrew/cask"
+    ];
     casks = [
+      "burp-suite"
+      "cyberduck"
+      "db-browser-for-sqlite"
+      "dosbox"
+      "mixxx"
+      "raycast"
+      "vlc"
+      "wireshark"
       "discord"
       "spotify"
       "insomnia"
