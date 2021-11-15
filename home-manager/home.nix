@@ -10,6 +10,7 @@
     ./programs/flameshot.nix
     ./programs/fzf.nix
     ./programs/git.nix
+    ./programs/github.nix
     ./programs/gpg.nix
     ./programs/gtk.nix
     ./programs/i3.nix
