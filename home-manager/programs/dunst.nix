@@ -58,7 +58,7 @@ in
         corner_radius = 2;
         height = "150";
         width = "350";
-        offet = "0x60";
+        offset = "0x60";
         ellipsize = "end";
       };
       shortcuts = {
