@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: overlayInput
+# expand-env: ((yas-indent-line 'auto) (yas-also-auto-indent-first-line 't))
+# --
+(self: super: {
+  inherit ($1) $2;
+})

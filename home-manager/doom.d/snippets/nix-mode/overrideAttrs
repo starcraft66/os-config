@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: overrideAttrs
+# expand-env: ((yas-indent-line 'auto) (yas-also-auto-indent-first-line 't))
+# --
+(self: super: {
+  $1 = super.$1.overrideAttrs (oldAttrs: {
+    $2
+  });
+})
