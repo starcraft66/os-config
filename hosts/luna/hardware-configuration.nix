@@ -51,6 +51,9 @@
   # hardware.nvidia.vgpu.enable = true; # Enable NVIDIA KVM vGPU + GRID driver
   # hardware.nvidia.vgpu.unlock.enable = true; # Unlock vGPU functionality on consumer cards using DualCoder/vgpu_unlock project.
 
+  # Enable nvidia modesetting
+  hardware.nvidia.modesetting.enable = true;
+
   # My usb sound card is 44100Hz
   # This fixes crackling when adjusting playback volume on youtube
   hardware.pulseaudio.daemon.config = {
