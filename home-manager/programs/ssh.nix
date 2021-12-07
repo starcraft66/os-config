@@ -8,6 +8,8 @@
       port = 22;
       extraOptions = {
         KexAlgorithms = "+diffie-hellman-group1-sha1";
+        HostKeyAlgorithms = "+ssh-rsa";
+        PubkeyAcceptedKeyTypes = "+ssh-rsa";
       };
     };
     matchBlocks.bunker = {
