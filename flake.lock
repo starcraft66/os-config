@@ -35,11 +35,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1638379720,
-        "narHash": "sha256-+OOx4l0do49ys0Sw/99J1BGhfDRjPMFuLFUFyyYTQ4s=",
+        "lastModified": 1639046940,
+        "narHash": "sha256-nel+YmvqLWsmtTIU5gWbKLmExMEJt6YcORwDxbRgh3c=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "a8af228f71353b6cc218c7b4e205c81212d5e0ef",
+        "rev": "9578b9dbce95d9077c2c9b4e06391985670b059c",
         "type": "github"
       },
       "original": {
@@ -199,7 +199,9 @@
         "explain-pause-mode": "explain-pause-mode",
         "flake-utils": "flake-utils",
         "nix-straight": "nix-straight",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "nose": "nose",
         "ob-racket": "ob-racket",
         "org": "org",
@@ -287,21 +289,6 @@
       }
     },
     "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1638397275,
-        "narHash": "sha256-2Jos1CJFTMO9IbulbM4PTKn24nISIDQCAG/AqYQ8rmg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "391f93a83c3a486475d60eb4a569bb6afbf306ad",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
       "locked": {
         "lastModified": 1638910453,
         "narHash": "sha256-fofA4tsAAdNgE+9Py0VsVbyX2ZQkgV+CVqQKGBA/dLE=",
@@ -438,7 +425,7 @@
         "nix-doom-emacs": "nix-doom-emacs",
         "nixos": "nixos",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix"
       }
     },
