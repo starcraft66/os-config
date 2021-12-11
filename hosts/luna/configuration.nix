@@ -37,7 +37,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp5s0.useDHCP = true;
+  networking.interfaces.enp4s0.useDHCP = true;
   networking.wireguard.enable = true;
   services.lldpd.enable = true;
 
@@ -458,7 +458,7 @@
       config.my.trayOutput = "DP-4";
       config.my.leftMonitor = "DP-2";
       config.my.rightMonitor = "DP-4";
-      config.my.wiredInterface = "enp5s0";
+      config.my.wiredInterface = "enp4s0";
     };
     useUserPackages = true;
     useGlobalPkgs = true;
