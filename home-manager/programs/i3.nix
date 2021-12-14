@@ -23,6 +23,7 @@ in
   services.picom = {
     enable = true;
     shadow = true;
+    experimentalBackends = true;
     backend = config.my.picomBackend;
     vSync = config.my.vsync;
     extraOptions = lib.mkIf (builtins.elem "nvidia" osConfig.services.xserver.videoDrivers) ''
