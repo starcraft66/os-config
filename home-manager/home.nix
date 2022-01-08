@@ -21,6 +21,7 @@
     ./programs/polybar.nix
     ./programs/ssh.nix
     ./programs/starship.nix
+    ./programs/qt.nix
     ./programs/rofi.nix
     ./programs/tmux.nix
     ./programs/udiskie.nix

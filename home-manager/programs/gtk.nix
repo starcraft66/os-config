@@ -5,18 +5,15 @@ in (lib.mkIf isLinux {
   gtk = {
     enable = true;
     iconTheme = {
-      name = "breeze-dark";
+      name = "Breeze-Dark";
     };
     theme = {
-      name = "breeze-dark";
-      package = pkgs.plasma5Packages.breeze-qt5;
+      name = "Breeze-Dark";
+      package = pkgs.plasma5Packages.breeze-gtk;
     };
     gtk2.extraConfig = ''
-      gtk-theme-name="breeze-dark"
-      gtk-icon-name="breeze-dark"
+      gtk-icon-name="Breeze-Dark"
       gtk-font-name="Noto Sans,  10"
-      gtk-cursor-theme-name="breeze_cursors"
-      gtk-cursor-theme-size="${toString config.my.cursorDpi}"
     '';
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
@@ -25,7 +22,7 @@ in (lib.mkIf isLinux {
       "gtk-enable-animations" = 1;
       "gtk-fallback-icon-theme" = "breeze";
       "gtk-font-name" = "Noto Sans,  10";
-      "gtk-icon-theme-name" = "breeze-dark";
+      "gtk-icon-theme-name" = "Breeze-Dark";
       "gtk-menu-images" = 1;
       "gtk-primary-button-warps-slider" = 0;
       "gtk-theme-name" = "Breeze-Dark";
