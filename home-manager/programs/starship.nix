@@ -38,8 +38,9 @@
         disabled = true;
       };
 
+      # screws up the prompt in kitty
       nix_shell = {
-        disabled = false;
+        disabled = true;
         format = "[$symbol]($style)";
         impure_msg = "";
         pure_msg = "";
