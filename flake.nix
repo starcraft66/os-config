@@ -44,6 +44,7 @@
             '';
           });
 
+          # Until https://github.com/NixOS/nixpkgs/pull/153999 is merged
           kitty = super.kitty.overrideAttrs (oldAttrs: {
             CFLAGS = "-Wno-deprecated";
           });
