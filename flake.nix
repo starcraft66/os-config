@@ -36,6 +36,14 @@
           # For libs, I will use pkgsX86 defined below.
           # inherit (nixpkgsX86darwin) kitty;
 
+          # Until https://github.com/NixOS/nixpkgs/issues/153304 is resolved
+          alacritty = super.alacritty.overrideAttrs (oldAttrs: {
+            postPatch = oldAttrs.postPatch + ''
+              substituteInPlace Cargo.toml \
+                --replace "lto = true" "lto = false"
+            '';
+          });
+
           kitty = super.kitty.overrideAttrs (oldAttrs: {
             CFLAGS = "-Wno-deprecated";
           });
