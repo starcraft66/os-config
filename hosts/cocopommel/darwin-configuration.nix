@@ -70,6 +70,7 @@
       "wireshark"
       "discord"
       "spotify"
+      "slack"
       "insomnia"
       "kitty"
       "openmtp"
