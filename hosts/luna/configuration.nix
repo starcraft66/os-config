@@ -31,7 +31,7 @@
       options = "--delete-older-than 30d";
     };
     settings = {
-      autoOptimiseStore = true;
+      auto-optimise-store = true;
     };
   };
 

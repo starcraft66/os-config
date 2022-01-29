@@ -43,7 +43,7 @@
     [ { device = "/dev/disk/by-uuid/4db3a053-e37b-4337-8c9c-cb77c1d63bcb"; }
     ];
 
-  nix.settings.maxJobs = lib.mkDefault 12;
+  nix.settings.max-jobs = lib.mkDefault 12;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.ckb-next.enable = true;
 
