@@ -166,11 +166,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1643492475,
-        "narHash": "sha256-EAGzD4Lf2L/XYP9EZSOVZRvRbiVnC5YbIADfpOWcML8=",
+        "lastModified": 1643494015,
+        "narHash": "sha256-7NTn87YRQni9Rsn2NIgXrnm+HcW3WyeRHkX5iAeiWgM=",
         "owner": "starcraft66",
         "repo": "home-manager",
-        "rev": "34b693f3450e4e94d5eed80c0fddc72261cdd240",
+        "rev": "c4d2a1a70e5e90d39676e0091a7e52f7f3928dc2",
         "type": "github"
       },
       "original": {
@@ -293,11 +293,12 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1641577433,
-        "narHash": "sha256-T7lS8vpbC3dgtrkb2ueC9HWaX4RYUwdP7IEttnvKQ8Y=",
-        "path": "/nix/store/fl6n7ar483ggm91x45xwq5nlbgp14m0f-source",
-        "rev": "568e0bc498ee51fdd88e1e94089de05f2fdbd18b",
-        "type": "path"
+        "lastModified": 1643322911,
+        "narHash": "sha256-WLe4lXAYXH/v80iO02npX1wdXq4nIVEHJTONLXbQrL0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d9e21f284317f85b3476c0043f4efea87a226c3a",
+        "type": "github"
       },
       "original": {
         "id": "nixpkgs",
