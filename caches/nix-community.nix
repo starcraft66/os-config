@@ -1,5 +1,5 @@
 {
-  nix = {
+  nix.settings = {
     binaryCaches = [
       "https://nix-community.cachix.org"
     ];

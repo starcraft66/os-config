@@ -81,13 +81,17 @@
   };
 
   services.nix-daemon.enable = true;
-  nix.trustedUsers = [ "tristan.gosselin-hane" "@admin" ];
+  nix = {
+    # package = pkgs.nix;
+    trustedUsers = [ "tristan" "@admin" ];
+    gc.automatic = true;
+    maxJobs = lib.mkDefault 8;
+
+    useSandbox = false;
+    sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
+  };
+
   services.activate-system.enable = true;
-  nix.gc.automatic = true;
-  nix.maxJobs = lib.mkDefault 8;
-  
-  nix.useSandbox = false;
-  nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
