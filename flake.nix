@@ -1,6 +1,8 @@
 {
   inputs = {
-    home-manager.url = "github:nix-community/home-manager";
+    # Until https://github.com/nix-community/home-manager/pull/2655 is merged
+    # home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:starcraft66/home-manager/plex-mpv-shim";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:lnl7/nix-darwin/master";

@@ -1,0 +1,72 @@
+{ config, lib, pkgs, ... }:
+
+let inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+in (lib.mkIf isLinux {
+  services.plex-mpv-shim = {
+    enable = true;
+    settings = {
+      adaptive_transcode = false;
+      allow_http = false;
+      always_transcode = false;
+      audio_ac3passthrough = false;
+      audio_dtspassthrough = false;
+      auto_play = true;
+      auto_transcode = true;
+      client_profile = "Plex Home Theater";
+      client_uuid = "4f5a64f0-c613-4ff4-a318-d036f3d857c3";
+      direct_limit = false;
+      enable_gui = true;
+      enable_osc = true;
+      enable_play_queue = true;
+      fullscreen = true;
+      http_port = "3000";
+      idle_cmd = null;
+      idle_cmd_delay = 60;
+      idle_when_paused = false;
+      kb_debug = "~";
+      kb_menu = "c";
+      kb_menu_down = "down";
+      kb_menu_esc = "esc";
+      kb_menu_left = "left";
+      kb_menu_ok = "enter";
+      kb_menu_right = "right";
+      kb_menu_up = "up";
+      kb_next = ">";
+      kb_pause = "space";
+      kb_prev = "<";
+      kb_stop = "q";
+      kb_unwatched = "u";
+      kb_watched = "w";
+      log_decisions = false;
+      media_ended_cmd = null;
+      media_key_seek = false;
+      mpv_ext = false;
+      mpv_ext_ipc = null;
+      mpv_ext_path = null;
+      mpv_ext_start = true;
+      mpv_log_level = "info";
+      player_name = "luna";
+      pre_media_cmd = null;
+      sanitize_output = true;
+      seek_down = -60;
+      seek_left = -5;
+      seek_right = 5;
+      seek_up = 60;
+      shader_pack_custom = false;
+      shader_pack_enable = true;
+      shader_pack_profile = null;
+      shader_pack_remember = true;
+      skip_intro_always = false;
+      skip_intro_prompt = true;
+      stop_cmd = null;
+      stop_idle = false;
+      subtitle_color = "#FFFFFFFF";
+      subtitle_position = "bottom";
+      subtitle_size = 100;
+      svp_enable = false;
+      svp_socket = null;
+      svp_url = "http://127.0.0.1:9901/";
+      transcode_kbps = 2000;
+    };
+  };
+})

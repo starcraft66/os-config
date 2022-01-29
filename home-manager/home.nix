@@ -18,6 +18,7 @@
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
     ./programs/obs-studio.nix
+    ./programs/plex-mpv-shim.nix
     ./programs/polybar.nix
     ./programs/ssh.nix
     ./programs/starship.nix
