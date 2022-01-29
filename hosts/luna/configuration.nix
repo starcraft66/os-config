@@ -243,7 +243,7 @@
     adoptopenjdk-hotspot-bin-8
     kdenlive
     openshot-qt
-    multimc
+    polymc
     nmon
     youtube-dl
     python38Packages.ds4drv
