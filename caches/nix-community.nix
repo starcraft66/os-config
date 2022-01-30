@@ -10,8 +10,10 @@ let
   ];
 
   nixLinux = {
-    binary-caches = caches;
-    binary-cache-public-keys = publicKeys;
+    settings = {
+      binary-caches = caches;
+      binary-cache-public-keys = publicKeys;
+    };
   };
   nixDarwin = {
     binaryCaches = caches;
