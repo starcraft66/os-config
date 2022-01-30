@@ -97,6 +97,7 @@
           }
           sops-nix.nixosModules.sops
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
+          ./modules/pipewire
           ./hosts/luna/configuration.nix
         ];
         pkgs = nixpkgsFor.x86_64-linux nixos;

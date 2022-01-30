@@ -23,6 +23,8 @@
 
   services.tor.enable = true;
 
+  profiles.pipewire.enable = true;
+
   # Garbage Collection
   nix = {
     gc = {
@@ -126,18 +128,18 @@
     };
   };
 
-  systemd.user.services.scream = {
-    enable = true;
-    description = "Scream Audio Receiver";
-    serviceConfig = {
-      ExecStart = "${pkgs.scream}/bin/scream-alsa -i virbr0";
-      Restart = "always";
-      RestartSec = "5";
-    };
+  # systemd.user.services.scream = {
+  #   enable = true;
+  #   description = "Scream Audio Receiver";
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.scream}/bin/scream-alsa -i virbr0";
+  #     Restart = "always";
+  #     RestartSec = "5";
+  #   };
 
-    wantedBy = [ "default.target" ];
-    requires = [ "pulseaudio.service" ];
-  };
+  #   wantedBy = [ "default.target" ];
+  #   requires = [ "pulseaudio.service" ];
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -402,8 +404,8 @@
   services.printing.drivers = [ pkgs.brlaser ];
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
