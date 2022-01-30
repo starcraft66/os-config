@@ -37,19 +37,6 @@
           # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
           # For libs, I will use pkgsX86 defined below.
           # inherit (nixpkgsX86darwin) kitty;
-
-          # Until https://github.com/NixOS/nixpkgs/issues/153304 is resolved
-          alacritty = super.alacritty.overrideAttrs (oldAttrs: {
-            postPatch = oldAttrs.postPatch + ''
-              substituteInPlace Cargo.toml \
-                --replace "lto = true" "lto = false"
-            '';
-          });
-
-          # Until https://github.com/NixOS/nixpkgs/pull/153999 is merged
-          kitty = super.kitty.overrideAttrs (oldAttrs: {
-            CFLAGS = "-Wno-deprecated";
-          });
         }))
       ];
       config.allowUnfree = true;
