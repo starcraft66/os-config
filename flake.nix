@@ -25,7 +25,22 @@
     nixpkgsFor = forAllPlatforms (platform: nixpkgs: import nixpkgs {
       system = platform;
       overlays = lib.flatten [
+        (lib.optional (platform == "x86_64-linux")
+        (self: super: {
+          # Compile Mixxx using a PortAudio build that supports JACK
+          # Overriding PortAudio globally causes an expensive rebuild I want to avoid
+          # until the change is merged upstream
+          # https://github.com/NixOS/nixpkgs/pull/157561
+          mixxx = super.mixxx.override {
+            portaudio = super.portaudio.overrideAttrs (oldPortaudioAttrs: {
+              buildInputs = oldPortaudioAttrs.buildInputs ++ [ super.jack2 ];
+            });
+          };
+        }))
         inputs.emacs-overlay.overlay
+        # Apple Silicon backport overlay:
+        # In other words, x86 packages to install instead of
+        # arm packages which don't build yet for any reason
         (lib.optional (platform == "aarch64-darwin")
         # Apple Silicon backport overlay:
         # In other words, x86 packages to install instead of
@@ -82,7 +97,7 @@
           }
           sops-nix.nixosModules.sops
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
-          ./modules/pipewire
+          ./modules
           ./hosts/luna/configuration.nix
         ];
         pkgs = nixpkgsFor.x86_64-linux nixos;
