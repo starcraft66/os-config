@@ -23,5 +23,10 @@ lib.mkMerge [
     services.emacs = {
       enable = true;
     };
+    systemd.user.services.emacs = {
+      Unit.PartOf = [ "graphical-session.target" ];
+      Unit.After = [ "graphical-session-pre.target" ];
+      Install.WantedBy = lib.mkForce [ "graphical-session.target" ];
+    };
   })
 ]
