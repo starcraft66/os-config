@@ -7,6 +7,7 @@
     ./programs/direnv.nix
     ./programs/doom-emacs.nix
     ./programs/dunst.nix
+    ./programs/easyeffects.nix
     ./programs/flameshot.nix
     ./programs/fzf.nix
     ./programs/git.nix
