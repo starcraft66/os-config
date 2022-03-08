@@ -202,7 +202,7 @@
     net_snmp
     tcpdump
     gns3-gui
-    wireguard
+    wireguard-tools
     dislocker
     htop
     lm_sensors
