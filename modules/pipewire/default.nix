@@ -30,10 +30,6 @@ in
         pulse.enable = true;
         jack.enable = true;
 
-        # Default session manager
-        media-session.enable = true;
-
-
         config.pipewire = {
           "context.properties" = {
             #"link.max-buffers" = 64;
@@ -43,7 +39,7 @@ in
             #"default.clock.quantum" = 1024;
             #"default.clock.min-quantum" = 32;
             #"default.clock.max-quantum" = 8192;
-            #
+
           };
           "context.objects" = [
             {
