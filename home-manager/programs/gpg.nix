@@ -13,6 +13,10 @@ lib.mkMerge [
       pwgen
     ];
   }
+  (lib.mkIf isDarwin {
+    # https://github.com/NixOS/nixpkgs/issues/155629
+    programs.gpg.scdaemonSettings = { disable-ccid = true; };
+  })
   (lib.mkIf isLinux {
     services.gpg-agent = {
       enable = true;
