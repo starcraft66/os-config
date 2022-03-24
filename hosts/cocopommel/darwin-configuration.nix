@@ -75,6 +75,7 @@
       "kitty"
       "openmtp"
       "rectangle"
+      "lens"
     ];
     masApps = {
     };
