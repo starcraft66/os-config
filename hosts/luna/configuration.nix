@@ -295,13 +295,6 @@
     gnome.nautilus
   ];
 
-  # Java
-  environment.etc = with pkgs; {
-    "jdk8".source = adoptopenjdk-hotspot-bin-8;
-    "jdk16".source = adoptopenjdk-openj9-bin-16;
-  };
-
-
   # Virtualization
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.runAsRoot = false;
