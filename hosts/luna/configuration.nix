@@ -353,7 +353,7 @@
   '';
 
   services.xserver.screenSection = ''
-    Option         "metamodes" "DP-4: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}"
+    Option         "metamodes" "DP-4: 3840x2160_120 +3840+0 {ForceCompositionPipeline=On}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=On, AllowGSYNCCompatible=On}"
   '';
 
   services.redshift = {
@@ -453,7 +453,7 @@
       config.my.vsync = false;
       config.my.picomBackend = "xrender";
       config.my.trayOutput = "DP-4";
-      config.my.leftMonitor = "DP-2";
+      config.my.leftMonitor = "DP-0";
       config.my.rightMonitor = "DP-4";
       config.my.wiredInterface = "enp5s0";
     };
