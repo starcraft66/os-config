@@ -353,7 +353,7 @@
   '';
 
   services.xserver.screenSection = ''
-    Option         "metamodes" "DP-4: 3840x2160_120 +3840+0 {ForceCompositionPipeline=On}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=On, AllowGSYNCCompatible=On}"
+    Option         "metamodes" "DP-4: 3840x2160_144 +3840+0 {ForceCompositionPipeline=On}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=On, AllowGSYNCCompatible=On}"
   '';
 
   services.redshift = {
