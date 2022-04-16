@@ -406,7 +406,7 @@
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
 
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
 
   services.xserver.windowManager.i3 = {
     enable = true;
