@@ -65,3 +65,78 @@
 
 (map! :ne "SPC =" #'indent-buffer)
 (map! :ne "SPC #" #'comment-or-uncomment-region)
+
+;; unbind ; and ,
+(setq evil-snipe-override-evil-repeat-keys nil)
+;; Remap hjkl jkl;
+(map! :nvm "j" 'evil-backward-char)
+(map! :nvm "k" 'evil-next-line)
+(map! :nvm "l" 'evil-previous-line)
+(map! :nvm ";" 'evil-forward-char)
+
+;; https://github.com/emacs-evil/evil-collection#key-translation
+;; doom uses evil-collection with (evil +everywhere)
+;; called after evil-collection makes its keybindings
+(setq translation-keys '(
+      "j" "h"
+      "k" "j"
+      "l" "k"
+      ";" "l"
+      (kbd "C-j") (kbd "C-h")
+      (kbd "C-k") (kbd "C-j")
+      (kbd "C-l") (kbd "C-k")
+      (kbd "C-;") (kbd "C-l")))
+
+(after! (evil magit)
+     ;; Delete old j (jump) bind that interferes
+     (map! :map magit-mode-map
+           "h" 'magit-log
+           "j" nil)
+     (+layout-homerow-rotate-keymaps
+     '(magit-cherry-mode-map
+       magit-blob-mode-map
+       magit-diff-mode-map
+       magit-log-mode-map
+       magit-log-select-mode-map
+       magit-reflog-mode-map
+       magit-status-mode-map
+       magit-log-read-revs-map
+       magit-process-mode-map
+       magit-refs-mode-map
+       magit-mode-map)))
+
+(defun +layout-homerow-rotate-keymaps (keymaps)
+    (evil-collection-translate-key '(normal motion visual operator) keymaps
+      ";" "L"
+      ";" "l"
+      "L" "K"
+      "l" "k"
+      "K" "J"
+      "k" "j"
+      "J" "H"
+      "j" "h"
+      (kbd "H-;") (kbd "C-L")
+      (kbd "H-;") (kbd "C-l")
+      (kbd "H-L") (kbd "C-K")
+      (kbd "H-l") (kbd "C-k")
+      (kbd "H-K") (kbd "C-J")
+      (kbd "H-k") (kbd "C-j")
+      (kbd "H-J") (kbd "C-H")
+      (kbd "H-j") (kbd "C-h")
+      (kbd "M-;") (kbd "M-L")
+      (kbd "M-;") (kbd "M-l")
+      (kbd "M-L") (kbd "M-K")
+      (kbd "M-l") (kbd "M-k")
+      (kbd "M-K") (kbd "M-J")
+      (kbd "M-k") (kbd "M-j")
+      (kbd "M-J") (kbd "M-H")
+      (kbd "M-j") (kbd "M-h"))
+    (evil-collection-translate-key '(insert) keymaps
+      (kbd "M-;") (kbd "M-L")
+      (kbd "M-;") (kbd "M-l")
+      (kbd "M-L") (kbd "M-K")
+      (kbd "M-l") (kbd "M-k")
+      (kbd "M-K") (kbd "M-J")
+      (kbd "M-k") (kbd "M-j")
+      (kbd "M-J") (kbd "M-H")
+      (kbd "M-j") (kbd "M-h")))
