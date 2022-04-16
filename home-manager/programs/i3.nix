@@ -112,10 +112,10 @@ in
         "${mod}+Mod1+j" = "move workspace to output down";
         "${mod}+Mod1+k" = "move workspace to output up";
         "${mod}+Mod1+l" = "move workspace to output right";
-        "${mod}+Shift+h" = "move left";
-        "${mod}+Shift+j" = "move down";
-        "${mod}+Shift+k" = "move up";
-        "${mod}+Shift+l" = "move right";
+        "${mod}+Shift+j" = "move left";
+        "${mod}+Shift+k" = "move down";
+        "${mod}+Shift+l" = "move up";
+        "${mod}+Shift+semicolon" = "move right";
         "${mod}+Shift+Left" = "move left";
         "${mod}+Shift+Down" = "move down";
         "${mod}+Shift+Up" = "move up";
