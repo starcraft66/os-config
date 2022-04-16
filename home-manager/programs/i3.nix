@@ -100,10 +100,10 @@ in
         "${mod}+r" = "mode resize";
         "${mod}+Shift+grave" = "move scratchpad";
         "${mod}+grave" = "scratchpad show";
-        "${mod}+h" = "focus left";
-        "${mod}+j" = "focus down";
-        "${mod}+k" = "focus up";
-        "${mod}+l" = "focus right";
+        "${mod}+j" = "focus left";
+        "${mod}+k" = "focus down";
+        "${mod}+l" = "focus up";
+        "${mod}+semicolon" = "focus right";
         "${mod}+Left" = "focus left";
         "${mod}+Down" = "focus down";
         "${mod}+Up" = "focus up";
