@@ -205,7 +205,7 @@ in
       ];
       window.commands = [
         { command = "move container to workspace ${workspaces.spotify}"; criteria = { class = "Spotify"; }; }
-        { command = "layout tabbed"; criteria = { class = "MultiMC5"; }; }
+        { command = "layout tabbed"; criteria = { class = "PolyMC"; }; }
       ];
       assigns = {
         "${workspaces.messenger}" = [
@@ -216,13 +216,13 @@ in
           { class = "Signal"; }
         ];
         "${workspaces.minecraft}" = [
-          { class = "MultiMC5"; }
+          { class = "PolyMC"; }
         ];
         "${workspaces.emardes}" = [
           { class = "Emacs"; }
         ];
         "${workspaces.browser}" = [
-          { class = "Firefox"; }
+          { class = "firefox"; }
         ];
       };
     };
