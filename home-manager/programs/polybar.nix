@@ -7,13 +7,13 @@ in
   services.polybar = {
     enable = true;
     package = ((pkgs.polybar.overrideAttrs (old: {
-      version = "unstable-2021-10-24";
+      version = "3.6.2";
       buildInputs = old.buildInputs ++ (with pkgs; [ libuv ]);
       src = pkgs.fetchFromGitHub {
         owner = "polybar";
         repo = "polybar";
-        rev = "9e3b5378173de8beff437fa41d997678b604d6f3";
-        sha256 = "sha256-yWSHXVOofMtBPyUAqo9TV6B//vq6x3A4XkgZ9UKw9gg=";
+        rev = "3.6.2";
+        sha256 = "sha256-mLAcA8afGLNhRRU/x/TngCMcSRXdEM5wKWoYZhezJqU=";
         fetchSubmodules = true;
       };
       cmakeFlags = [ "-DBUILD_CONFIG=no" ];
@@ -94,7 +94,7 @@ in
         modules-center = "time";
         modules-right = "cpu memory pulseaudio wlan eth battery";
 
-        # Don't make i3 aware of the bar (requires fake transparent spacer bar)
+        # Don't make i3 aware of the bar (requires fake transparent spacer bar or a taller top gap)
         # This is required or else the x offset is ignored and the left side of the
         # bar is stuck to the side of the monitor, ruining the floating effect
         override-redirect = "true";
