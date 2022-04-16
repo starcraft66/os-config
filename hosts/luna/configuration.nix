@@ -201,7 +201,6 @@
     appimage-run
     net_snmp
     tcpdump
-    gns3-gui
     wireguard-tools
     dislocker
     htop
@@ -220,7 +219,6 @@
     mpv
     utillinux
     usbutils
-    teleconsole
     ghidra-bin
     gimp-with-plugins
     gwenview
