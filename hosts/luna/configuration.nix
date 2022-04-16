@@ -351,7 +351,7 @@
   '';
 
   services.xserver.screenSection = ''
-    Option         "metamodes" "DP-4: 3840x2160_144 +3840+0 {ForceCompositionPipeline=On}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=On, AllowGSYNCCompatible=On}"
+    Option         "metamodes" "DP-4: 3840x2160_144 +3840+0 {ForceCompositionPipeline=Off}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=Off, AllowGSYNCCompatible=On}"
   '';
 
   services.redshift = {
@@ -448,8 +448,8 @@
       config.my.ckb = true;
       config.my.dpi = 144;
       config.my.cursorDpi = 48;
-      config.my.vsync = false;
-      config.my.picomBackend = "xrender";
+      config.my.vsync = true;
+      config.my.picomBackend = "glx";
       config.my.trayOutput = "DP-4";
       config.my.leftMonitor = "DP-0";
       config.my.rightMonitor = "DP-4";
