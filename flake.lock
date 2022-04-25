@@ -259,22 +259,6 @@
         "type": "github"
       }
     },
-    "nixos": {
-      "locked": {
-        "lastModified": 1650792148,
-        "narHash": "sha256-n1MZSZIzvP70BJ56tV8GwQ5L0wHt/nTH9UkF5HTGB/4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "ab83c5d70528f1edc7080dead3a5dee61797b3ff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos-nvidia-vgpu": {
       "locked": {
         "lastModified": 1629956048,
@@ -306,16 +290,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1650792148,
-        "narHash": "sha256-n1MZSZIzvP70BJ56tV8GwQ5L0wHt/nTH9UkF5HTGB/4=",
+        "lastModified": 1650835985,
+        "narHash": "sha256-EKajv48HSLUmBDp4KYbyjDUJA+aoaOIsldkqQLDf5Fs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ab83c5d70528f1edc7080dead3a5dee61797b3ff",
+        "rev": "8169990346fcd3aeb81222b7dcb70a00750d8f9f",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -439,7 +423,6 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-doom-emacs": "nix-doom-emacs",
-        "nixos": "nixos",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix"
