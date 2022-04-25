@@ -16,7 +16,7 @@ lib.mkMerge [
     programs.doom-emacs = {
       enable = true;
       doomPrivateDir = ../doom.d;
-      emacsPackage = pkgs.emacs27;
+      emacsPackage = pkgs.emacs28;
     };
   }
   (lib.mkIf isLinux {
