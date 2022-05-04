@@ -24,6 +24,8 @@ in
     enable = true;
     shadow = true;
     experimentalBackends = true;
+    fade = true;
+    fadeDelta = 3;
     backend = config.my.picomBackend;
     vSync = config.my.vsync;
     extraOptions = lib.mkIf (builtins.elem "nvidia" osConfig.services.xserver.videoDrivers) ''
