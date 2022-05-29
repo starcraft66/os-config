@@ -31,7 +31,10 @@ in (lib.mkIf isLinux {
       "gtk-cursor-theme-size" = config.my.cursorDpi;
     };
   };
-  xsession.pointerCursor = {
+  home.pointerCursor = {
+    x11 = {
+      enable = true;
+    };
     package = pkgs.breeze-qt5;
     name = "breeze_cursors";
     size = config.my.cursorDpi;
