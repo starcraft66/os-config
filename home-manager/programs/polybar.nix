@@ -82,9 +82,9 @@ in
         # offset to make the text render lower, a.k.a. "centered"
         font-0 = "Noto Sans:size=10;3";
         font-1 = "Noto Sans:size=10:style=Bold;3";
-        font-2 = "Font Awesome 5 Free Regular:pixelsize=10;3";
-        font-3 = "Font Awesome 5 Free Solid:pixelsize=10;3";
-        font-4 = "Font Awesome 5 Brands:pixelsize=10;3";
+        font-2 = "Font Awesome 6 Free Regular:pixelsize=10;3";
+        font-3 = "Font Awesome 6 Free Solid:pixelsize=10;3";
+        font-4 = "Font Awesome 6 Brands:pixelsize=10;3";
 
         # Read the MONITOR env variable set by the start script
         # to start the same bar on different monitors.
