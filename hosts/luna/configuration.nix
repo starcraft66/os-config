@@ -342,6 +342,7 @@
   services.pcscd.enable = true;
   services.fwupd.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   security.pam.enableSSHAgentAuth = true;
 
