@@ -103,6 +103,12 @@
     devShell = forAllPlatforms (platform: let
         pkgs = nixpkgsFor.${platform};
         sops = inputs.sops-nix.packages.${platform};
+
+        NIX_CONF_DIR = (pkgs.writeTextDir "etc/nix.conf" ''
+          experimental-features = nix-command flakes
+          !include /etc/nix/nix.conf
+          # include /etc/nix/doesnt-exist-nix.conf
+        '') + "/etc";
       in pkgs.mkShell {
         sopsPGPKeyDirs = [
           "./secrets/keys/hosts"
@@ -116,12 +122,9 @@
           sops.sops-import-keys-hook
         ];
 
-        NIX_CONF_DIR = (pkgs.writeTextDir "etc/nix.conf" ''
-          experimental-features = nix-command flakes
-
-          !include /etc/nix/nix.conf
-          # include /etc/nix/doesnt-exist-nix.conf
-        '') + "/etc";
+        shellHook = ''
+          export NIX_CONF_DIR=${NIX_CONF_DIR}
+        '';
       });
 
     nixosConfigurations = {
