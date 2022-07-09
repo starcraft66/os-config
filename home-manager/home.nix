@@ -36,6 +36,8 @@
     ./programs/zsh.nix
   ];
 
+  config.home.stateVersion = "21.11";
+
   config.programs.home-manager.enable = true;
 
   config.home.sessionPath = builtins.concatLists [
