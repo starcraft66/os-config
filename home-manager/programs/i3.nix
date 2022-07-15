@@ -28,9 +28,9 @@ in
     fadeDelta = 3;
     backend = config.my.picomBackend;
     vSync = config.my.vsync;
-    extraOptions = lib.mkIf (builtins.elem "nvidia" osConfig.services.xserver.videoDrivers) ''
+    settings = lib.mkIf (builtins.elem "nvidia" osConfig.services.xserver.videoDrivers) {
       xrender-sync-fence = true;
-    '';
+    };
   };
 
   xsession.windowManager.i3 = rec {
