@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./programs/1password.nix
     ./programs/alacritty.nix
     ./programs/darwin.nix
     ./programs/direnv.nix

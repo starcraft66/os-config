@@ -144,6 +144,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
+  programs._1password = {
+    enable = true;
+    gid = 5001;
+  };
+
+  programs._1password-gui = {
+    enable = true;
+    gid = 5000;
+    polkitPolicyOwners = [ "tristan" ];
+  };
+
   environment.systemPackages = with pkgs;
   let
     my-python-packages = python-packages: with python-packages; [
