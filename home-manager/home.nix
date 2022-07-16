@@ -17,6 +17,7 @@
     ./programs/i3.nix
     ./programs/kitty.nix
     ./programs/mixxx.nix
+    ./programs/mullvad.nix
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
     ./programs/obs-studio.nix
