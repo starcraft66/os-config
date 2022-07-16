@@ -33,6 +33,21 @@ in
     };
   };
 
+  systemd.user.services.polkit-agent-gnome = {
+    Unit = {
+      Description = "Polkit GNOME agent";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session-pre.target" ];
+      # ConditionEnvironment = [ "XDG_CURRENT_DESKTOP=none+i3" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-abort";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   xsession.windowManager.i3 = rec {
     enable = true;
     package = pkgs.i3-gaps;
