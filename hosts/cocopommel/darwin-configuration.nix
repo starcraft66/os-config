@@ -64,6 +64,7 @@
     casks = [
       "burp-suite"
       "cyberduck"
+      "discretescroll"
       "db-browser-for-sqlite"
       "dosbox"
       "mixxx"
@@ -79,6 +80,7 @@
       "rectangle"
       "lens"
       "obs"
+      "manymc"
     ];
     masApps = {
     };
