@@ -426,6 +426,7 @@
   # services.xserver.libinput.enable = true;
 
   services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.wallpaper.mode = "tile";
 
   services.xserver.windowManager.i3 = {
     enable = true;
