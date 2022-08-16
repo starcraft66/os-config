@@ -33,6 +33,7 @@
       options = "--delete-older-than 30d";
     };
     settings = {
+      trusted-users = [ "root" "@wheel" ];
       auto-optimise-store = true;
     };
   };
