@@ -42,7 +42,7 @@
 
   config.home.sessionPath = builtins.concatLists [
     # Add aarch64-darwin homebrew to path
-    (lib.optionals (pkgs.stdenv.targetPlatform.system == "aarch64-darwin") [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ] )
+    (lib.optionals (pkgs.stdenv.targetPlatform.system == "aarch64-darwin") [ "/opt/homebrew/bin" "/opt/homebrew/sbin" "/usr/local/share/dotnet" "~/.rd/bin" ] )
   ];
 
   options.my.terminalFontSize = lib.mkOption {
