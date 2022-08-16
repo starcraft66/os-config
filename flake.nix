@@ -66,24 +66,6 @@
           # In other words, x86 packages to install instead of
           # arm packages which don't build yet for any reason
           (self: super: {
-            starship = super.starship.overrideAttrs (oldAttrs: rec {
-              pname = "starship";
-
-              version = "1.1.1";
-
-              src = super.fetchFromGitHub {
-                owner = "starship";
-                repo = pname;
-                rev = "v${version}";
-                sha256 = "sha256-Rr0HCr/uJDsBQiKJIPdEL3WOaLgMY2Nq2JGOq4dEUxQ=";
-              };
-
-              cargoDeps = oldAttrs.cargoDeps.overrideAttrs (super.lib.const {
-                name = "${pname}-vendor.tar.gz";
-                inherit src;
-                outputHash = "sha256-Wt10f2T+uJx62z/rHmyylad6pvUsXDHX+QyhQjjB8eg=";
-              });
-            });
             # This is bad for libraries but okay for programs.
             # See: https://github.com/LnL7/nix-darwin/issues/334#issuecomment-850857148
             # For libs, I will use pkgsX86 defined below.
