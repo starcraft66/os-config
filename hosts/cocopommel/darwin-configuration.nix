@@ -93,6 +93,28 @@
     gc.automatic = true;
     maxJobs = lib.mkDefault 8;
 
+    distributedBuilds = true;
+    buildMachines = [
+      # {
+      #   systems = [ "x86_64-linux" ];
+      #   supportedFeatures = [ "kvm" "big-parallel" ];
+      #   sshUser = "tristan";
+      #   maxJobs = 24;
+      #   hostName = "luna.local";
+      #   sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_luna";
+      #   publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
+      # }
+      {
+        systems = [ "x86_64-linux" ];
+        supportedFeatures = [ "big-parallel" ];
+        sshUser = "root";
+        maxJobs = 8;
+        hostName = "172.16.2.6";
+        sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_builder";
+        publicHostKey = "H+DeIUeuXgqoDI+XcNL43mBheZGSIBRHrPz/mrIIQqw";
+      }
+    ];
+
     useSandbox = false;
     sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
   };
