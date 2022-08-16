@@ -55,3 +55,8 @@
 (package! base16-theme)
 (package! k8s-mode)
 (package! dimmer)
+(package! kubernetes)
+
+;; If you want to pull in the Evil compatibility package.
+(after! kubernetes
+  (package! kubernetes))
