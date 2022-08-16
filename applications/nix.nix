@@ -17,6 +17,9 @@
     '';
     # Pin nixpkgs for older Nix tools
     nixPath = [ "nixpkgs=${pkgs.path}" ];
+    settings = {
+      trusted-users = [ "root" "@wheel" ];
+    };
     registry = {
       self.flake = inputs.self;
       nixpkgs.flake = inputs.nixpkgs;
