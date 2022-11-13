@@ -18,7 +18,7 @@
     };
     fonts = with pkgs; [
       nerdfonts
-      emacs-all-the-icons-fonts
+      # emacs-all-the-icons-fonts
     ];
   };
 
