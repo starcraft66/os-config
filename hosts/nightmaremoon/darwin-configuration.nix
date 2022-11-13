@@ -45,6 +45,50 @@
     verbose = true;
   };
 
+  # Homebrew integration
+  homebrew = {
+    enable = true;
+    brewPrefix = "/usr/local/bin";
+    brews = [
+    ];
+    onActivation = {
+      cleanup = "zap";
+      upgrade = true;
+    };
+    taps = [
+      "homebrew/cask"
+      "homebrew/cask-drivers"
+    ];
+    casks = [
+      "adoptopenjdk"
+      "burp-suite"
+      "cyberduck"
+      "discretescroll"
+      "db-browser-for-sqlite"
+      "dosbox"
+      "mixxx"
+      "raycast"
+      "vlc"
+      "wireshark"
+      "discord"
+      "spotify"
+      "slack"
+      "insomnia"
+      "kitty"
+      "openmtp"
+      "rectangle"
+      "lens"
+      "obs"
+      "prismlauncher"
+      "ghidra"
+      "hex-fiend"
+      "mpv"
+      "yubico-authenticator"
+    ];
+    masApps = {
+    };
+  };
+
   # Use a custom configuration.nid location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
