@@ -7,15 +7,15 @@
 
   nix = {
     package = pkgs.nix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-      builders-use-substitutes = true
+    settings = {
+      experimental-features = "nix-command flakes";
+      keep-outputs = true;
+      keep-derivations = true;
+      builders-use-substitutes = true;
 
       # nop out the global flake registry
-      flake-registry = ${builtins.toFile "flake-registry" (builtins.toJSON { version = 2; flakes = [ ]; })}
-    '';
+      flake-registry = "${builtins.toFile "flake-registry" (builtins.toJSON { version = 2; flakes = [ ]; })}";
+    };
     # Pin nixpkgs for older Nix tools
     nixPath = [ "nixpkgs=${pkgs.path}" ];
     registry = {

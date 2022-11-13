@@ -32,7 +32,6 @@
       isHidden = false;
       shell = pkgs.zsh;
     };
-    nix.configureBuildUsers = true;
   };
 
   home-manager = {
@@ -53,13 +52,16 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix = {
-    # package = pkgs.nix;
-    trustedUsers = [ "tristan" "@admin" ];
+    configureBuildUsers = true;
     gc.automatic = true;
-    maxJobs = lib.mkDefault 8;
+    settings = {
+      # package = pkgs.nix;
+      trusted-users = [ "tristan" "@admin" ];
+      max-jobs = lib.mkDefault 8;
 
-    useSandbox = false;
-    sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
+      sandbox = false;
+      extra-sandbox-paths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
+    };
   };
 
   services.activate-system.enable = true;

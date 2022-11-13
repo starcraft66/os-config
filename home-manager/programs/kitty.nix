@@ -60,6 +60,8 @@ in
       color14 = config.my.theme.colorC;
       color15 = config.my.theme.color7;
     };
+    # Dummy package so that we can install Kitty with Homebrew.
+    package = pkgs.runCommandLocal "" { } "mkdir $out";
   };
 }
 
