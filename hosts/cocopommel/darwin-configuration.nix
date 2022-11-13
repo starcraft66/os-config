@@ -55,6 +55,7 @@
     enable = true;
     brewPrefix = "/opt/homebrew/bin";
     brews = [
+      "azure-cli"
     ];
     onActivation = {
       cleanup = "zap";
@@ -83,7 +84,6 @@
       "lens"
       "obs"
       "prismlauncher"
-      "azure-cli"
     ];
     masApps = {
     };
