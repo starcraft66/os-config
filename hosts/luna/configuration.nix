@@ -222,7 +222,7 @@
     zoom-us
     jdk11
     jetbrains.idea-ultimate
-    jitsi-meet-electron
+    # jitsi-meet-electron
     unzip
     discord
     libreoffice
