@@ -55,12 +55,6 @@
       squash-all = ''!f(){ git reset $(git commit-tree HEAD^{tree} -m "''${1:-A new start}");};f'';
     };
 
-    delta.enable = true;
-    delta.options = {
-      line-numbers = true;
-      side-by-side = true;
-      whitespace-error-style = "22 reverse";
-      syntax-theme = "ansi-dark";
-    };
+    difftastic.enable = true;
   };
 }
