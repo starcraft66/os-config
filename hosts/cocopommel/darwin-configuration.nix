@@ -82,7 +82,8 @@
       "rectangle"
       "lens"
       "obs"
-      "manymc"
+      "prismlauncher"
+      "azure-cli"
     ];
     masApps = {
     };
