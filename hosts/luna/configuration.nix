@@ -209,7 +209,7 @@
     fuse
     zlib
     appimage-run
-    net_snmp
+    net-snmp
     tcpdump
     wireguard-tools
     dislocker
@@ -227,7 +227,7 @@
     discord
     libreoffice
     mpv
-    utillinux
+    # utillinux
     usbutils
     ghidra-bin
     gimp-with-plugins
@@ -483,7 +483,7 @@
   };
 
   systemd.packages = [
-    (pkgs.runCommandNoCC "delegate.conf" {
+    (pkgs.runCommand "delegate.conf" {
       preferLocalBuild = true;
       allowSubstitutes = false;
     } ''
