@@ -7,7 +7,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" "aesni_intel" "cryptd"];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
+  boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_0.v4l2loopback ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   hardware.enableRedistributableFirmware = true;
 

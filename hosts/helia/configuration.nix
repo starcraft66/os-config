@@ -14,7 +14,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
 
   networking.hostName = "Helia"; # Define your hostname.
   networking.firewall.allowedUDPPorts = [ 69 ];
