@@ -23,7 +23,6 @@ in
   services.picom = {
     enable = true;
     shadow = true;
-    experimentalBackends = true;
     fade = true;
     fadeDelta = 3;
     backend = config.my.picomBackend;
