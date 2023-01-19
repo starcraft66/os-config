@@ -245,7 +245,7 @@
     gdb
     pwndbg
     rarcrack
-    yubioath-desktop
+    yubioath-flutter
     spotify-tui
     flameshot
     rofi-pass
