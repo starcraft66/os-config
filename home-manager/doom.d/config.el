@@ -105,8 +105,19 @@
        magit-refs-mode-map
        magit-mode-map)))
 
+  (after! (:or helm ivy vertico icomplete)
+    (+layout-homerow-rotate-keymaps
+     '(minibuffer-local-map
+       minibuffer-local-ns-map
+       minibuffer-local-completion-map
+       minibuffer-local-must-match-map
+       minibuffer-local-isearch-map
+       read-expression-map)))
+  (after! ivy
+    (+layout-homerow-rotate-keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)))
+
 (defun +layout-homerow-rotate-keymaps (keymaps)
-    (evil-collection-translate-key '(normal motion visual operator) keymaps
+    (evil-collection-translate-key '(normal motion visual operator nil) keymaps
       ";" "L"
       ";" "l"
       "L" "K"
@@ -115,14 +126,14 @@
       "k" "j"
       "J" "H"
       "j" "h"
-      (kbd "H-;") (kbd "C-L")
-      (kbd "H-;") (kbd "C-l")
-      (kbd "H-L") (kbd "C-K")
-      (kbd "H-l") (kbd "C-k")
-      (kbd "H-K") (kbd "C-J")
-      (kbd "H-k") (kbd "C-j")
-      (kbd "H-J") (kbd "C-H")
-      (kbd "H-j") (kbd "C-h")
+      (kbd "C-;") (kbd "C-L")
+      (kbd "C-;") (kbd "C-l")
+      (kbd "C-L") (kbd "C-K")
+      (kbd "C-l") (kbd "C-k")
+      (kbd "C-K") (kbd "C-J")
+      (kbd "C-k") (kbd "C-j")
+      (kbd "C-J") (kbd "C-H")
+      (kbd "C-j") (kbd "C-h")
       (kbd "M-;") (kbd "M-L")
       (kbd "M-;") (kbd "M-l")
       (kbd "M-L") (kbd "M-K")
