@@ -101,7 +101,7 @@
         supportedFeatures = [ "kvm" "big-parallel" ];
         sshUser = "tristan";
         maxJobs = 24;
-        hostName = "luna.local";
+        hostName = "2001:470:b08b:51:b62e:99ff:fe3f:87a5";
         sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_luna";
         publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
       }
