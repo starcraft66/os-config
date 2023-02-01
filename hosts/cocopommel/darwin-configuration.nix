@@ -72,6 +72,7 @@
       "dosbox"
       "mixxx"
       "raycast"
+      "alt-tab"
       "vlc"
       "wireshark"
       "discord"
