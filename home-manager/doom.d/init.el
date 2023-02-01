@@ -14,6 +14,8 @@
 ;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
+(setq straight-disable-native-compile t)
+
 (doom! :input
        ;;chinese
        ;;japanese
