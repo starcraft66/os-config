@@ -6,6 +6,7 @@ in
 (lib.mkIf isLinux {
   services.polybar = {
     enable = true;
+    package = pkgs.polybar.override { i3Support = true; };
     config = {
       "settings" = {
         # throttle-ms = 50;
