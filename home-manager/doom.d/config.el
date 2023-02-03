@@ -4,10 +4,11 @@
 ;; refresh' after modifying this file!
 
 ;; Inherit shell variables when invoked from Finder on a mac
-(when (memq window-system '(mac ns))
-  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
-    (add-to-list 'exec-path-from-shell-variables var))
-  (exec-path-from-shell-initialize))
+(after! exec-path-from-shell
+  (when (memq window-system '(mac ns))
+    (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+      (add-to-list 'exec-path-from-shell-copy-env var))
+    (exec-path-from-shell-initialize)))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
