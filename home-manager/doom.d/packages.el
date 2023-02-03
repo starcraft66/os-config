@@ -56,6 +56,7 @@
 (package! k8s-mode)
 (package! dimmer)
 (package! kubernetes)
+(package! exec-path-from-shell)
 
 ;; If you want to pull in the Evil compatibility package.
 (after! kubernetes

@@ -3,6 +3,11 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+;; Inherit shell variables when invoked from Finder on a mac
+(when (memq window-system '(mac ns))
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -73,7 +78,6 @@
 (map! :nvm "k" 'evil-next-line)
 (map! :nvm "l" 'evil-previous-line)
 (map! :nvm ";" 'evil-forward-char)
-
 ;; https://github.com/emacs-evil/evil-collection#key-translation
 ;; doom uses evil-collection with (evil +everywhere)
 ;; called after evil-collection makes its keybindings
