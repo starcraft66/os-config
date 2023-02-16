@@ -222,6 +222,7 @@
     zoom-us
     jdk11
     jetbrains.idea-ultimate
+    android-studio
     # jitsi-meet-electron
     unzip
     discord
