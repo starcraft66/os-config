@@ -3,6 +3,7 @@
 {
   imports = [
     ./programs/alacritty.nix
+    ./programs/cloud.nix
     ./programs/darwin.nix
     ./programs/direnv.nix
     ./programs/doom-emacs.nix
@@ -15,6 +16,7 @@
     ./programs/gpg.nix
     ./programs/gtk.nix
     ./programs/i3.nix
+    ./programs/kubernetes.nix
     ./programs/kitty.nix
     ./programs/mixxx.nix
     ./programs/mullvad.nix
