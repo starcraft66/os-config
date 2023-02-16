@@ -8,6 +8,15 @@
     enableCompletion = true;
     dotDir = ".config/zsh";
 
+    plugins = [
+      # Vi keybindings
+      {
+        name = "zsh-vi-mode";
+        file = "./share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        src = pkgs.zsh-vi-mode;
+      }
+    ];
+
     history = {
       expireDuplicatesFirst = true;
       ignoreDups = true;
@@ -23,6 +32,7 @@
       COLORTERM = "truecolor";
       TERM = "xterm-256color";
       EDITOR = "vi";
+      ZVM_VI_ESCAPE_BINDKEY = "kl";
     };
 
     shellAliases = rec {
@@ -79,12 +89,21 @@
     '';
 
     initExtra = ''
+      # Reload fzf binds after vi mode
+      zvm_after_init() {
+        source ${config.programs.fzf.package}/share/fzf/key-bindings.zsh
+      }
       if [ -z $ZSH_RELOADING_SHELL - ]; then
       echo $USER@$HOST  $(uname -srm) \
           $(sed -n 's/^NAME=//p' /etc/os-release 2>/dev/null || printf "") \
           $(sed -n 's/^VERSION=//p' /etc/os-release 2>/dev/null || printf "")
       fi
       ## Keybindings section
+      # vi movement keys on home row
+      bindkey -M vicmd j vi-backward-char
+      bindkey -M vicmd k vi-down-line-or-history
+      bindkey -M vicmd l vi-up-line-or-history
+      bindkey -M vicmd \; vi-forward-char
       bindkey -e
       bindkey '^[[7~' beginning-of-line                               # Home key
       bindkey '^[[H' beginning-of-line                                # Home key
