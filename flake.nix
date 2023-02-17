@@ -44,16 +44,19 @@
       });
 
 
-      nixpkgsFor = forAllPlatforms (platform: let
-        stableNixpkgs = (import nixpkgs-stable { system = platform; });
-      in (import patchedNixpkgs.${platform} {
+    nixpkgsFor = forAllPlatforms (platform: let
+      nixpkgsToImport =
+        if (builtins.elem platform [ "x86_64-darwin" "aarch64-darwin" ])
+        then lib.trace "using original nixpkgs" nixpkgs
+        else lib.trace "building patched nixpkgs" patchedNixpkgs;
+    in (import nixpkgsToImport {
         system = platform;
         overlays = lib.flatten [
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            inherit (stableNixpkgs.pkgs) gmic-qt helvum;
-            python39Packages = super.python39Packages // { inherit (stableNixpkgs.pkgs.python39Packages) h2; };
+            inherit (nixpkgs-stable.${platform}.legacyPackages) gmic-qt helvum;
+            python39Packages = super.python39Packages // { inherit (nixpkgs-stable.${platform}.legacyPackages.python39Packages) h2; };
 
             # Compile Mixxx using a PortAudio build that supports JACK
             # Overriding PortAudio globally causes an expensive rebuild I want to avoid
