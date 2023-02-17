@@ -1,8 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -464,7 +460,7 @@
   ];
 
   home-manager = {
-    users.tristan = { config, osConfig, ...}: {
+    users.tristan = { ... }: {
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 12;
@@ -478,9 +474,16 @@
       config.my.rightMonitor = "DP-4";
       config.my.wiredInterface = "enp5s0";
     };
+    extraSpecialArgs = { inherit inputs; };
     useUserPackages = true;
     useGlobalPkgs = true;
     verbose = true;
+  };
+
+  # For dark-mode light-mode switching via gsettings
+  xdg.portal = {
+    extraPortals = with pkgs; [ xdg-desktop-portal-gnome xdg-desktop-portal-gtk ];
+    enable = true;
   };
 
   systemd.packages = [

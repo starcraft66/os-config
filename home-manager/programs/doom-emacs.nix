@@ -2,7 +2,9 @@
 
 let inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in
-lib.mkMerge [
+{
+  imports = [inputs.nix-doom-emacs.hmModule];
+} // lib.mkMerge [
   {
     home.packages = with pkgs; [
       nodePackages.pyright

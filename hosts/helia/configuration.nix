@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -182,7 +182,7 @@
   };
 
   home-manager = {
-    users.tristan = { config, osConfig, ...}: {
+    users.tristan = { ... }: {
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 10;
@@ -197,6 +197,7 @@
       config.my.wiredInterface = "enp0s31f6";
       config.my.wirelessInterface = "wlp4s0";
     };
+    extraSpecialArgs = { inherit inputs; };
     useUserPackages = true;
     useGlobalPkgs = true;
     verbose = true;

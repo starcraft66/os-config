@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -35,11 +35,12 @@
   };
 
   home-manager = {
-    users."tristan.gosselin-hane" = { config, osConfig, ... }: {
+    users."tristan.gosselin-hane" = { ... }: {
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 18;
     };
+    extraSpecialArgs = { inherit inputs; };
     useUserPackages = true;
     useGlobalPkgs = true;
     verbose = true;

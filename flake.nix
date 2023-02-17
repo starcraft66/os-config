@@ -128,11 +128,6 @@
         system = system;
         modules = [
           home-manager.nixosModules.home-manager
-          {
-            home-manager.users.tristan = {pkgs, ...}: {
-              imports = [ nix-doom-emacs.hmModule ];
-            };
-          }
           sops-nix.nixosModules.sops
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
           ./modules
@@ -147,11 +142,6 @@
         system = system;
         modules = [
           home-manager.nixosModules.home-manager
-          {
-            home-manager.users.tristan = {pkgs, ...}: {
-              imports = [ nix-doom-emacs.hmModule ];
-            };
-          }
           sops-nix.nixosModules.sops
           ./hosts/helia/configuration.nix
         ];
@@ -163,11 +153,6 @@
       NightmareMoon = inputs.nix-darwin.lib.darwinSystem {
         modules = [
           home-manager.darwinModules.home-manager
-          {
-            home-manager.users.tristan = {pkgs, ...}: {
-              imports = [ nix-doom-emacs.hmModule ];
-            };
-          }
           ./hosts/nightmaremoon/darwin-configuration.nix
         ];
         specialArgs = {
@@ -178,11 +163,6 @@
       CocoPommel = inputs.nix-darwin.lib.darwinSystem {
         modules = [
           home-manager.darwinModules.home-manager
-          {
-            home-manager.users."tristan.gosselin-hane" = {pkgs, ...}: {
-              imports = [ nix-doom-emacs.hmModule ];
-            };
-          }
           ./hosts/cocopommel/darwin-configuration.nix
         ];
         specialArgs = {
