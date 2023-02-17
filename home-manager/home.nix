@@ -5,6 +5,7 @@
     ./programs/alacritty.nix
     ./programs/cloud.nix
     ./programs/darwin.nix
+    ./programs/devenv.nix
     ./programs/direnv.nix
     ./programs/doom-emacs.nix
     ./programs/dunst.nix

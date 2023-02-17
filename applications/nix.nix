@@ -3,6 +3,7 @@
 {
   imports = [
     ../caches/nix-community.nix
+    ../caches/devenv.nix
   ];
 
   nix = {

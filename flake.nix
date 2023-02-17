@@ -12,8 +12,9 @@
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
+    devenv.url = "github:cachix/devenv/latest";
   };
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, ... }: let
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, devenv, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -65,6 +66,9 @@
             };
           }))
           inputs.emacs-overlay.overlay
+          (self: super: {
+            inherit (devenv.packages.${platform}) devenv;
+          })
           # Apple Silicon backport overlay:
           # In other words, x86 packages to install instead of
           # arm packages which don't build yet for any reason
