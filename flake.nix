@@ -48,7 +48,7 @@
       nixpkgsToImport =
         if (builtins.elem platform [ "x86_64-darwin" "aarch64-darwin" ])
         then lib.trace "using original nixpkgs" nixpkgs
-        else lib.trace "building patched nixpkgs" patchedNixpkgs;
+        else lib.trace "building patched nixpkgs" patchedNixpkgs.${platform};
     in (import nixpkgsToImport {
         system = platform;
         overlays = lib.flatten [
