@@ -218,6 +218,7 @@
     zoom-us
     jdk11
     jetbrains.idea-ultimate
+    jetbrains.clion
     android-studio
     # jitsi-meet-electron
     unzip
