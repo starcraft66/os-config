@@ -150,6 +150,8 @@
     polkitPolicyOwners = [ "tristan" ];
   };
 
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs;
   let
     my-python-packages = python-packages: with python-packages; [
@@ -157,7 +159,6 @@
       pipenv
       setuptools
       virtualenv
-      ansible
       pwntools
       pillow
       opencv4
@@ -217,9 +218,6 @@
     winetricks
     zoom-us
     jdk11
-    jetbrains.idea-ultimate
-    jetbrains.clion
-    android-studio
     # jitsi-meet-electron
     unzip
     discord
