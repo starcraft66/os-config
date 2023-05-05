@@ -17,6 +17,7 @@
     ./programs/gpg.nix
     ./programs/gtk.nix
     ./programs/i3.nix
+    ./programs/jetbrains.nix
     ./programs/kubernetes.nix
     ./programs/kitty.nix
     ./programs/mixxx.nix
