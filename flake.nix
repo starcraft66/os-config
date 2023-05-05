@@ -58,15 +58,6 @@
             inherit (nixpkgs-stable.legacyPackages.${platform}) gmic-qt helvum;
             python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
 
-            # Compile Mixxx using a PortAudio build that supports JACK
-            # Overriding PortAudio globally causes an expensive rebuild I want to avoid
-            # until the change is merged upstream
-            # https://github.com/NixOS/nixpkgs/pull/157561
-            mixxx = super.mixxx.override {
-              portaudio = super.portaudio.overrideAttrs (oldPortaudioAttrs: {
-                buildInputs = oldPortaudioAttrs.buildInputs ++ [ super.jack2 ];
-              });
-            };
           }))
           inputs.emacs-overlay.overlay
           (self: super: {
