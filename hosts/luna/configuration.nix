@@ -439,6 +439,7 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.zsh.enable = true;
   users.users.tristan = {
     isNormalUser = true;
     shell = pkgs.zsh;
