@@ -36,10 +36,10 @@
         name = "patched-nixpkgs";
         src = nixpkgs;
         patches = [
-#         (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/211469
-#           url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/211469.patch";
-#           sha256 = "sha256-hzLTAMKnTMMrj9I3liS6AkCtat2purWE6CdlLcVt5jY=";
-#         })
+        (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/223593
+          url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/223593.patch";
+          sha256 = "sha256-H+wiPoq89IThR3DS6jBgkwqM/q0u1J+fREMSCiSyWMw=";
+        })
         ];
       });
 
