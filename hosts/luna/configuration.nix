@@ -241,7 +241,6 @@
     gdb
     pwndbg
     rarcrack
-    yubioath-flutter
     spotify-tui
     flameshot
     rofi-pass
