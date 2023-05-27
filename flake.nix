@@ -102,7 +102,6 @@
 
         nativeBuildInputs = with pkgs; [
           git
-          nixFlakes
           nixfmt
           sops.sops-import-keys-hook
         ];
