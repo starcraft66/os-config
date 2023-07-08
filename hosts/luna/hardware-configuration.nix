@@ -56,6 +56,9 @@
   # Enable nvidia modesetting
   hardware.nvidia.modesetting.enable = true;
 
+  # Enable open-source nvidia kernel modules
+  hardware.nvidia.open = true;
+
   # My usb sound card is 44100Hz
   # This fixes crackling when adjusting playback volume on youtube
   # hardware.pulseaudio.daemon.config = {
