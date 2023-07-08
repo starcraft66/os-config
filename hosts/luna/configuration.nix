@@ -167,10 +167,11 @@
       requests
       pycryptodome
     ];
-    python-with-my-packages = python39.withPackages my-python-packages;
+    python-with-my-packages = python311.withPackages my-python-packages;
     wine-staging = wineWowPackages.staging;
     firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
   in [
+    openconnect
     breeze-gtk
     breeze-qt5
     wireshark

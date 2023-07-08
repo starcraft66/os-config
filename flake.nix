@@ -2,7 +2,7 @@
   inputs = {
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/22.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/23.05";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -36,10 +36,10 @@
         name = "patched-nixpkgs";
         src = nixpkgs;
         patches = [
-        (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/223593
-          url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/223593.patch";
-          sha256 = "sha256-H+wiPoq89IThR3DS6jBgkwqM/q0u1J+fREMSCiSyWMw=";
-        })
+        # (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/223593
+        #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/223593.patch";
+        #   sha256 = "sha256-8Acdn2qy5/rSsvcXpYjlzgS8/1jDPAFcFLp8d76p7Ig=";
+        # })
         ];
       });
 
@@ -55,9 +55,17 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            inherit (nixpkgs-stable.legacyPackages.${platform}) gmic-qt helvum;
-            python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
+            # inherit (nixpkgs-stable.legacyPackages.${platform}) gmic-qt helvum;
+            # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
 
+            openconnect = super.openconnect.overrideAttrs (oldAttrs: {
+              src = super.fetchFromGitLab {
+                owner = "Carbenium";
+                repo = "openconnect";
+                rev = "fortinet-saml";
+                hash = "sha256-7Ti0+mWPQ/OMt2/jG2A69T0CLzHyhY+OimR1y3GS+PU=";
+              };
+            });
           }))
           inputs.emacs-overlay.overlay
           (self: super: {

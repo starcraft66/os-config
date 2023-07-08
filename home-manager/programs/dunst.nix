@@ -5,17 +5,6 @@ let
   originalConfig = config;
 in
 (lib.mkIf isLinux {
-  services.dunst.package = pkgs.dunst.overrideAttrs (old: rec {
-    version = "1.7.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "dunst-project";
-      repo = "dunst";
-      rev = "v${version}";
-      # hash = "${lib.fakeHash}";
-      hash = "sha256-BWbvGetXXCXbfPRY+u6gEfzBmX8PLSnI6a5vfCByiC0=";
-    };
-  });
-
   services.dunst = {
     enable = true;
     settings = {
