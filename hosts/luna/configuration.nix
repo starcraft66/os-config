@@ -14,6 +14,7 @@
 
   # Use the latest linux kernel
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = "luna"; # Define your hostname.
 
@@ -376,7 +377,9 @@
     temperature.night = 3000;
   };
 
-  # Open ports in the firewall.
+  networking.useNetworkd = true;
+
+  # Open Port in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 2049 111 6881 ];
   networking.firewall.allowedUDPPorts = [ 2049 111 ];
   # For scream audio in my windows VM
@@ -481,10 +484,10 @@
   };
 
   # For dark-mode light-mode switching via gsettings
-  xdg.portal = {
-    extraPortals = with pkgs; [ xdg-desktop-portal-gnome xdg-desktop-portal-gtk ];
-    enable = true;
-  };
+  # xdg.portal = {
+  #   extraPortals = with pkgs; [ xdg-desktop-portal-gnome xdg-desktop-portal-gtk ];
+  #   enable = true;
+  # };
 
   systemd.packages = [
     (pkgs.runCommand "delegate.conf" {
