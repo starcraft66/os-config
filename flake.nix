@@ -13,8 +13,9 @@
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
     devenv.url = "github:cachix/devenv/latest";
+    nixd.url = "github:nix-community/nixd";
   };
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, devenv, ... }: let
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, devenv, nixd, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -68,6 +69,7 @@
             });
           }))
           inputs.emacs-overlay.overlay
+          inputs.nixd.overlays.default
           (self: super: {
             inherit (devenv.packages.${platform}) devenv;
           })
