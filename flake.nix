@@ -151,6 +151,7 @@
     };
     darwinConfigurations = {
       NightmareMoon = inputs.nix-darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
         modules = [
           home-manager.darwinModules.home-manager
           ./hosts/nightmaremoon/darwin-configuration.nix
@@ -161,6 +162,7 @@
         };
       };
       CocoPommel = inputs.nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
         modules = [
           home-manager.darwinModules.home-manager
           ./hosts/cocopommel/darwin-configuration.nix

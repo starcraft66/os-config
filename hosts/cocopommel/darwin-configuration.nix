@@ -98,29 +98,29 @@
     distributedBuilds = true;
     buildMachines = [
       {
-        systems = [ "x86_64-linux" ];
+        systems = [ "x86_64-linux" "i686-linux" ];
         supportedFeatures = [ "kvm" "big-parallel" ];
         sshUser = "tristan";
         maxJobs = 24;
-        hostName = "2001:470:b08b:51:b62e:99ff:fe3f:87a5";
+        hostName = "2a10:4741:37:51:b62e:99ff:fe3f:87a5";
         sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_luna";
-        publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
+        # publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
       }
-      # {
-      #   systems = [ "x86_64-linux" ];
-      #   supportedFeatures = [ "big-parallel" ];
-      #   sshUser = "root";
-      #   maxJobs = 8;
-      #   hostName = "172.16.2.6";
-      #   sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_builder";
-      #   publicHostKey = "H+DeIUeuXgqoDI+XcNL43mBheZGSIBRHrPz/mrIIQqw";
-      # }
+      {
+        systems = [ "x86_64-linux" "i686-linux" ];
+        supportedFeatures = [ "big-parallel" ];
+        sshUser = "root";
+        maxJobs = 8;
+        hostName = "172.16.2.6";
+        sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_builder";
+        # publicHostKey = "H+DeIUeuXgqoDI+XcNL43mBheZGSIBRHrPz/mrIIQqw";
+      }
     ];
     settings = {
       # package = pkgs.nix;
       trusted-users = [ "tristan" "@admin" ];
       max-jobs = lib.mkDefault 8;
-      sandbox = false;
+      sandbox = true;
       extra-sandbox-paths = [ "/private/var/db/oah" "/Library/Apple" "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
     };
   };
