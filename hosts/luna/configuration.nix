@@ -13,7 +13,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Use the latest linux kernel
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = pkgs.linuxPackages_6_5;
   boot.initrd.systemd.enable = true;
 
   networking.hostName = "luna"; # Define your hostname.
@@ -57,7 +57,7 @@
     fontDir = {
       enable = true;
     };
-    fonts = with pkgs; [
+    packages = with pkgs; [
       nerdfonts
       noto-fonts
       font-awesome
@@ -70,19 +70,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-    };
-    overlays = [
-      (self: super:
-        {
-        }
-      )
-    ];
-  };
 
   # (((steam))) and (((nvidia)))
   programs.steam.enable = true;
@@ -170,7 +157,7 @@
     ];
     python-with-my-packages = python311.withPackages my-python-packages;
     wine-staging = wineWowPackages.staging;
-    firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
+    firefox-customized = firefox.override { nativeMessagingHosts = [ passff-host ]; };
   in [
     openconnect
     breeze-gtk
@@ -427,6 +414,14 @@
 
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.wallpaper.mode = "tile";
+
+  programs.hyprland = { # or wayland.windowManager.hyprland
+    enable = true;
+    xwayland = {
+      enable = true;
+    };
+    enableNvidiaPatches = true;
+  };
 
   services.xserver.windowManager.i3 = {
     enable = true;

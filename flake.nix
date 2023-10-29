@@ -56,17 +56,9 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            # inherit (nixpkgs-stable.legacyPackages.${platform}) gmic-qt helvum;
+            inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
             # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
 
-            openconnect = super.openconnect.overrideAttrs (oldAttrs: {
-              src = super.fetchFromGitLab {
-                owner = "Carbenium";
-                repo = "openconnect";
-                rev = "fortinet-saml";
-                hash = "sha256-7Ti0+mWPQ/OMt2/jG2A69T0CLzHyhY+OimR1y3GS+PU=";
-              };
-            });
           }))
           inputs.emacs-overlay.overlay
           inputs.nixd.overlays.default

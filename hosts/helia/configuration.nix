@@ -52,13 +52,6 @@
   # for (((steam)))
   programs.steam.enable = true;
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-    };
-  };
-
   # Garbage Collection
   nix = {
     gc = {
@@ -79,7 +72,7 @@
   environment.systemPackages = with pkgs;
   let
     wine-staging = wineWowPackages.staging;
-    firefox-customized = firefox.override { extraNativeMessagingHosts = [ passff-host ]; };
+    firefox-customized = firefox.override { nativeMessagingHosts = [ passff-host ]; };
   in [
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils

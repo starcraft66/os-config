@@ -3,7 +3,7 @@
 {
   programs.gh = {
     enable = true;
-    enableGitCredentialHelper = false;
+    gitCredentialHelper.enable = false;
     settings = {
       git_protocol = "ssh";
       aliases = {

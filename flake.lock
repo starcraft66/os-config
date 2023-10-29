@@ -454,7 +454,9 @@
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_3",
         "format-all": "format-all",
-        "nix-straight": "nix-straight",
+        "nix-straight": [
+          "nix-straight"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -487,15 +489,16 @@
     "nix-straight": {
       "flake": false,
       "locked": {
-        "lastModified": 1694361489,
-        "narHash": "sha256-kjDp+j6OtrmqbtjQB5uuOtjS08+kgJQuxFqhWE1Y9Rw=",
-        "owner": "nix-community",
+        "lastModified": 1696948727,
+        "narHash": "sha256-6fQamWVIyeLoFSJl1WKcIl+LUdZluzFla4H+4Z5Cv2E=",
+        "owner": "codingkoi",
         "repo": "nix-straight.el",
-        "rev": "748be99b84be0b130e946288099806a0f16d6e57",
+        "rev": "c64edbf49598453bd85dae1acef9a0f9d294185d",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "codingkoi",
+        "ref": "codingkoi/apply-librephoenixs-fix",
         "repo": "nix-straight.el",
         "type": "github"
       }
@@ -876,6 +879,7 @@
         "hyprland": "hyprland",
         "nix-darwin": "nix-darwin",
         "nix-doom-emacs": "nix-doom-emacs",
+        "nix-straight": "nix-straight",
         "nixd": "nixd",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixpkgs": "nixpkgs_6",
