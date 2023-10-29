@@ -11,7 +11,7 @@
     borgbackup 
     file
     binutils
-    exa
+    eza
     xclip
     bat
     ripgrep
