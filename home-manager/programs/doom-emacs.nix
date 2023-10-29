@@ -13,12 +13,35 @@ in
       rust-analyzer
       elixir_ls
       erlang-ls
+      nodejs
     ];
 
-    programs.doom-emacs = {
+    programs.doom-emacs = rec {
       enable = true;
       doomPrivateDir = ../doom.d;
-      emacsPackage = pkgs.emacs28;
+      emacsPackage = (pkgs.emacs29.override { withPgtk = true; });
+      # Only init/packages so we only rebuild when those change.
+      doomPackageDir = let
+        filteredPath = builtins.path {
+          path = doomPrivateDir;
+          name = "doom-private-dir-filtered";
+          filter = path: type:
+            builtins.elem (baseNameOf path) [ "init.el" "packages.el" ];
+        };
+      in pkgs.linkFarm "doom-packages-dir" [
+        {
+          name = "init.el";
+          path = "${filteredPath}/init.el";
+        }
+        {
+          name = "packages.el";
+          path = "${filteredPath}/packages.el";
+        }
+        {
+          name = "config.el";
+          path = pkgs.emptyFile;
+        }
+      ];
     };
   }
   (lib.mkIf isLinux {
