@@ -8,7 +8,6 @@
     pass
     tmux
     screen
-    borgbackup 
     file
     binutils
     eza
