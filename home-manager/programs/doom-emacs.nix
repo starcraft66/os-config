@@ -19,7 +19,7 @@ in
     programs.doom-emacs = rec {
       enable = true;
       doomPrivateDir = ../doom.d;
-      emacsPackage = (pkgs.emacs29.override { withPgtk = true; });
+      emacsPackage = lib.mkIf isLinux (pkgs.emacs29.override { withPgtk = true; });
       # Only init/packages so we only rebuild when those change.
       doomPackageDir = let
         filteredPath = builtins.path {
