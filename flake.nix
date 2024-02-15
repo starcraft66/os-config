@@ -11,16 +11,14 @@
     nix-straight.url = "github:codingkoi/nix-straight.el?ref=codingkoi/apply-librephoenixs-fix";
     nix-straight.flake = false;
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.inputs.nix-straight.follows = "nix-straight";
-    nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
+    doom-emacs.url = "github:hlissner/doom-emacs";
+    doom-emacs.flake = false;
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
     devenv.url = "github:cachix/devenv/latest";
     nixd.url = "github:nix-community/nixd";
     hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nix-doom-emacs, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
