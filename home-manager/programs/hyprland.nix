@@ -10,7 +10,6 @@ in
     xwayland = {
       enable = true;
     };
-    enableNvidiaPatches = true;
 
     extraConfig = ''
       $mod = SUPER
@@ -24,6 +23,11 @@ in
         vrr = 1
       }
 
+      # unscale XWayland
+      xwayland {
+        force_zero_scaling = true
+      }
+
       env = _JAVA_AWT_WM_NONREPARENTING,1
       env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
       env = LIBVA_DRIVER_NAME,nvidia
@@ -31,8 +35,13 @@ in
       env = GBM_BACKEND,nvidia-drm
       env = __GLX_VENDOR_LIBRARY_NAME,nvidia
       env = WLR_NO_HARDWARE_CURSORS,1
+      env = NIXOS_OZONE_WL,1
 
       exec-once = xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 1.50
+
+      # general
+      bind = $mod, q, killactive
+      bind = $mod, f, fullscreen
 
       # move focus
       bind = $mod, j, movefocus, l
