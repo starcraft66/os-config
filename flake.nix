@@ -157,11 +157,11 @@
           inputs = inputs // { darwin = inputs.nix-darwin; };
         };
       };
-      CocoPommel = inputs.nix-darwin.lib.darwinSystem {
+      Zecora = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
           home-manager.darwinModules.home-manager
-          ./hosts/cocopommel/darwin-configuration.nix
+          ./hosts/zecora/darwin-configuration.nix
         ];
         specialArgs = {
           # Was having trouble getting nix to serve me arm64 packages
