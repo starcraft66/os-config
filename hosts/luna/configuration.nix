@@ -333,7 +333,7 @@
   services.openssh.enable = true;
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     ipv4 = true;
     ipv6 = true;
     publish = {
@@ -347,7 +347,7 @@
   services.fwupd.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
 
   services.xserver.deviceSection = ''
     Option "UseEdidDpi" "False"
@@ -365,6 +365,8 @@
   };
 
   networking.useNetworkd = true;
+  # https://github.com/NixOS/nixpkgs/issues/180175#issuecomment-1473408913
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
   # Open Port in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 2049 111 6881 ];
@@ -406,8 +408,8 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "compose:ralt";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "compose:ralt";
 
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
@@ -420,7 +422,6 @@
     xwayland = {
       enable = true;
     };
-    enableNvidiaPatches = true;
   };
 
   services.xserver.windowManager.i3 = {

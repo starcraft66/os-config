@@ -92,7 +92,7 @@
   programs.light.enable = true;
 
   # List services that you want to enable:
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -115,8 +115,8 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "ctrl:swapcaps,compose:ralt";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "ctrl:swapcaps,compose:ralt";
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
