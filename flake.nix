@@ -3,6 +3,8 @@
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-stable.url = "github:nixos/nixpkgs/23.05";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -18,7 +20,7 @@
     nixd.url = "github:nix-community/nixd";
     hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -140,6 +142,19 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
           ./hosts/helia/configuration.nix
+        ];
+        pkgs = nixpkgsFor.${system};
+        specialArgs = { inherit inputs; };
+      };
+      GSOFT-31Q7L63 = let
+        system = "x86_64-linux";
+      in nixosSystem' {
+        system = system;
+        modules = [
+          home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
+          nixos-wsl.nixosModules.wsl
+          ./hosts/GSOFT-31Q7L63/configuration.nix
         ];
         pkgs = nixpkgsFor.${system};
         specialArgs = { inherit inputs; };
