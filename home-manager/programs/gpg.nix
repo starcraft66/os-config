@@ -24,7 +24,7 @@ lib.mkMerge [
       enableScDaemon = true;
       enableSshSupport = true;
       grabKeyboardAndMouse = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-qt;
     };
   })
 ]

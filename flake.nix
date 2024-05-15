@@ -18,7 +18,7 @@
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
     devenv.url = "github:cachix/devenv/latest";
     nixd.url = "github:nix-community/nixd";
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
   };
   outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
     inherit (nixpkgs) lib;
@@ -109,7 +109,7 @@
 
         nativeBuildInputs = with pkgs; [
           git
-          nixfmt
+          nixfmt-rfc-style
           sops.sops-import-keys-hook
         ];
 

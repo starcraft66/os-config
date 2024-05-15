@@ -13,7 +13,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Use the latest linux kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_5;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.systemd.enable = true;
 
   networking.hostName = "luna"; # Define your hostname.
@@ -171,7 +171,6 @@
     neofetch
     spotify
     vscode
-    minecraft
     roboto
     unzip
     traceroute
@@ -230,7 +229,6 @@
     gdb
     pwndbg
     rarcrack
-    spotify-tui
     flameshot
     rofi-pass
     zip
@@ -242,7 +240,6 @@
     prismlauncher
     nmon
     youtube-dl
-    python38Packages.ds4drv
     cava
     mtr
     virt-manager
@@ -295,7 +292,6 @@
   # podman
   virtualisation.podman = {
     enable = true;
-    enableNvidia = true;
     dockerCompat = true;
   };
 
@@ -319,7 +315,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
 
@@ -414,7 +410,8 @@
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
 
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.wallpaper.mode = "tile";
 
   programs.hyprland = { # or wayland.windowManager.hyprland
@@ -422,6 +419,12 @@
     xwayland = {
       enable = true;
     };
+  };
+
+  programs.sway = {
+    enable = true;
+    extraOptions = [ " --unsupported-gpu " ];
+    wrapperFeatures.gtk = true;
   };
 
   services.xserver.windowManager.i3 = {
@@ -466,6 +469,7 @@
       config.my.ckb = true;
       config.my.dpi = 144;
       config.my.cursorDpi = 48;
+      config.my.wayland = false;
       config.my.vsync = true;
       config.my.picomBackend = "glx";
       config.my.trayOutput = "DP-4";
@@ -480,10 +484,11 @@
   };
 
   # For dark-mode light-mode switching via gsettings
-  # xdg.portal = {
-  #   extraPortals = with pkgs; [ xdg-desktop-portal-gnome xdg-desktop-portal-gtk ];
-  #   enable = true;
-  # };
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   systemd.packages = [
     (pkgs.runCommand "delegate.conf" {

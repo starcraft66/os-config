@@ -158,7 +158,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

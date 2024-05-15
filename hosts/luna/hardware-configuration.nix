@@ -7,7 +7,7 @@
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" "aesni_intel" "cryptd" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_6_5.v4l2loopback ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
   boot.extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
     '';
@@ -55,11 +55,12 @@
 
   # Enable nvidia modesetting
   hardware.nvidia.modesetting.enable = true;
-  # Use beta driver
-  hardware.nvidia.package = pkgs.linuxPackages_6_5.nvidiaPackages.beta;
+  # Use stable driver
+  hardware.nvidia.package = pkgs.linuxPackages_latest.nvidiaPackages.stable;
 
   # Enable open-source nvidia kernel modules
   hardware.nvidia.open = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   # My usb sound card is 44100Hz
   # This fixes crackling when adjusting playback volume on youtube

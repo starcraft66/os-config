@@ -24,5 +24,5 @@
       emacs-overlay.flake = inputs.emacs-overlay;
     };
   };
-  environment.systemPackages = with pkgs; [ nixfmt nixpkgs-fmt /* nixd */ ];
+  environment.systemPackages = with pkgs; [ nixfmt-rfc-style nixpkgs-fmt nixd ];
 }
