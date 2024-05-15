@@ -54,34 +54,35 @@ in
       modifier = "Mod4";
       bars = [
       ];
-      colors = {
+      # force to override hm pywal module
+      colors = lib.mkForce {
         focused = {
-          border = originalConfig.my.theme.colorD;
-          childBorder = originalConfig.my.theme.colorD;
-          background = originalConfig.my.theme.colorD;
-          text = originalConfig.my.theme.color0;
-          indicator = originalConfig.my.theme.color1;
+          border = "$color4";
+          childBorder = "$color4";
+          background = "$color4";
+          text = "$color0";
+          indicator = "$color6";
         };
         focusedInactive = {
-          border = originalConfig.my.theme.color2;
-          childBorder = originalConfig.my.theme.color2;
-          background = originalConfig.my.theme.color2;
-          text = originalConfig.my.theme.color3;
+          border = "$color8";
+          childBorder = "$color8";
+          background = "$color8";
+          text = "$color3";
           indicator = "#292d2e";
         };
         unfocused = {
-          border = originalConfig.my.theme.color1;
-          childBorder = originalConfig.my.theme.color1;
-          background = originalConfig.my.theme.color1;
+          border = "$color8";
+          childBorder = "$color8";
+          background = "$color8";
           text = "#999999";
           indicator = "#292d2e";
         };
         urgent= {
           border = "#2f343a";
           childBorder = "#2f343a";
-          background = originalConfig.my.theme.color8;
-          text = originalConfig.my.theme.colorF;
-          indicator = originalConfig.my.theme.color8;
+          background = "$color8";
+          text = "$color15";
+          indicator = "$color8";
         };
       };
       fonts = {
@@ -245,6 +246,22 @@ in
     extraConfig = ''
       for_window [class="^.*"] border pixel 1
       new_window 1pixel
+      set_from_resource $color0 i3wm.color0   #000000
+      set_from_resource $color1 i3wm.color1   #000000
+      set_from_resource $color2 i3wm.color2   #000000
+      set_from_resource $color3 i3wm.color3   #000000
+      set_from_resource $color4 i3wm.color4   #000000
+      set_from_resource $color5 i3wm.color5   #000000
+      set_from_resource $color6 i3wm.color6   #000000
+      set_from_resource $color7 i3wm.color7   #000000
+      set_from_resource $color8 i3wm.color8   #000000
+      set_from_resource $color9 i3wm.color9   #000000
+      set_from_resource $color10 i3wm.color10 #000000
+      set_from_resource $color11 i3wm.color11 #000000
+      set_from_resource $color12 i3wm.color12 #000000
+      set_from_resource $color13 i3wm.color13 #000000
+      set_from_resource $color14 i3wm.color14 #000000
+      set_from_resource $color15 i3wm.color15 #000000
     '';
   };
 

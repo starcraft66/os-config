@@ -3,7 +3,7 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in
-(lib.mkIf isLinux {
+(lib.mkIf (isLinux && !config.my.wayland) {
   services.polybar = {
     enable = true;
     package = pkgs.polybar.override { i3Support = true; };
@@ -47,7 +47,7 @@ in
 
         # Set a border
         border-size = 2;
-        border-color = config.my.theme.color2;
+        border-color = "\$\{xrdb:color8:#222\}"; #config.my.theme.color2;
 
         # Completely disable underlines
         line-size = 0;
@@ -59,8 +59,8 @@ in
         tray-detached = false;
         tray-maxsize = 24;
 
-        background = config.my.theme.color0;
-        foreground = config.my.theme.colorE;
+        background = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
+        foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
 
         padding = 3;
 
@@ -112,10 +112,10 @@ in
         label-unfocused-padding = 2;
         label-urgent-padding = 2;
 
-        label-focused-background = config.my.theme.color2;
-        label-visible-background = config.my.theme.color2;
-        label-unfocused-background = config.my.theme.color0;
-        label-urgent-background = config.my.theme.colorA;
+        label-focused-background = "\$\{xrdb:color8:#222\}"; #config.my.theme.color2;
+        label-visible-background = "\$\{xrdb:color8:#222\}"; #config.my.theme.color2;
+        label-unfocused-background = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
+        label-urgent-background = "\$\{xrdb:color3:#222\}"; #config.my.theme.colorA;
 
         # https://github.com/polybar/polybar/issues/847
         # >This is because the default label for the workspaces is %icon% %name%,
@@ -135,7 +135,7 @@ in
         interval = 2;
         format-prefix = " ";
         format-padding = 2;
-        format-foreground = config.my.theme.colorE;
+        format-foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
         label = "%percentage%%";
       };
 
@@ -144,7 +144,7 @@ in
         interval = 2;
         format-padding = 2;
         format-prefix = " ";
-        format-foreground = config.my.theme.colorE;
+        format-foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
         label = "%percentage_used%%";
       };
 
@@ -153,14 +153,14 @@ in
         interface = config.my.wirelessInterface;
         interval = 3;
         format-connected-margin = 2;
-        format-connected-foreground = config.my.theme.colorB;
+        format-connected-foreground = "\$\{xrdb:color11:#222\}"; #config.my.theme.colorB;
 
         format-connected = " <label-connected>";
         label-connected = "%essid%";
 
         format-disconnected = "<label-disconnected>";
         format-disconnected-margin = "2";
-        format-disconnected-foreground = config.my.theme.colorF;
+        format-disconnected-foreground = "\$\{xrdb:color15:#222\}"; #config.my.theme.colorF;
         label-disconnected = "%ifname% disconnected";
       };
 
@@ -170,7 +170,7 @@ in
         interval = 3;
 
         format-connected-prefix = " ";
-        format-connected-prefix-foreground = config.my.theme.colorB;
+        format-connected-prefix-foreground = "\$\{xrdb:color11:#222\}"; #config.my.theme.colorB;
         label-connected = "%local_ip%";
 
         format-disconnected = "";
@@ -212,14 +212,14 @@ in
         ramp-volume-2 = "";
 
         format-volume-margin = 2;
-        format-volume-foreground = config.my.theme.colorE;
+        format-volume-foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
         format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
         use-ui-max = "false";
         interval = 5;
 
-        label-muted-background = config.my.theme.color0;
-        label-muted-foreground = config.my.theme.color3;
+        label-muted-background = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
+        label-muted-foreground = "\$\{xrdb:color3:#222\}"; #config.my.theme.color3;
       };
 
       "module/powermenu" = {
@@ -229,8 +229,8 @@ in
 
         format-spacing = 1;
         format-margin = 0;
-        format-background = config.my.theme.color0;
-        format-foreground = config.my.theme.colorF;
+        format-background = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
+        format-foreground = "\$\{xrdb:color15:#222\}"; #config.my.theme.colorF;
         format-padding = 2;
 
         label-open = "";
@@ -255,17 +255,16 @@ in
 
         menu-1-0 = "";
         menu-1-0-exec = "";
-
       };
 
       "module/battery" = {
         type = "internal/battery";
         format-charging-margin = 2;
-        format-charging-foreground = config.my.theme.color3;
+        format-charging-foreground = "\$\{xrdb:color3:#222\}"; #config.my.theme.color3;
         format-discharging-margin = 2;
-        format-discharging-foreground = config.my.theme.colorE;
+        format-discharging-foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
         format-full-margin = 2;
-        format-full-foreground = config.my.theme.color3;
+        format-full-foreground = "\$\{xrdb:color3:#222\}"; #config.my.theme.color3;
         full-at = 99;
         time-format = "%H:%M";
         battery = "BAT0";
@@ -282,8 +281,8 @@ in
         ramp-capacity-3 = "";
         ramp-capacity-4 = "";
 
-        ramp-capacity-0-foreground = config.my.theme.color0;
-        ramp-capacity-foreground = config.my.theme.colorF;
+        ramp-capacity-0-foreground = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
+        ramp-capacity-foreground = "\$\{xrdb:color15:#222\}"; #config.my.theme.colorF;
         bar-capacity-width = 10;
 
         animation-charging-0 = "";

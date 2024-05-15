@@ -57,6 +57,7 @@
 (package! dimmer)
 (package! kubernetes)
 (package! exec-path-from-shell)
+(package! auto-dark)
 
 ;; If you want to pull in the Evil compatibility package.
 (after! kubernetes

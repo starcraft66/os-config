@@ -55,6 +55,9 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+(after! auto-dark
+  (auto-dark-mode t))
+
 (setq
  projectile-project-search-path '("~/src")
  )
@@ -156,3 +159,20 @@
       (kbd "M-k") (kbd "M-j")
       (kbd "M-J") (kbd "M-H")
       (kbd "M-j") (kbd "M-h")))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; nixd language server
+(with-eval-after-load 'lsp-mode
+  (lsp-register-client
+    (make-lsp-client :new-connection (lsp-stdio-connection "nixd")
+                     :major-modes '(nix-mode)
+                     :priority 0
+                     :server-id 'nixd)))

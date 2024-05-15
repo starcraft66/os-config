@@ -1,9 +1,10 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 {
   imports = [
     ./programs/alacritty.nix
     ./programs/cloud.nix
+    ./programs/darkman.nix
     ./programs/darwin.nix
     ./programs/devenv.nix
     ./programs/direnv.nix
@@ -16,6 +17,7 @@
     ./programs/github.nix
     ./programs/gpg.nix
     ./programs/gtk.nix
+    ./programs/hyprland.nix
     ./programs/i3.nix
     ./programs/jetbrains.nix
     ./programs/kubernetes.nix
@@ -27,6 +29,7 @@
     ./programs/obs-studio.nix
     ./programs/plex-mpv-shim.nix
     ./programs/polybar.nix
+    ./programs/pywal.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/qt.nix
@@ -34,6 +37,7 @@
     ./programs/tmux.nix
     ./programs/udiskie.nix
     ./programs/vim.nix
+    ./programs/waybar.nix
 # VSCode behaves horribly with a read-only config
 #    ./programs/vscode.nix
     ./programs/zoxide.nix
@@ -71,6 +75,12 @@
     description = "Cursor DPI scale";
     default = 24;
     type = lib.types.int;
+  };
+
+  options.my.wayland = lib.mkOption {
+    description = "Toggle between wayland and X11-specific services";
+    default = false;
+    type = lib.types.bool;
   };
 
   options.my.vsync = lib.mkOption {
