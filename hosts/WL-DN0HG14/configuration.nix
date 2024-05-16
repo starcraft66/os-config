@@ -11,7 +11,7 @@
   wsl.enable = true;
   wsl.defaultUser = "tristan";
   
-  networking.hostName = "GSOFT-31Q7L63";
+  networking.hostName = "WL-DN0HG14";
 
   programs.zsh.enable = true;
   users.users.tristan = {
