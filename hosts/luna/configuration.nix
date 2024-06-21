@@ -324,6 +324,7 @@
     latitude = 45.50884;
     longitude = -73.58781;
   };
+  services.geoclue2.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
