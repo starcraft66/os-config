@@ -52,6 +52,9 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 ;
 
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+
 (package! base16-theme)
 (package! k8s-mode)
 (package! dimmer)
