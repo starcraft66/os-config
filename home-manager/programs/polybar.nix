@@ -55,10 +55,6 @@ in
         # Radius disabled because the systray ignores it and it looks bad
         # radius = 16;
 
-        tray-position = "right";
-        tray-detached = false;
-        tray-maxsize = 24;
-
         background = "\$\{xrdb:color0:#222\}"; #config.my.theme.color0;
         foreground = "\$\{xrdb:color4:#222\}"; #config.my.theme.colorE;
 
@@ -81,7 +77,7 @@ in
 
         modules-left = "i3";
         modules-center = "time";
-        modules-right = "cpu memory pulseaudio wlan eth battery";
+        modules-right = "tray cpu memory pulseaudio wlan eth battery";
 
         # Don't make i3 aware of the bar (requires fake transparent spacer bar or a taller top gap)
         # This is required or else the x offset is ignored and the left side of the
@@ -99,6 +95,11 @@ in
 
         # HiDPI
         dpi = config.my.dpi;
+      };
+
+      "module/tray" = {
+        type = "internal/tray";
+        format = "<tray>";
       };
 
       "module/i3" = {
