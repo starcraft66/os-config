@@ -9,7 +9,7 @@ in
 lib.mkMerge [
   {
     home.packages = with pkgs; [
-      nodePackages.pyright
+      pyright
       yaml-language-server
       terraform-ls
       rust-analyzer
