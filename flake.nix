@@ -7,6 +7,8 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     # Fix for emacs 29/pgtk hanging on rebuild
@@ -20,7 +22,7 @@
     nixd.url = "github:nix-community/nixd";
     hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
   };
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -175,6 +177,7 @@
       Zecora = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
+          nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
           ./hosts/zecora/darwin-configuration.nix
         ];

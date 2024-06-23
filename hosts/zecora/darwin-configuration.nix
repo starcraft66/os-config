@@ -47,9 +47,20 @@
   };
 
   # Homebrew integration
+  nix-homebrew = {
+    # Install Homebrew under the default prefix
+    enable = true;
+
+    # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+    enableRosetta = true;
+
+    # User owning the Homebrew prefix
+    user = "tristan";
+  };
+
   homebrew = {
     enable = true;
-    brewPrefix = "/usr/local/bin";
+    brewPrefix = "/opt/homebrew/bin";
     brews = [
     ];
     onActivation = {
@@ -57,8 +68,6 @@
       upgrade = true;
     };
     taps = [
-      "homebrew/cask"
-      "homebrew/cask-drivers"
     ];
     casks = [
       "adoptopenjdk"
