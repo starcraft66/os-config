@@ -55,6 +55,7 @@
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 
+(package! elixir-ts-mode)
 (package! base16-theme)
 (package! k8s-mode)
 (package! dimmer)
