@@ -13,10 +13,7 @@
   ];
 
   fonts = {
-    fontDir = {
-      enable = true;
-    };
-    fonts = with pkgs; [
+    packages = with pkgs; [
       nerdfonts
       # emacs-all-the-icons-fonts
     ];
@@ -85,15 +82,16 @@
       "slack"
       "insomnia"
       "kitty"
-      "openmtp"
+      # "openmtp"
       "rectangle"
       "lens"
       "obs"
       "prismlauncher"
       "ghidra"
       "hex-fiend"
-      "mpv"
+      "stolendata-mpv"
       "yubico-authenticator"
+      # "monokle"
     ];
     masApps = {
     };
@@ -113,21 +111,30 @@
       {
         systems = [ "x86_64-linux" ];
         supportedFeatures = [ "kvm" "big-parallel" ];
-        sshUser = "tristan";
-        maxJobs = 24;
-        hostName = "2001:470:b08b:51:b62e:99ff:fe3f:87a5";
-        sshKey = "/Users/tristan/.ssh/id_nixstore_luna";
+        sshUser = "root";
+        maxJobs = 32;
+        hostName = "lava.tdude.co";
+        sshKey = "/Users/tristan/.ssh/id_nixstore_lava";
         # publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
       }
-      # {
-      #   systems = [ "x86_64-linux" ];
-      #   supportedFeatures = [ "big-parallel" ];
-      #   sshUser = "root";
-      #   maxJobs = 8;
-      #   hostName = "172.16.2.6";
-      #   sshKey = "/Users/tristan.gosselin-hane/.ssh/id_nixstore_builder";
-      #   publicHostKey = "H+DeIUeuXgqoDI+XcNL43mBheZGSIBRHrPz/mrIIQqw";
-      # }
+#      {
+#        systems = [ "x86_64-linux" ];
+#        supportedFeatures = [ "kvm" "big-parallel" ];
+#        sshUser = "tristan";
+#        maxJobs = 24;
+#        hostName = "luna.local";
+#        sshKey = "/Users/tristan/.ssh/id_nixstore_luna";
+#        # publicHostKey = "AAAAC3NzaC1lZDI1NTE5AAAAIBdrtUDqfsbYGx6e2K7BfRiL8WfF3tycSwFj3lVfJFyL";
+#      }
+#      {
+#        systems = [ "x86_64-linux" ];
+#        supportedFeatures = [ "big-parallel" ];
+#        sshUser = "root";
+#        maxJobs = 8;
+#        hostName = "172.16.2.6";
+#        sshKey = "/Users/tristan/.ssh/id_nixstore_builder";
+#        # publicHostKey = "H+DeIUeuXgqoDI+XcNL43mBheZGSIBRHrPz/mrIIQqw";
+#      }
     ];
     settings = {
       # package = pkgs.nix;
@@ -143,5 +150,5 @@
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  system.stateVersion = 5;
 }
