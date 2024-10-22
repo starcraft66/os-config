@@ -21,8 +21,9 @@
     devenv.url = "github:cachix/devenv/latest";
     nixd.url = "github:nix-community/nixd";
     hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, ... }: let
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, vscode-server, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -156,6 +157,7 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
           nixos-wsl.nixosModules.wsl
+          vscode-server.nixosModules.default
           ./hosts/WL-DN0HG14/configuration.nix
         ];
         pkgs = nixpkgsFor.${system};

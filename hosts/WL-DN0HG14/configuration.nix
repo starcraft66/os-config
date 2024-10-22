@@ -8,10 +8,33 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  imports = [
+    ../../applications/nix.nix
+    ../../applications/core.nix
+  ];
+
   wsl.enable = true;
   wsl.defaultUser = "tristan";
   
   networking.hostName = "WL-DN0HG14";
+
+  services.vscode-server.enable = true;
+
+  programs.nix-ld.enable = true;
+
+  fonts = {
+    fontDir = {
+      enable = true;
+    };
+    packages = with pkgs; [
+      nerdfonts
+      noto-fonts
+      font-awesome
+      emacs-all-the-icons-fonts
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [ coreutils wget ];
 
   programs.zsh.enable = true;
   users.users.tristan = {
