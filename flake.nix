@@ -64,6 +64,8 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
+            # Workaround until https://github.com/NixOS/nixpkgs/pull/349783 is merged
+            utillinux = super.util-linux;
             inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
             # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
 
