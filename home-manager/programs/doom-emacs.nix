@@ -10,6 +10,7 @@ lib.mkMerge [
   {
     home.packages = with pkgs; [
       pyright
+      nodePackages_latest.vscode-json-languageserver
       yaml-language-server
       terraform-ls
       rust-analyzer
@@ -21,7 +22,7 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = lib.mkMerge [
-        (lib.mkIf isLinux (pkgs.emacs29.override { withTreeSitter = true; withNativeCompilation = true; }))
+        (lib.mkIf isLinux (pkgs.emacs29-pgtk.override { withTreeSitter = true; withNativeCompilation = true; }))
         (lib.mkIf isDarwin (pkgs.emacs29.override { withTreeSitter = true; withNativeCompilation = true; }))
       ];
       extraPackages = epkgs: with epkgs; [
