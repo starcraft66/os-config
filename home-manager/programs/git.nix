@@ -12,7 +12,7 @@
     };
 
     extraConfig = {
-      core.sshCommand = "${pkgs.openssh}/bin/ssh";
+      core.sshCommand = if config.my.isWSL then "ssh.exe" else "${pkgs.openssh}/bin/ssh";
       pull.ff = "only";
       push.default = "current";
       merge.tool = "vimdiff";

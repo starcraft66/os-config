@@ -73,6 +73,7 @@
       config.my.leftMonitor = "DP-0";
       config.my.rightMonitor = "DP-4";
       config.my.wiredInterface = "enp5s0";
+      config.my.isWSL = true;
     };
     extraSpecialArgs = { inherit inputs; };
     useUserPackages = true;

@@ -147,4 +147,10 @@
     };
     type = lib.types.attrs;
   };
+
+  options.my.isWSL = lib.mkOption {
+    description = "Enable usability improvements that bridge windows services with linux when running under WSL.";
+    default = false;
+    type = lib.types.bool;
+  };
 }
