@@ -52,6 +52,11 @@
     ];
   };
 
+  location = {
+    latitude = 45.50884;
+    longitude = -73.58781;
+  };
+
   programs.dconf.enable = true;
 
   home-manager = {
