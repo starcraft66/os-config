@@ -15,6 +15,7 @@
       core.sshCommand = if config.my.isWSL then "ssh.exe" else "${pkgs.openssh}/bin/ssh";
       pull.ff = "only";
       push.default = "current";
+      push.autoSetupRemote = "true";
       merge.tool = "vimdiff";
       mergetool.prompt = true;
       difftool.prompt = false;
