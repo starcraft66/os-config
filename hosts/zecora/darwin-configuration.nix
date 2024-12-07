@@ -13,8 +13,11 @@
   ];
 
   fonts = {
+    fontDir = {
+      enable = true;
+    };
     packages = with pkgs; [
-      nerdfonts
+      nerd-fonts.meslo-lg
       # emacs-all-the-icons-fonts
     ];
   };

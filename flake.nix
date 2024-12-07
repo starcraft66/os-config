@@ -45,10 +45,10 @@
         name = "patched-nixpkgs";
         src = nixpkgs;
         patches = [
-        # (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/223593
-        #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/223593.patch";
-        #   sha256 = "sha256-8Acdn2qy5/rSsvcXpYjlzgS8/1jDPAFcFLp8d76p7Ig=";
-        # })
+        (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/362117
+          url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/362117.patch";
+          sha256 = "sha256-s1TBY9kkmlnInnvd2WXrjTNS9vKGs0Xc1Uiv6oEN54E=";
+        })
         ];
       });
 
@@ -64,11 +64,8 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            # Workaround until https://github.com/NixOS/nixpkgs/pull/349783 is merged
-            utillinux = super.util-linux;
-            inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
+            # inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
             # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
-
           }))
           inputs.emacs-overlay.overlay
           inputs.nixd.overlays.default

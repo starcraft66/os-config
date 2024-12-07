@@ -17,7 +17,7 @@
       enable = true;
     };
     fonts = with pkgs; [
-      nerdfonts
+      nerd-fonts.meslo-lg
       # emacs-all-the-icons-fonts
     ];
   };

@@ -58,7 +58,7 @@
       enable = true;
     };
     packages = with pkgs; [
-      nerdfonts
+      nerd-fonts.meslo-lg
       noto-fonts
       font-awesome
       emacs-all-the-icons-fonts
@@ -73,9 +73,7 @@
 
   # (((steam))) and (((nvidia)))
   programs.steam.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.driSupport = true;
+  hardware.graphics.enable = true;
 
   # Sops config
   sops.defaultSopsFile = ../../secrets/luna.yaml;
@@ -234,12 +232,12 @@
     zip
     obs-studio
     bmon
-    adoptopenjdk-hotspot-bin-8
+    temurin-bin-8
     kdenlive
     openshot-qt
     prismlauncher
     nmon
-    youtube-dl
+    yt-dlp
     cava
     mtr
     virt-manager
@@ -278,10 +276,10 @@
     parallel
     jq
     yq
-    (retroarch.override { cores = with libretro; [ bsnes-mercury ]; })
+    (retroarch.withCores (cores: with libretro; [ bsnes-mercury ]))
     mupen64plus
     asciinema
-    gnome.nautilus
+    nautilus
   ];
 
   # Virtualization

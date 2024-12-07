@@ -79,7 +79,7 @@
     alacritty neofetch spotify vscode glib minecraft
     roboto unzip traceroute signal-desktop iperf ethtool
     ncdu gwenview flameshot wine-staging winetricks
-    breeze-gtk breeze-qt5 gnome.nautilus discord
+    breeze-gtk breeze-qt5 nautilus discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -149,7 +149,7 @@
   # Fonts
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
-    nerdfonts
+    nerd-fonts.meslo-lg
     noto-fonts
     emacs-all-the-icons-fonts
     font-awesome

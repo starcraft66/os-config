@@ -32,6 +32,7 @@
     ./programs/pywal.nix
     ./programs/ssh.nix
     ./programs/starship.nix
+    ./programs/sway.nix
     ./programs/qt.nix
     ./programs/rofi.nix
     ./programs/tmux.nix

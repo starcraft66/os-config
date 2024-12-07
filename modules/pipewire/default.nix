@@ -20,7 +20,6 @@ in
         easyeffects
       ];
       # https://nixos.wiki/wiki/PipeWire
-      sound.enable = false;
       hardware.pulseaudio.enable = false;
       security.rtkit.enable = true;
       services.pipewire = {
@@ -159,7 +158,6 @@ in
       };
     })
     (mkIf (!cfg.enable) {
-      sound.enable = true;
       hardware.pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull;
