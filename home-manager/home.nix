@@ -22,7 +22,7 @@
     ./programs/jetbrains.nix
     ./programs/kubernetes.nix
     ./programs/kitty.nix
-    ./programs/mixxx.nix
+    # ./programs/mixxx.nix
     ./programs/mullvad.nix
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
@@ -32,7 +32,7 @@
     ./programs/pywal.nix
     ./programs/ssh.nix
     ./programs/starship.nix
-    ./programs/sway.nix
+    # ./programs/sway.nix
     ./programs/qt.nix
     ./programs/rofi.nix
     ./programs/tmux.nix
