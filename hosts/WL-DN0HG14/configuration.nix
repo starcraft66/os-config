@@ -27,7 +27,7 @@
       enable = true;
     };
     packages = with pkgs; [
-      nerdfonts
+      nerd-fonts.meslo-lg
       noto-fonts
       font-awesome
       emacs-all-the-icons-fonts
