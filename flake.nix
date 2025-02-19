@@ -1,4 +1,4 @@
-{
+{  
   inputs = {
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -45,10 +45,10 @@
         name = "patched-nixpkgs";
         src = nixpkgs;
         patches = [
-        (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/362117
-          url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/362117.patch";
-          sha256 = "sha256-s1TBY9kkmlnInnvd2WXrjTNS9vKGs0Xc1Uiv6oEN54E=";
-        })
+        # (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/362117
+        #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/362117.patch";
+        #   sha256 = "sha256-s1TBY9kkmlnInnvd2WXrjTNS9vKGs0Xc1Uiv6oEN54E=";
+        # })
         ];
       });
 
