@@ -13,9 +13,6 @@
   ];
 
   fonts = {
-    fontDir = {
-      enable = true;
-    };
     packages = with pkgs; [
       nerd-fonts.meslo-lg
       # emacs-all-the-icons-fonts
@@ -105,9 +102,7 @@
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   nix = {
-    configureBuildUsers = true;
     gc.automatic = true;
     distributedBuilds = true;
     buildMachines = [
@@ -148,8 +143,6 @@
       extra-sandbox-paths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
     };
   };
-
-  services.activate-system.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
