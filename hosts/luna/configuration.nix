@@ -225,7 +225,7 @@
     peek
     ncdu
     gdb
-    pwndbg
+    # pwndbg
     rarcrack
     flameshot
     rofi-pass
@@ -350,7 +350,7 @@
   '';
 
   services.xserver.screenSection = ''
-    Option         "metamodes" "DP-4: 3840x2160_144 +3840+0 {ForceCompositionPipeline=Off}, DP-0: 3840x2160_60 +0+0 {ForceCompositionPipeline=Off, AllowGSYNCCompatible=On}"
+    Option         "metamodes" "HDMI-0: 3840x2160_240 +3840+0 {ForceCompositionPipeline=Off}, DP-0: 3840x2160_144 +0+0 {ForceCompositionPipeline=Off, AllowGSYNCCompatible=On}"
   '';
 
   services.redshift = {
@@ -471,9 +471,9 @@
       config.my.wayland = false;
       config.my.vsync = true;
       config.my.picomBackend = "glx";
-      config.my.trayOutput = "DP-4";
+      config.my.trayOutput = "HDMI-0";
       config.my.leftMonitor = "DP-0";
-      config.my.rightMonitor = "DP-4";
+      config.my.rightMonitor = "HDMI-0";
       config.my.wiredInterface = "enp5s0";
     };
     extraSpecialArgs = { inherit inputs; };
