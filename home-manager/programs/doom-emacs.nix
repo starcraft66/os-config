@@ -22,8 +22,8 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = lib.mkMerge [
-        (lib.mkIf isLinux (pkgs.emacs29-pgtk.override { withTreeSitter = true; withNativeCompilation = true; }))
-        (lib.mkIf isDarwin (pkgs.emacs29.override { withTreeSitter = true; withNativeCompilation = true; }))
+        (lib.mkIf isLinux (pkgs.emacs30-pgtk.override { withTreeSitter = true; withNativeCompilation = true; }))
+        (lib.mkIf isDarwin (pkgs.emacs30.override { withTreeSitter = true; withNativeCompilation = true; }))
       ];
       extraPackages = epkgs: with epkgs; [
         vterm

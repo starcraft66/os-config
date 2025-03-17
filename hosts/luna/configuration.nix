@@ -7,8 +7,17 @@
     ../../applications/nix.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -158,8 +167,6 @@
     firefox-customized = firefox.override { nativeMessagingHosts = [ passff-host ]; };
   in [
     openconnect
-    breeze-gtk
-    breeze-qt5
     wireshark
     element-desktop
     slack
@@ -180,7 +187,7 @@
     irssi
     qogir-theme
     libsForQt5.qtstyleplugins
-    spectacle
+    kdePackages.spectacle
     firefox-customized
     python-with-my-packages
     thunderbird
@@ -213,13 +220,13 @@
     usbutils
     ghidra-bin
     gimp-with-plugins
-    gwenview
+    kdePackages.gwenview
     deluge
     wmctrl
     mediainfo
     pwgen
     hugo
-    ark
+    kdePackages.ark
     pipenv
     qt5.qttools
     peek
@@ -233,7 +240,7 @@
     obs-studio
     bmon
     temurin-bin-8
-    kdenlive
+    kdePackages.kdenlive
     openshot-qt
     prismlauncher
     nmon
@@ -337,7 +344,7 @@
       workstation = true;
     };
   };
-  services.tftpd.enable = true;
+  # services.tftpd.enable = true;
   services.pcscd.enable = true;
   services.fwupd.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -409,9 +416,11 @@
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
 
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = false;
+  services.displayManager.cosmic-greeter.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.wallpaper.mode = "tile";
+  services.desktopManager.cosmic.enable = true;
 
   programs.hyprland = { # or wayland.windowManager.hyprland
     enable = true;
@@ -468,7 +477,7 @@
       config.my.ckb = true;
       config.my.dpi = 144;
       config.my.cursorDpi = 48;
-      config.my.wayland = false;
+      config.my.wayland = true;
       config.my.vsync = true;
       config.my.picomBackend = "glx";
       config.my.trayOutput = "HDMI-0";
@@ -483,11 +492,11 @@
   };
 
   # For dark-mode light-mode switching via gsettings
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   wlr.enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # };
 
   systemd.packages = [
     (pkgs.runCommand "delegate.conf" {
