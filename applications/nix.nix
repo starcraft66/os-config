@@ -4,6 +4,7 @@
   imports = [
     ../caches/nix-community.nix
     ../caches/devenv.nix
+    ../caches/cosmic.nix
   ];
 
   nix = {
