@@ -11,4 +11,8 @@
       set so=10
     '';
   };
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim;
+  };
 }
