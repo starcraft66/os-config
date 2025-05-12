@@ -148,20 +148,6 @@
         pkgs = nixpkgsFor.${system};
         specialArgs = { inherit inputs; };
       };
-      WL-DN0HG14 = let
-        system = "x86_64-linux";
-      in nixosSystem' {
-        system = system;
-        modules = [
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-          nixos-wsl.nixosModules.wsl
-          vscode-server.nixosModules.default
-          ./hosts/WL-DN0HG14/configuration.nix
-        ];
-        pkgs = nixpkgsFor.${system};
-        specialArgs = { inherit inputs; };
-      };
     };
     darwinConfigurations = {
       WL-K3WYFW33WD = inputs.nix-darwin.lib.darwinSystem {
