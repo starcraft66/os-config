@@ -5,7 +5,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/24.11-pre";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    nix-darwin.url = "github:lnl7/nix-darwin/master";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
@@ -164,6 +164,23 @@
       };
     };
     darwinConfigurations = {
+      WL-K3WYFW33WD = inputs.nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          ./hosts/WL-K3WYFW33WD/darwin-configuration.nix
+        ];
+        specialArgs = {
+          # Was having trouble getting nix to serve me arm64 packages
+          # so we are being explicit here :)
+          pkgs = nixpkgsFor.aarch64-darwin;
+          # Rosetta 2 is installed, define a special pkgsX86 to install
+          # packages that don't build on aarch64-darwin yet as a fallback
+          pkgsX86 = nixpkgsX86darwin;
+          inputs = inputs // { darwin = inputs.nix-darwin; };
+        };
+      };
       NightmareMoon = inputs.nix-darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
