@@ -88,4 +88,7 @@
     # DualShock 4 Slim over bluetooth hidraw
     KERNEL=="hidraw*", KERNELS=="*054C:09CC*", MODE="0666"
   '';
+
+  # Intel Wi-Fi
+  hardware.enableRedistributableFirmware = true;
 }

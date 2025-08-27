@@ -2,7 +2,7 @@
   inputs = {
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:nix-darwin/nix-darwin";
@@ -22,10 +22,9 @@
     nixd.url = "github:nix-community/nixd";
     hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic/d0811a7043eb3ff8b1f842ed7b47d1a300e58610";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
   };
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, vscode-server, nixos-cosmic, lanzaboote, ... }: let
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, devenv, nixd, hyprland, vscode-server, lanzaboote, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -47,10 +46,10 @@
         name = "patched-nixpkgs";
         src = nixpkgs;
         patches = [
-          # (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/383402
-          #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/383402.patch";
-          #   sha256 = "sha256-8HOQgJ0I2iG2POPQgGwVBUXEFXBgQYlvR1rA/G9ur8k=";
-          # })
+          (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/436682
+            url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/436682.patch";
+            sha256 = "sha256-RHV36R5Dpxw5qUtGgy98xvHxs4u9Tr110FImYpYoNd0=";
+          })
         ];
       });
 
@@ -66,7 +65,7 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            # inherit (nixpkgs-stable.legacyPackages.${platform}) ;
+            inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
             # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
           }))
           inputs.emacs-overlay.overlay
@@ -131,7 +130,6 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
-          nixos-cosmic.nixosModules.default
           hyprland.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
           ./modules

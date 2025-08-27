@@ -331,6 +331,20 @@
   };
   services.geoclue2.enable = true;
 
+  environment.etc = {
+    "geolocation".text = ''
+      # Example static location file for a machine inside Statue of Liberty torch
+      ${toString config.location.latitude}   # latitude
+      ${toString config.location.longitude}  # longitude
+      96           # altitude
+      1.83         # accuracy radius (the diameter of the torch is 12 feet)
+    '';
+    "geoclue/conf.d/00-config.conf".text = ''
+      [static-source]
+      enable=true
+    '';
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.avahi = {
@@ -418,6 +432,7 @@
 
   services.displayManager.sddm.enable = false;
   services.displayManager.cosmic-greeter.enable = true;
+  services.gnome.gnome-keyring.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.wallpaper.mode = "tile";
   services.desktopManager.cosmic.enable = true;
