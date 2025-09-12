@@ -32,7 +32,6 @@
       COLORTERM = "truecolor";
       TERM = "xterm-256color";
       EDITOR = "vi";
-      ZVM_VI_ESCAPE_BINDKEY = "kl";
     };
 
     shellAliases = rec {
