@@ -29,6 +29,7 @@
     ./programs/obs-studio.nix
     ./programs/plex-mpv-shim.nix
     ./programs/polybar.nix
+    ./programs/python.nix
     ./programs/pywal.nix
     ./programs/ssh.nix
     ./programs/starship.nix
