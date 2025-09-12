@@ -3,6 +3,7 @@
 {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks.brocade = {
       hostname = "2a0c:9a46:636:25::2";
       port = 22;

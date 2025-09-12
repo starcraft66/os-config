@@ -6,7 +6,7 @@
     enable = true;
     autosuggestion.enable = true;
     enableCompletion = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     plugins = [
       # Vi keybindings
@@ -86,54 +86,60 @@
       zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/completion-cache"
       zstyle ':completion:*' menu select
       WORDCHARS=''${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
-    '';
+    ''; 
 
-    initExtra = ''
-      # Reload fzf binds after vi mode
-      zvm_after_init() {
-        source ${config.programs.fzf.package}/share/fzf/key-bindings.zsh
-      }
-      if [ -z $ZSH_RELOADING_SHELL - ]; then
-      echo $USER@$HOST  $(uname -srm) \
-          $(sed -n 's/^NAME=//p' /etc/os-release 2>/dev/null || printf "") \
-          $(sed -n 's/^VERSION=//p' /etc/os-release 2>/dev/null || printf "")
-      fi
-      ## Keybindings section
-      # vi movement keys on home row
-      bindkey -M vicmd j vi-backward-char
-      bindkey -M vicmd k vi-down-line-or-history
-      bindkey -M vicmd l vi-up-line-or-history
-      bindkey -M vicmd \; vi-forward-char
-      bindkey -e
-      bindkey '^[[7~' beginning-of-line                               # Home key
-      bindkey '^[[H' beginning-of-line                                # Home key
-      if [[ "''${terminfo[khome]}" != "" ]]; then
-      bindkey "''${terminfo[khome]}" beginning-of-line                # [Home] - Go to beginning of line
-      fi
-      bindkey '^[[8~' end-of-line                                     # End key
-      bindkey '^[[F' end-of-line                                     # End key
-      if [[ "''${terminfo[kend]}" != "" ]]; then
-      bindkey "''${terminfo[kend]}" end-of-line                       # [End] - Go to end of line
-      fi
-      bindkey '^[[2~' overwrite-mode                                  # Insert key
-      bindkey '^[[3~' delete-char                                     # Delete key
-      bindkey '^[[C'  forward-char                                    # Right key
-      bindkey '^[[D'  backward-char                                   # Left key
-      bindkey '^[[5~' history-beginning-search-backward               # Page up key
-      bindkey '^[[6~' history-beginning-search-forward                # Page down key
-      # Navigate words with ctrl+arrow keys
-      bindkey '^[Oc' forward-word                                     #
-      bindkey '^[Od' backward-word                                    #
-      bindkey '^[[1;5D' backward-word                                 #
-      bindkey '^[[1;5C' forward-word                                  #
-      bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
-      bindkey '^[[Z' undo                                             # Shift+tab undo last action
-      # Theming section
-      autoload -U colors
-      colors
+    initContent = let
+      zshConfigEarlyInit = lib.mkOrder 500 ""; # "do something";
+      zshConfig = lib.mkOrder 1000 (''
+        # Reload fzf binds after vi mode
+        zvm_after_init() {
+          source ${config.programs.fzf.package}/share/fzf/key-bindings.zsh
+        }
+        if [ -z $ZSH_RELOADING_SHELL - ]; then
+        echo $USER@$HOST  $(uname -srm) \
+            $(sed -n 's/^NAME=//p' /etc/os-release 2>/dev/null || printf "") \
+            $(sed -n 's/^VERSION=//p' /etc/os-release 2>/dev/null || printf "")
+        fi
+        ## Keybindings section
+        # vi movement keys on home row
+        bindkey -M vicmd j vi-backward-char
+        bindkey -M vicmd k vi-down-line-or-history
+        bindkey -M vicmd l vi-up-line-or-history
+        bindkey -M vicmd \; vi-forward-char
+        bindkey -e
+        bindkey '^[[7~' beginning-of-line                               # Home key
+        bindkey '^[[H' beginning-of-line                                # Home key
+        if [[ "''${terminfo[khome]}" != "" ]]; then
+        bindkey "''${terminfo[khome]}" beginning-of-line                # [Home] - Go to beginning of line
+        fi
+        bindkey '^[[8~' end-of-line                                     # End key
+        bindkey '^[[F' end-of-line                                     # End key
+        if [[ "''${terminfo[kend]}" != "" ]]; then
+        bindkey "''${terminfo[kend]}" end-of-line                       # [End] - Go to end of line
+        fi
+        bindkey '^[[2~' overwrite-mode                                  # Insert key
+        bindkey '^[[3~' delete-char                                     # Delete key
+        bindkey '^[[C'  forward-char                                    # Right key
+        bindkey '^[[D'  backward-char                                   # Left key
+        bindkey '^[[5~' history-beginning-search-backward               # Page up key
+        bindkey '^[[6~' history-beginning-search-forward                # Page down key
+        # Navigate words with ctrl+arrow keys
+        bindkey '^[Oc' forward-word                                     #
+        bindkey '^[Od' backward-word                                    #
+        bindkey '^[[1;5D' backward-word                                 #
+        bindkey '^[[1;5C' forward-word                                  #
+        bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
+        bindkey '^[[Z' undo                                             # Shift+tab undo last action
+        # Theming section
+        autoload -U colors
+        colors
 
-      ## VERY IMPORTANT!!!!
-      unset RPS1 RPROMPT
-    '' + lib.readFile ./kubectl_aliases.sh;
+        ## VERY IMPORTANT!!!!
+        unset RPS1 RPROMPT
+      '' + lib.readFile ./kubectl_aliases.sh);
+    in lib.mkMerge [
+      zshConfigEarlyInit
+      zshConfig
+    ];
   };
 }

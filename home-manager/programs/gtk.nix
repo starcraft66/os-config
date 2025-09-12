@@ -9,7 +9,7 @@ in (lib.mkIf isLinux {
     };
     theme = {
       name = "Breeze-Dark";
-      package = pkgs.plasma5Packages.breeze-gtk;
+      package = pkgs.kdePackages.breeze-gtk;
     };
     gtk2.extraConfig = ''
       gtk-icon-name="Breeze-Dark"

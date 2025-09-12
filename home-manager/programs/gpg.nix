@@ -24,7 +24,7 @@ lib.mkMerge [
       enableScDaemon = true;
       enableSshSupport = true;
       grabKeyboardAndMouse = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentry.package = pkgs.pinentry-gtk2;
     };
   })
 ]

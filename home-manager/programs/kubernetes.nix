@@ -7,7 +7,7 @@
     ripgrep terraform opentofu kubectx jq
   ];
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkOrder 2000 ''
     source <(kubectl completion zsh)
   '';
 }

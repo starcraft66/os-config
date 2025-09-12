@@ -186,7 +186,6 @@
     ethtool
     irssi
     qogir-theme
-    libsForQt5.qtstyleplugins
     kdePackages.spectacle
     firefox-customized
     python-with-my-packages
@@ -228,7 +227,6 @@
     hugo
     kdePackages.ark
     pipenv
-    qt5.qttools
     peek
     ncdu
     gdb
@@ -241,7 +239,6 @@
     bmon
     temurin-bin-8
     kdePackages.kdenlive
-    openshot-qt
     prismlauncher
     nmon
     yt-dlp
@@ -428,7 +425,7 @@
   services.xserver.xkb.options = "compose:ralt";
 
   # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
+  # services.libinput.enable = true;
 
   services.displayManager.sddm.enable = false;
   services.displayManager.cosmic-greeter.enable = true;

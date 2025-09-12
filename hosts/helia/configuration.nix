@@ -14,7 +14,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "Helia"; # Define your hostname.
   networking.firewall.allowedUDPPorts = [ 69 ];
@@ -52,6 +52,8 @@
   # for (((steam)))
   programs.steam.enable = true;
 
+  programs.zsh.enable = true;
+
   # Garbage Collection
   nix = {
     gc = {
@@ -76,10 +78,10 @@
   in [
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils
-    alacritty neofetch spotify vscode glib minecraft
+    alacritty neofetch spotify vscode glib prismlauncher
     roboto unzip traceroute signal-desktop iperf ethtool
-    ncdu gwenview flameshot wine-staging winetricks
-    breeze-gtk breeze-qt5 nautilus discord
+    ncdu kdePackages.gwenview flameshot wine-staging winetricks
+    kdePackages.breeze-gtk nautilus discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -109,21 +111,17 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "ctrl:swapcaps,compose:ralt";
 
   # Enable touchpad support.
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   services.xserver.windowManager.i3 = {
     enable = true;
@@ -148,7 +146,7 @@
 
   # Fonts
   fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerd-fonts.meslo-lg
     noto-fonts
     emacs-all-the-icons-fonts
