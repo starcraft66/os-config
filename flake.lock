@@ -582,23 +582,6 @@
         "type": "github"
       }
     },
-    "nix-straight": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696948727,
-        "narHash": "sha256-6fQamWVIyeLoFSJl1WKcIl+LUdZluzFla4H+4Z5Cv2E=",
-        "owner": "codingkoi",
-        "repo": "nix-straight.el",
-        "rev": "c64edbf49598453bd85dae1acef9a0f9d294185d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "codingkoi",
-        "ref": "codingkoi/apply-librephoenixs-fix",
-        "repo": "nix-straight.el",
-        "type": "github"
-      }
-    },
     "nixd": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -879,7 +862,6 @@
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
-        "nix-straight": "nix-straight",
         "nixd": "nixd",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixos-wsl": "nixos-wsl",

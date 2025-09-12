@@ -11,9 +11,6 @@
     nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    # Fix for emacs 29/pgtk hanging on rebuild
-    nix-straight.url = "github:codingkoi/nix-straight.el?ref=codingkoi/apply-librephoenixs-fix";
-    nix-straight.flake = false;
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     doom-emacs.url = "github:hlissner/doom-emacs";
     doom-emacs.flake = false;
