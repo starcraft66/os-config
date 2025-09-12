@@ -52,8 +52,8 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 ;
 
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+;; (package! copilot
+;;   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 
 (package! elixir-ts-mode)
 (package! base16-theme)
