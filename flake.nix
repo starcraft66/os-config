@@ -36,6 +36,9 @@
 
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
+    kubectl-aliases.url = "github:ahmetb/kubectl-aliases";
+    kubectl-aliases.flake = false;
   };
   outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, ... }: let
     inherit (nixpkgs) lib;

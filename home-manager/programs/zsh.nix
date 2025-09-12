@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 
 {
@@ -136,7 +136,7 @@
 
         ## VERY IMPORTANT!!!!
         unset RPS1 RPROMPT
-      '' + lib.readFile ./kubectl_aliases.sh);
+      '' + lib.readFile (inputs.kubectl-aliases + "/.kubectl_aliases"));
     in lib.mkMerge [
       zshConfigEarlyInit
       zshConfig

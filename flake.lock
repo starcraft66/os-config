@@ -347,6 +347,22 @@
         "type": "github"
       }
     },
+    "kubectl-aliases": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746983085,
+        "narHash": "sha256-NkprSk55aRVHiq9JXduQl6AGZv5pBLHznRToOdm9OUw=",
+        "owner": "ahmetb",
+        "repo": "kubectl-aliases",
+        "rev": "7549fa45bbde7499b927c74cae13bfb9169c9497",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahmetb",
+        "repo": "kubectl-aliases",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -579,6 +595,7 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "kubectl-aliases": "kubectl-aliases",
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
