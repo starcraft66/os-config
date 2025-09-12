@@ -39,8 +39,11 @@
 
     kubectl-aliases.url = "github:ahmetb/kubectl-aliases";
     kubectl-aliases.flake = false;
+    
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    determinate.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, ... }: let
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, determinate, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -160,6 +163,7 @@
         modules = [
           nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
+          determinate.darwinModules.determinate
           ./hosts/WL-K3WYFW33WD/darwin-configuration.nix
         ];
         specialArgs = {
@@ -188,6 +192,7 @@
         modules = [
           nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
+          determinate.darwinModules.determinate
           ./hosts/zecora/darwin-configuration.nix
         ];
         specialArgs = {

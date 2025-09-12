@@ -58,6 +58,9 @@
   # Using Determinate Nix
   nix.enable = false;
 
+  determinate-nix.customSettings = {
+  };
+
   homebrew = {
     enable = true;
     brewPrefix = "/opt/homebrew/bin";
