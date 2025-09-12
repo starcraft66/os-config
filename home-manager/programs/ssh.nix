@@ -4,7 +4,7 @@
   programs.ssh = {
     enable = true;
     matchBlocks.brocade = {
-      hostname = "2607:fa48:6ed8:8a5d::2";
+      hostname = "2a0c:9a46:636:25::2";
       port = 22;
       extraOptions = {
         KexAlgorithms = "+diffie-hellman-group1-sha1";
