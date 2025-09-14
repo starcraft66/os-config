@@ -6,9 +6,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-
     nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -25,9 +22,6 @@
 
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
 
-    nixd.url = "github:nix-community/nixd";
-    nixd.inputs.nixpkgs.follows = "nixpkgs";
-
     hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -39,14 +33,30 @@
 
     kubectl-aliases.url = "github:ahmetb/kubectl-aliases";
     kubectl-aliases.flake = false;
-    
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     determinate.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     mac-app-util.url = "github:hraban/mac-app-util";
     mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, determinate, mac-app-util, ... }: let
+  outputs = inputs@{
+    self,
+    nix-darwin,
+    nix-homebrew,
+    nixpkgs,
+    nixpkgs-stable,
+    sops-nix,
+    home-manager,
+    nixos-nvidia-vgpu,
+    hyprland,
+    vscode-server,
+    lanzaboote,
+    determinate,
+    mac-app-util,
+    ...
+  }:
+  let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -82,7 +92,6 @@
             # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
           }))
           inputs.emacs-overlay.overlay
-          inputs.nixd.overlays.default
           # Apple Silicon backport overlay:
           # In other words, x86 packages to install instead of
           # arm packages which don't build yet for any reason
@@ -103,7 +112,6 @@
       localSystem = "x86_64-darwin";
     };
   in {
-
     devShells = forAllPlatforms (platform: let
         pkgs = nixpkgsFor.${platform};
         sops = inputs.sops-nix.packages.${platform};
@@ -141,6 +149,7 @@
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
           hyprland.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          vscode-server.nixosModules.default
           ./modules
           ./hosts/luna/configuration.nix
         ];
@@ -173,34 +182,30 @@
         }
       ];
     in {
-      WL-K3WYFW33WD = inputs.nix-darwin.lib.darwinSystem {
+      WL-K3WYFW33WD = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
           ./hosts/WL-K18WYFW33WD/darwin-configuration.nix
         ];
+        pkgs = nixpkgsFor.aarch64-darwin;
         specialArgs = {
-          # Was having trouble getting nix to serve me arm64 packages
-          # so we are being explicit here :)
-          pkgs = nixpkgsFor.aarch64-darwin;
           # Rosetta 2 is installed, define a special pkgsX86 to install
           # packages that don't build on aarch64-darwin yet as a fallback
           pkgsX86 = nixpkgsX86darwin;
-          inputs = inputs // { darwin = inputs.nix-darwin; };
+          inputs = inputs // { darwin = nix-darwin; };
         };
       };
-      Zecora = inputs.nix-darwin.lib.darwinSystem {
+      Zecora = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
           ./hosts/zecora/darwin-configuration.nix
         ];
+        pkgs = nixpkgsFor.aarch64-darwin;
         specialArgs = {
-          # Was having trouble getting nix to serve me arm64 packages
-          # so we are being explicit here :)
-          pkgs = nixpkgsFor.aarch64-darwin;
           # Rosetta 2 is installed, define a special pkgsX86 to install
           # packages that don't build on aarch64-darwin yet as a fallback
           pkgsX86 = nixpkgsX86darwin;
-          inputs = inputs // { darwin = inputs.nix-darwin; };
+          inputs = inputs // { darwin = nix-darwin; };
         };
       };
     };
