@@ -20,6 +20,7 @@
     ./programs/hyprland.nix
     ./programs/i3.nix
     ./programs/jetbrains.nix
+    ./programs/jj.nix
     ./programs/kubernetes.nix
     ./programs/kitty.nix
     # ./programs/mixxx.nix
