@@ -42,8 +42,11 @@
     
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     determinate.inputs.nixpkgs.follows = "nixpkgs";
+    
+    mac-app-util.url = "github:hraban/mac-app-util";
+    mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, determinate, ... }: let
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, nixpkgs, nixpkgs-stable, nixos-wsl, sops-nix, home-manager, nixos-nvidia-vgpu, nixd, hyprland, vscode-server, lanzaboote, determinate, mac-app-util, ... }: let
     inherit (nixpkgs) lib;
 
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -157,14 +160,23 @@
         specialArgs = { inherit inputs; };
       };
     };
-    darwinConfigurations = {
+    darwinConfigurations = let
+      commonDarwinModules = [
+        nix-homebrew.darwinModules.nix-homebrew
+        home-manager.darwinModules.home-manager
+        determinate.darwinModules.default
+        mac-app-util.darwinModules.default
+        {
+          home-manager.sharedModules = [
+            mac-app-util.homeManagerModules.default
+          ];
+        }
+      ];
+    in {
       WL-K3WYFW33WD = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = [
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-          determinate.darwinModules.determinate
-          ./hosts/WL-K3WYFW33WD/darwin-configuration.nix
+        modules = commonDarwinModules ++ [
+          ./hosts/WL-K18WYFW33WD/darwin-configuration.nix
         ];
         specialArgs = {
           # Was having trouble getting nix to serve me arm64 packages
@@ -189,10 +201,7 @@
       };
       Zecora = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = [
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-          determinate.darwinModules.determinate
+        modules = commonDarwinModules ++ [
           ./hosts/zecora/darwin-configuration.nix
         ];
         specialArgs = {
