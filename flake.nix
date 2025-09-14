@@ -188,17 +188,6 @@
           inputs = inputs // { darwin = inputs.nix-darwin; };
         };
       };
-      NightmareMoon = inputs.nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          home-manager.darwinModules.home-manager
-          ./hosts/nightmaremoon/darwin-configuration.nix
-        ];
-        specialArgs = {
-          pkgs = nixpkgsFor.x86_64-darwin;
-          inputs = inputs // { darwin = inputs.nix-darwin; };
-        };
-      };
       Zecora = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
