@@ -58,7 +58,11 @@
   # Using Determinate Nix
   nix.enable = false;
 
-  determinate-nix.customSettings = {
+  determinate-nix.customSettings = let
+    caches = import ../../caches;
+  in {
+    substituters = caches.nix.settings.substituters;
+    trusted-public-keys = caches.nix.settings.trusted-public-keys;
   };
 
   homebrew = {
