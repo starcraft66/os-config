@@ -92,16 +92,15 @@
       "slack"
       "insomnia"
       "kitty"
-      # "openmtp"
       "rectangle"
       "lens"
       "obs"
       "prismlauncher"
       "ghidra"
+      "ghostty"
       "hex-fiend"
       "stolendata-mpv"
       "yubico-authenticator"
-      # "monokle"
     ];
     masApps = {
     };

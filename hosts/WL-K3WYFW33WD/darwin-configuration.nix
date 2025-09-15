@@ -83,6 +83,7 @@
       "spotify"
       "insomnia"
       "kitty"
+      "ghostty"
       "rectangle"
       "lens"
       "jordanbaird-ice"
