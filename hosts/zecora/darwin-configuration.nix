@@ -86,7 +86,7 @@
       "mixxx"
       "raycast"
       "vlc"
-      "wireshark"
+      "wireshark-app"
       "discord"
       "spotify"
       "slack"
