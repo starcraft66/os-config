@@ -2,11 +2,8 @@
 
 {
   imports = [
-    ../caches/nix-community.nix
-    ../caches/devenv.nix
-    ../caches/cosmic.nix
+    ../caches
   ];
-
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
