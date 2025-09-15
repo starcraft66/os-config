@@ -14,6 +14,7 @@
     ./programs/easyeffects.nix
     ./programs/flameshot.nix
     ./programs/fzf.nix
+    ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/github.nix
     ./programs/gpg.nix
