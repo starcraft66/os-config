@@ -89,7 +89,7 @@
 
     initContent = let
       zshProfilingStart = lib.mkOrder 20 ''
-        if [ -n "$${ZSH_DEBUGRC+1}" ]; then
+        if [ -n "''${ZSH_DEBUGRC+1}" ]; then
           zmodload zsh/zprof
         fi
       '';
@@ -142,7 +142,7 @@
         unset RPS1 RPROMPT
       '' + lib.readFile (inputs.kubectl-aliases + "/.kubectl_aliases"));
       zshProfilingEnd = lib.mkOrder 9999 ''
-        if [ -n "$${ZSH_DEBUGRC+1}" ]; then
+        if [ -n "''${ZSH_DEBUGRC+1}" ]; then
           zprof
         fi
       '';
