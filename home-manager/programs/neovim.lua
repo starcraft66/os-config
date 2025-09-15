@@ -12,3 +12,16 @@ vim.keymap.set('v', 'p', 'P')
 
 -- clear search highlighting
 vim.keymap.set('n', '<Esc>', ':nohlsearch<cr>')
+
+-- skip folds (down, up)
+vim.cmd('nmap k gj')
+vim.cmd('nmap l gk')
+
+-- sync system clipboard
+vim.opt.clipboard = 'unnamedplus'
+
+-- search ignoring case
+vim.opt.ignorecase = true
+
+-- disable "ignorecase" option if the search pattern contains upper case characters
+vim.opt.smartcase = true
