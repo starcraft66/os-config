@@ -176,6 +176,7 @@
         home-manager.darwinModules.home-manager
         determinate.darwinModules.default
         mac-app-util.darwinModules.default
+        ./modules/common-darwin
         {
           home-manager.sharedModules = [
             mac-app-util.homeManagerModules.default
