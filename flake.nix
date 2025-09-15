@@ -185,7 +185,7 @@
       WL-K3WYFW33WD = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
-          ./hosts/WL-K18WYFW33WD/darwin-configuration.nix
+          ./hosts/WL-K3WYFW33WD/darwin-configuration.nix
         ];
         pkgs = nixpkgsFor.aarch64-darwin;
         specialArgs = {
