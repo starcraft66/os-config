@@ -5,7 +5,7 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    enableFishIntegration = false;
+    enableNushellIntegration = true;
 
     settings = {
       # This line replaces add_newline = false

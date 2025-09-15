@@ -28,6 +28,7 @@
     ./programs/mullvad.nix
     ./programs/neofetch.nix
     ./programs/nextcloud-client.nix
+    ./programs/nushell.nix
     ./programs/obs-studio.nix
     ./programs/plex-mpv-shim.nix
     ./programs/polybar.nix
@@ -38,6 +39,7 @@
     # ./programs/sway.nix
     ./programs/qt.nix
     ./programs/rofi.nix
+    ./programs/television.nix
     ./programs/tmux.nix
     ./programs/udiskie.nix
     ./programs/vim.nix
