@@ -88,6 +88,11 @@
     ''; 
 
     initContent = let
+      zshProfilingStart = lib.mkOrder 20 ''
+        if [ -n "$${ZSH_DEBUGRC+1}" ]; then
+          zmodload zsh/zprof
+        fi
+      '';
       zshConfigEarlyInit = lib.mkOrder 500 ""; # "do something";
       zshConfig = lib.mkOrder 1000 (''
         # Reload fzf binds after vi mode
@@ -136,9 +141,16 @@
         ## VERY IMPORTANT!!!!
         unset RPS1 RPROMPT
       '' + lib.readFile (inputs.kubectl-aliases + "/.kubectl_aliases"));
+      zshProfilingEnd = lib.mkOrder 9999 ''
+        if [ -n "$${ZSH_DEBUGRC+1}" ]; then
+          zprof
+        fi
+      '';
     in lib.mkMerge [
+      zshProfilingStart
       zshConfigEarlyInit
       zshConfig
+      zshProfilingEnd
     ];
   };
 }
