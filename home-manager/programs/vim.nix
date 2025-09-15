@@ -14,6 +14,6 @@
   programs.neovim = {
     enable = true;
     extraLuaPackages = luaPkgs: with luaPkgs; [ ];
-    extraLuaConfig = ./neovim.lua;
+    extraLuaConfig = lib.readFile ./neovim.lua;
   };
 }
