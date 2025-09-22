@@ -35,6 +35,7 @@
       "ghidra"
       "stolendata-mpv"
       "yubico-authenticator"
+      "openmtp"
     ];
     masApps = {
     };
