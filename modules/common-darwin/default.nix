@@ -68,6 +68,18 @@
     ];
   };
 
+  # macOS Prefs
+
+  system.defaults = {
+    NSGlobalDomain = {
+      AppleICUForce24HourTime = true;
+      AppleIconAppearanceTheme = "RegularAutomatic";
+      AppleInterfaceStyleSwitchesAutomatically = true;
+      # https://macos-defaults.com/keyboard/applekeyboarduimode.html
+      AppleKeyboardUIMode = 2;
+    };
+  };
+
   # Using Determinate Nix
   nix.enable = false;
 
