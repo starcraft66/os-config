@@ -1,0 +1,6 @@
+{ ... }:
+{
+  programs.fd = {
+    enable = true;
+  };
+}

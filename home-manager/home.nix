@@ -13,6 +13,7 @@
     ./programs/dunst.nix
     ./programs/easyeffects.nix
     ./programs/flameshot.nix
+    ./programs/fd.nix
     ./programs/fzf.nix
     ./programs/ghostty.nix
     ./programs/git.nix
