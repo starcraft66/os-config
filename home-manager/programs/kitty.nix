@@ -26,39 +26,39 @@ in
       background_opacity = "0.98";
 
       # https://github.com/chriskempson/base16-shell/blob/master/scripts/base16-tomorrow-night.sh
-      background = config.my.theme.color0;
-      foreground = config.my.theme.color5;
-      selection_background = config.my.theme.color5;
-      selection_foreground = config.my.theme.color0;
-      url_color = config.my.theme.color4;
-      cursor = config.my.theme.color5;
-      active_border_color = config.my.theme.color3;
-      inactive_border_color = config.my.theme.color1;
-      active_tab_background = config.my.theme.color0;
-      active_tab_foreground = config.my.theme.color5;
-      inactive_tab_background = config.my.theme.color1;
-      inactive_tab_foreground = config.my.theme.color4;
-      tab_bar_background = config.my.theme.color1;
+      background = if config.my.deepBlackColors then config.my.darkTheme.terminalBackgroundDeep else config.my.darkTheme.terminalBackground;
+      foreground = config.my.darkTheme.terminalForeground;
+      selection_background = config.my.darkTheme.terminalSelectionBackground;
+      selection_foreground = config.my.darkTheme.terminalSelectionForeground;
+      url_color = config.my.darkTheme.color4;
+      cursor = config.my.darkTheme.terminalCursorColor;
+      # active_border_color = config.my.darkTheme.color3;
+      # inactive_border_color = config.my.darkTheme.color1;
+      # active_tab_background = config.my.darkTheme.color0;
+      # active_tab_foreground = config.my.darkTheme.color5;
+      # inactive_tab_background = config.my.darkTheme.color1;
+      # inactive_tab_foreground = config.my.darkTheme.color4;
+      # tab_bar_background = config.my.darkTheme.color1;
 
       # normal
-      color0 = config.my.theme.color0;
-      color1 = config.my.theme.color8;
-      color2 = config.my.theme.colorB;
-      color3 = config.my.theme.colorA;
-      color4 = config.my.theme.colorD;
-      color5 = config.my.theme.colorE;
-      color6 = config.my.theme.colorC;
-      color7 = config.my.theme.color5;
+      color0 = config.my.darkTheme.color0;
+      color1 = config.my.darkTheme.color1;
+      color2 = config.my.darkTheme.color2;
+      color3 = config.my.darkTheme.color3;
+      color4 = config.my.darkTheme.color4;
+      color5 = config.my.darkTheme.color5;
+      color6 = config.my.darkTheme.color6;
+      color7 = config.my.darkTheme.color7;
 
       # bright
-      color8 = config.my.theme.color3;
-      color9 = config.my.theme.color8;
-      color10 = config.my.theme.colorB;
-      color11 = config.my.theme.colorA;
-      color12 = config.my.theme.colorD;
-      color13 = config.my.theme.colorE;
-      color14 = config.my.theme.colorC;
-      color15 = config.my.theme.color7;
+      color8 = config.my.darkTheme.color8;
+      color9 = config.my.darkTheme.color9;
+      color10 = config.my.darkTheme.colorA;
+      color11 = config.my.darkTheme.colorB;
+      color12 = config.my.darkTheme.colorC;
+      color13 = config.my.darkTheme.colorD;
+      color14 = config.my.darkTheme.colorE;
+      color15 = config.my.darkTheme.colorF;
     };
   };
 }

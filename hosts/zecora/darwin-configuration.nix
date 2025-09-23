@@ -14,6 +14,7 @@
       imports = [ ../../home-manager/home.nix ];
 
       config.my.terminalFontSize = 18;
+      config.my.deepBlackColors = true;
     };
   };
 

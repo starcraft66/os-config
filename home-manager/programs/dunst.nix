@@ -42,7 +42,7 @@ in
         icon_position = "left";
         max_icon_size = 64;
         frame_width = 2;
-        frame_color = originalConfig.my.theme.color5;
+        frame_color = originalConfig.my.darkTheme.color5;
         font = "Sans 10";
         corner_radius = 2;
         height = "150";
@@ -57,21 +57,21 @@ in
         context = "ctrl+shift+period";
       };
       urgency_low = {
-        frame_color = originalConfig.my.theme.color5;
-        foreground = originalConfig.my.theme.color4;
-        background = originalConfig.my.theme.color1;
+        frame_color = originalConfig.my.darkTheme.color5;
+        foreground = originalConfig.my.darkTheme.color4;
+        background = originalConfig.my.darkTheme.color1;
         timeout = 8;
       };
       urgency_normal = {
-        frame_color = originalConfig.my.theme.color5;
-        foreground = originalConfig.my.theme.color4;
-        background = originalConfig.my.theme.color1;
+        frame_color = originalConfig.my.darkTheme.color5;
+        foreground = originalConfig.my.darkTheme.color4;
+        background = originalConfig.my.darkTheme.color1;
         timeout = 8;
       };
       urgency_critical = {
-        frame_color = originalConfig.my.theme.color5;
-        foreground = originalConfig.my.theme.color4;
-        background = originalConfig.my.theme.color1;
+        frame_color = originalConfig.my.darkTheme.color5;
+        foreground = originalConfig.my.darkTheme.color4;
+        background = originalConfig.my.darkTheme.color1;
         timeout = 8;
       };
     };

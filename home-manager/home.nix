@@ -131,28 +131,72 @@
     default = "";
     type = lib.types.str;
   };
+  
+  options.my.deepBlackColors = lib.mkOption {
+    description = "Use deep black colors in (enable on OLED or FALD displays)";
+    default = false;
+    type = lib.types.bool;
+  };
 
-  options.my.theme = lib.mkOption {
-    description = "Color theme";
+  options.my.darkTheme = lib.mkOption {
+    description = "Dark color theme";
     default = {
-      color0 = "#263238";
-      color1 = "#2C393F";
-      color2 = "#37474F";
-      color3 = "#707880";
-      color4 = "#C9CCD3";
-      color5 = "#CDD3DE";
-      color6 = "#D5DBE5";
-      color7 = "#FFFFFF";
-      color8 = "#EC5F67";
-      color9 = "#EA9560";
-      colorA = "#FFCC00";
-      colorB = "#8BD649";
-      colorC = "#80CBC4";
-      colorD = "#89DDFF";
-      colorE = "#82AAFF";
-      colorF = "#EC5F67";
+      # "Citruszest"
+      color0 = "#404040";
+      color1 = "#ff5454";
+      color2 = "#00cc7a";
+      color3 = "#ffd400";
+      color4 = "#00bfff";
+      color5 = "#ff90fe";
+      color6 = "#48d1cc";
+      color7 = "#bfbfbf";
+      color8 = "#808080";
+      color9 = "#ff1a75";
+      colorA = "#1affa3";
+      colorB = "#ffff00";
+      colorC = "#33cfff";
+      colorD = "#ffb2fe";
+      colorE = "#00fff2";
+      colorF = "#f9f9f9";
+      terminalBackground = "#121212";
+      terminalBackgroundDeep = "#000000";
+      terminalForeground = "#bfbfbf";
+      terminalCursorColor = "#666666";
+      terminalCursorText = "#f9f9f9";
+      terminalSelectionBackground = "#ff8c00";
+      terminalSelectionForeground = "#f4f4f4";
     };
-    type = lib.types.attrs;
+    type = lib.types.attrsOf lib.types.str;
+  };
+  
+  options.my.lightTheme = lib.mkOption {
+    description = "Light color theme";
+    default = {
+      # "One Double Light"
+      color0 = "#454b58";
+      color1 = "#f74840";
+      color2 = "#25a343";
+      color3 = "#cc8100";
+      color4 = "#0087c1";
+      color5 = "#b50da9";
+      color6 = "#009ab7";
+      color7 = "#ebd8d9";
+      color8 = "#0e131f";
+      color9 = "#ff3711";
+      colorA = "#00b90e";
+      colorB = "#ec9900";
+      colorC = "#1065de";
+      colorD = "#e500d8";
+      colorE = "#00b4dd";
+      colorF = "#ffffff";
+      terminalBackground = "#fafafa";
+      terminalForeground = "#383a43";
+      terminalCursorColor = "#1a1919";
+      terminalCursorText = "#dbdfe5";
+      terminalSelectionBackground = "#454e5e";
+      terminalSelectionForeground = "#1a1919";
+    };
+    type = lib.types.attrsOf lib.types.str;
   };
 
   options.my.isWSL = lib.mkOption {
