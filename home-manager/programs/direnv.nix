@@ -7,6 +7,6 @@
       enable = true;
     };
     enableZshIntegration = true;
-    enableNushellIntegration = false;
+    enableNushellIntegration = true;
   };
 }
