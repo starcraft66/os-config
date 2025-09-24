@@ -9,6 +9,15 @@
       mkdir ($nu.data-dir | path join "vendor/autoload")
       tv init nu | save -f ($nu.data-dir | path join "vendor/autoload/tv.nu")
 
+      $env.config.edit_mode = "vi"
+      $env.config.buffer_editor = "nvim"
+      $env.EDITOR = "nvim"
+      $env.PROMPT_INDICATOR_VI_NORMAL = ""
+      $env.PROMPT_INDICATOR_VI_INSERT = ""
+      $env.config.cursor_shape.vi_insert = "line"
+      $env.config.cursor_shape.vi_normal = "block"
+      $env.config.cursor_shape.emacs = "line"
+
       # Can be removed once https://github.com/NixOS/nixpkgs/pull/439871 is merged
       # Background-agnostic theme:
       # use std
