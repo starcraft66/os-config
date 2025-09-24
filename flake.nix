@@ -39,6 +39,13 @@
 
     mac-app-util.url = "github:hraban/mac-app-util";
     mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
+
+    bash-env-json.url = "github:tesujimath/bash-env-json/main";
+    bash-env-json.inputs.nixpkgs.follows = "nixpkgs";
+
+    bash-env-nushell.url = "github:tesujimath/bash-env-nushell/main";
+    bash-env-nushell.inputs.nixpkgs.follows = "nixpkgs";
+    bash-env-nushell.inputs.bash-env-json.follows = "bash-env-json";
   };
 
   outputs = inputs@{
