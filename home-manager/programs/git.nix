@@ -23,7 +23,7 @@
       advice.addEmptyPathspec = false;
       diff.colorMoved = "default";
     
-      aliases = rec {
+      alias = rec {
         b = "branch -vv";
         d = "diff";
         s = "show";
