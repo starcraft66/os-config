@@ -14,8 +14,8 @@ lib.mkMerge [
       yaml-language-server
       terraform-ls
       rust-analyzer
-      elixir_ls
-      erlang-ls
+      elixir-ls
+      erlang-language-platform
       nodejs
     ];
 
