@@ -1,7 +1,7 @@
 {  
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,13 +22,13 @@
 
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
 
-    hyprland.url = "github:hyprwm/Hyprland/v0.40.0";
+    hyprland.url = "github:hyprwm/Hyprland/v0.52.1";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     kubectl-aliases.url = "github:ahmetb/kubectl-aliases";
