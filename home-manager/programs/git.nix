@@ -6,9 +6,9 @@
     settings = {
       user.name  = "Tristan Gosselin-Hane";
       user.email = "starcraft66@gmail.com";
+      user.signingKey = "9D98CDACFF04FD78";
 
       signing = {
-        key = "9D98CDACFF04FD78";
         signByDefault = false;
       };
 
