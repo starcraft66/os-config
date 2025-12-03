@@ -979,6 +979,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-ckb-next-qt6": {
+      "locked": {
+        "lastModified": 1762627319,
+        "narHash": "sha256-7S7hvi61kdOBaP9e3cDKQ4VO/jcBPPJNbDBmFGF/fXM=",
+        "owner": "4JX",
+        "repo": "nixpkgs",
+        "rev": "a4c2bc159d3f546bc1a053de36dd227e9a8ba1e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "4JX",
+        "ref": "ckb-next-qt6",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1124,6 +1140,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-ckb-next-qt6": "nixpkgs-ckb-next-qt6",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "sops-nix": "sops-nix",
         "vscode-server": "vscode-server"
