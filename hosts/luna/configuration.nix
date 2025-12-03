@@ -156,7 +156,6 @@
       virtualenv
       pwntools
       pillow
-      opencv4
       numpy
       pytesseract
       requests
@@ -201,7 +200,6 @@
     net-snmp
     tcpdump
     wireguard-tools
-    dislocker
     htop
     lm_sensors
     podman-compose

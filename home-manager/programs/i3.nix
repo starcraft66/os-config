@@ -102,8 +102,7 @@ in
         # Not doom-emacs but it will connect to the doom server so it should be fine
         { command = "pkill emacsclient; sleep 5; ${pkgs.emacs}/bin/emacsclient -c"; notification = false; }
         { command = "pkill firefox; sleep 10; ${pkgs.firefox}/bin/firefox"; notification = false; }
-      ] ++ lib.optional (originalConfig.my.ckb)
-        { command = "pkill ckb-next; ${pkgs.ckb-next}/bin/ckb-next --background"; notification = false; };
+      ];
       keybindings = let mod = config.modifier; in {
         "${mod}+a" = "exec ${config.menu}";
         "${mod}+e" = "exec ${(pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; })}/bin/rofi -show emoji -modi emoji";
