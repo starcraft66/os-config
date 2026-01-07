@@ -51,6 +51,7 @@
       upgrade = true;
     };
     casks = [
+      "claude-code"
       "discretescroll"
       "raycast"
       "vlc"
