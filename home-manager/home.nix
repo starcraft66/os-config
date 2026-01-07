@@ -58,6 +58,9 @@
 
   config.home.sessionPath = builtins.concatLists [
     # Add aarch64-darwin homebrew to path
+    [
+      "$HOME/.local/bin"
+    ]
     (lib.optionals (pkgs.stdenv.targetPlatform.system == "aarch64-darwin") [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ] )
     (lib.optionals (pkgs.stdenv.targetPlatform.isDarwin) [ "/usr/local/share/dotnet" "$HOME/.rd/bin" "$HOME/bin" "$HOME/.dotnet/tools" ] )
   ];
