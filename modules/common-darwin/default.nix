@@ -50,8 +50,13 @@
       cleanup = "zap";
       upgrade = true;
     };
+    brews = [
+      "opencode"
+      "beads"
+    ];
     casks = [
       "claude-code"
+      "opencode-desktop"
       "discretescroll"
       "raycast"
       "vlc"
