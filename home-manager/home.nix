@@ -18,6 +18,7 @@
     ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/github.nix
+    ./programs/golang.nix
     ./programs/gpg.nix
     ./programs/gtk.nix
     ./programs/hyprland.nix
