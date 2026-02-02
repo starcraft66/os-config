@@ -51,7 +51,7 @@
       upgrade = true;
     };
     brews = [
-      "opencode"
+      "anomalyco/tap/opencode"
       "beads"
     ];
     casks = [
