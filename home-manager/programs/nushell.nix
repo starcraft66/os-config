@@ -18,18 +18,7 @@
       $env.config.cursor_shape.vi_normal = "block"
       $env.config.cursor_shape.emacs = "line"
 
-      # Can be removed once https://github.com/NixOS/nixpkgs/pull/439871 is merged
-      # Background-agnostic theme:
-      # use std
-      # $env.config.color_config = (
-      #   std config dark-theme | transpose key val | update val {|line|
-      #     if ($line.val | describe) == string {
-      #       $line.val | std str replace "white" "default"
-      #     } else {
-      #       $line.val
-      #     }
-      #   } | transpose -rd
-      # )
+      source "${inputs.kubectl-aliases + "/.kubectl_aliases.nu"}"
     '';
   };
 }
