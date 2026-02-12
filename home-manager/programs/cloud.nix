@@ -15,7 +15,7 @@ in
     opentofu
     powershell
     openssl
-    yq
+    yq-go
     vault
   ] ++ lib.optionals isDarwin [
     colima
