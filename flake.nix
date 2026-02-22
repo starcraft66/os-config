@@ -47,6 +47,9 @@
     bash-env-nushell.url = "github:tesujimath/bash-env-nushell/main";
     bash-env-nushell.inputs.nixpkgs.follows = "nixpkgs";
     bash-env-nushell.inputs.bash-env-json.follows = "bash-env-json";
+
+    opencode.url = "github:anomalyco/opencode";
+    # opencode.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{

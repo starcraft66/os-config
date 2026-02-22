@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./programs/agents.nix
     ./programs/carapace.nix
     ./programs/cloud.nix
     ./programs/darkman.nix
