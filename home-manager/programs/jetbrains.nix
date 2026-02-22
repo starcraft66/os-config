@@ -18,9 +18,10 @@ lib.mkMerge [
           exec ${pkg}/bin/${executable} "$@"
         '');
     in with pkgs; [
-      (withNixLd jetbrains.idea-ultimate "idea-ultimate")
-      (withNixLd jetbrains.clion "clion")
-      (withNixLd android-studio "android-studio")
+      # Don't use these anymore but they're here to uncomment in case I need anything jetbrains
+      # (withNixLd jetbrains.idea-ultimate "idea-ultimate")
+      # (withNixLd jetbrains.clion "clion")
+      # (withNixLd android-studio "android-studio")
     ];
   in {
     home.packages = ides;
