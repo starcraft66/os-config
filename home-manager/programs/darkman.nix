@@ -13,12 +13,12 @@ lib.mkMerge [
       };
       lightModeScripts = {
         wal = ''
-          ${pkgs.pywal}/bin/wal -l --theme base16-classic
+          ${pkgs.pywal}/bin/wal -s -l --theme base16-classic
         '';
       };
       darkModeScripts = {
         wal = ''
-          ${pkgs.pywal}/bin/wal --theme base16-materia
+          ${pkgs.pywal}/bin/wal -s --theme base16-materia
         '';
       };
     };
