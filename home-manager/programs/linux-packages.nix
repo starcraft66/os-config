@@ -1,0 +1,80 @@
+{ lib, pkgs, ... }:
+
+let inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+in
+lib.mkIf isLinux {
+  home.packages = with pkgs; [
+    signal-desktop
+    element-desktop
+    slack
+    pciutils
+    neofetch
+    spotify
+    vscode
+    unzip
+    traceroute
+    inetutils
+    vulkan-tools
+    ethtool
+    irssi
+    firefox
+    python314
+    thunderbird
+    chromium
+    unrar
+    patchelf
+    appimage-run
+    net-snmp
+    tcpdump
+    wireguard-tools
+    htop
+    lm_sensors
+    podman-compose
+    bind
+    wine-staging
+    winetricks
+    unzip
+    discord
+    mpv
+    usbutils
+    ghidra-bin
+    gimp-with-plugins
+    kdePackages.gwenview
+    wmctrl
+    kdePackages.ark
+    peek
+    ncdu
+    gdb
+    zip
+    bmon
+    kdePackages.kdenlive
+    prismlauncher
+    yt-dlp
+    cava
+    mtr
+    virt-manager
+    mediainfo
+    p7zip
+    pamixer
+    pavucontrol
+    rclone
+    pwgen
+    xorg.xev
+    xorg.xmodmap
+    ffmpeg
+    iotop
+    iperf
+    lsof
+    nmap
+    audacity
+    cmatrix
+    figlet
+    smartmontools
+    lutris
+    looking-glass-client
+    qbittorrent
+    parallel
+    asciinema
+    nautilus
+  ];
+}

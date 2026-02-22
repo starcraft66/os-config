@@ -26,6 +26,7 @@
     ./programs/jj.nix
     ./programs/kubernetes.nix
     ./programs/kitty.nix
+    ./programs/linux-packages.nix
     # ./programs/mixxx.nix
     ./programs/mullvad.nix
     ./programs/neofetch.nix

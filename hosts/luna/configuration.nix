@@ -82,6 +82,7 @@
 
   # (((steam))) and (((nvidia)))
   programs.steam.enable = true;
+  programs.steam.extraCompatPackages = with pkgs; [ proton-ge-bin ];
   hardware.graphics.enable = true;
 
   # Sops config
@@ -147,143 +148,6 @@
 
   programs.nix-ld.enable = true;
 
-  environment.systemPackages = with pkgs;
-  let
-    my-python-packages = python-packages: with python-packages; [
-      pip
-      pipenv
-      setuptools
-      virtualenv
-      pwntools
-      pillow
-      numpy
-      pytesseract
-      requests
-      pycryptodome
-    ];
-    python-with-my-packages = python311.withPackages my-python-packages;
-    wine-staging = wineWowPackages.staging;
-    firefox-customized = firefox.override { nativeMessagingHosts = [ passff-host ]; };
-  in [
-    openconnect
-    wireshark
-    element-desktop
-    slack
-    qtpass
-    pciutils
-    alacritty
-    neofetch
-    spotify
-    vscode
-    roboto
-    unzip
-    traceroute
-    inetutils
-    vulkan-tools
-    signal-desktop
-    iperf
-    ethtool
-    irssi
-    qogir-theme
-    kdePackages.spectacle
-    firefox-customized
-    python-with-my-packages
-    thunderbird
-    speedtest-cli
-    chromium
-    vagrant
-    unrar
-    patchelf
-    fuse
-    zlib
-    appimage-run
-    net-snmp
-    tcpdump
-    wireguard-tools
-    htop
-    lm_sensors
-    podman-compose
-    bind
-    wine-staging
-    winetricks
-    zoom-us
-    jdk11
-    # jitsi-meet-electron
-    unzip
-    discord
-    libreoffice
-    mpv
-    # utillinux
-    usbutils
-    ghidra-bin
-    gimp-with-plugins
-    kdePackages.gwenview
-    deluge
-    wmctrl
-    mediainfo
-    pwgen
-    hugo
-    kdePackages.ark
-    pipenv
-    peek
-    ncdu
-    gdb
-    # pwndbg
-    rarcrack
-    flameshot
-    rofi-pass
-    zip
-    obs-studio
-    bmon
-    temurin-bin-8
-    kdePackages.kdenlive
-    prismlauncher
-    nmon
-    yt-dlp
-    cava
-    mtr
-    virt-manager
-    openfortivpn
-    freerdp
-    mktorrent
-    mediainfo
-    i2c-tools
-    lolcat
-    packer
-    p7zip
-    pamixer
-    pavucontrol
-    rclone
-    pwgen
-    psmisc
-    v4l-utils
-    xorg.xdpyinfo
-    xorg.xev
-    xorg.xmodmap
-    kind
-    mesa-demos
-    ffmpeg
-    iotop
-    iperf
-    lsof
-    nix-index
-    nmap
-    audacity
-    cmatrix
-    figlet
-    smartmontools
-    lutris
-    looking-glass-client
-    qbittorrent
-    parallel
-    jq
-    yq
-    (retroarch.withCores (cores: with libretro; [ bsnes-mercury ]))
-    mupen64plus
-    asciinema
-    nautilus
-  ];
-
   # Virtualization
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.runAsRoot = false;
@@ -317,7 +181,6 @@
     enableSSHSupport = true;
     pinentryPackage = pkgs.pinentry-qt;
   };
-
 
   # List services that you want to enable:
   location = {
