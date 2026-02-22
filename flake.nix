@@ -157,7 +157,7 @@
 
         nativeBuildInputs = with pkgs; [
           git
-          nixfmt-rfc-style
+          nixfmt
           sops.sops-import-keys-hook
         ];
 
