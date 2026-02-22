@@ -1145,6 +1145,26 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771719838,
+        "narHash": "sha256-GRefgIHU2atFRXvlGLsS/BvRb9iRcyQRfXqSXICIjw4=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "13616e345930b6c9e7cca898fcb98a8c4ff896b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1212,6 +1232,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-ckb-next-qt6": "nixpkgs-ckb-next-qt6",
         "nixpkgs-stable": "nixpkgs-stable_2",
+        "opencode": "opencode",
         "sops-nix": "sops-nix",
         "vscode-server": "vscode-server"
       }
