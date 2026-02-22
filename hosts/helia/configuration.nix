@@ -153,12 +153,6 @@
     font-awesome
   ];
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tristan = {
     isNormalUser = true;

@@ -176,11 +176,6 @@
   # programs.mtr.enable = true;
   programs.browserpass.enable = true;
   programs.wireshark = { enable = true; package = pkgs.wireshark; };
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
 
   # List services that you want to enable:
   location = {
