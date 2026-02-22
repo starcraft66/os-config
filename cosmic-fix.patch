@@ -1,0 +1,112 @@
+From e735be826adfdd96081f184df8e1d39670beeec0 Mon Sep 17 00:00:00 2001
+From: "copilot-swe-agent[bot]" <198982749+Copilot@users.noreply.github.com>
+Date: Thu, 25 Dec 2025 08:07:05 +0000
+Subject: [PATCH 1/3] Initial plan
+
+
+From 03eb4782ae76968b2b3d6acafc37fa2f6d98bc8b Mon Sep 17 00:00:00 2001
+From: "copilot-swe-agent[bot]" <198982749+Copilot@users.noreply.github.com>
+Date: Thu, 25 Dec 2025 08:16:03 +0000
+Subject: [PATCH 2/3] Fix Super+L Focus window up keybind workspace navigation
+
+When binding "Focus window up" to Super+L, the keybind now correctly moves to the previous workspace when already at the uppermost window. The issue was that the code used pattern.inferred_direction() which returns Right for 'l' key instead of using the explicit direction from the Focus action.
+
+Co-authored-by: starcraft66 <1858154+starcraft66@users.noreply.github.com>
+---
+ src/input/actions.rs | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/input/actions.rs b/src/input/actions.rs
+index 4cecbe28a..7d241ce6c 100644
+--- a/src/input/actions.rs
++++ b/src/input/actions.rs
+@@ -188,7 +188,7 @@ impl State {
+             }
+ 
+             Action::NextWorkspace => {
+-                if let Some(direction) = pattern.inferred_direction() {
++                if let Some(direction) = direction.or_else(|| pattern.inferred_direction()) {
+                     if ((direction == Direction::Left || direction == Direction::Right)
+                         && self.common.config.cosmic_conf.workspaces.workspace_layout
+                             == WorkspaceLayout::Vertical)
+@@ -234,7 +234,7 @@ impl State {
+             }
+ 
+             Action::PreviousWorkspace => {
+-                if let Some(direction) = pattern.inferred_direction() {
++                if let Some(direction) = direction.or_else(|| pattern.inferred_direction()) {
+                     if ((direction == Direction::Left || direction == Direction::Right)
+                         && self.common.config.cosmic_conf.workspaces.workspace_layout
+                             == WorkspaceLayout::Vertical)
+@@ -336,7 +336,7 @@ impl State {
+             }
+ 
+             x @ Action::MoveToNextWorkspace | x @ Action::SendToNextWorkspace => {
+-                if let Some(direction) = pattern.inferred_direction() {
++                if let Some(direction) = direction.or_else(|| pattern.inferred_direction()) {
+                     if ((direction == Direction::Left || direction == Direction::Right)
+                         && self.common.config.cosmic_conf.workspaces.workspace_layout
+                             == WorkspaceLayout::Vertical)
+@@ -420,7 +420,7 @@ impl State {
+             }
+ 
+             x @ Action::MoveToPreviousWorkspace | x @ Action::SendToPreviousWorkspace => {
+-                if let Some(direction) = pattern.inferred_direction() {
++                if let Some(direction) = direction.or_else(|| pattern.inferred_direction()) {
+                     if ((direction == Direction::Left || direction == Direction::Right)
+                         && self.common.config.cosmic_conf.workspaces.workspace_layout
+                             == WorkspaceLayout::Vertical)
+
+From 014571d3ec58fab364767e9606d6b1185713a9d9 Mon Sep 17 00:00:00 2001
+From: "copilot-swe-agent[bot]" <198982749+Copilot@users.noreply.github.com>
+Date: Thu, 25 Dec 2025 08:21:42 +0000
+Subject: [PATCH 3/3] Fix all inferred_direction calls to prefer explicit
+ direction parameter
+
+Updated all 8 instances where inferred_direction was called to use direction.or_else(|| pattern.inferred_direction()). This ensures that when actions are called with an explicit direction (e.g., from Focus/Move actions), that direction is used instead of inferring it from the key pattern.
+
+Co-authored-by: starcraft66 <1858154+starcraft66@users.noreply.github.com>
+---
+ src/input/actions.rs | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/input/actions.rs b/src/input/actions.rs
+index 7d241ce6c..2556ffbab 100644
+--- a/src/input/actions.rs
++++ b/src/input/actions.rs
+@@ -208,7 +208,7 @@ impl State {
+                 );
+                 if next.is_err() {
+                     if propagate {
+-                        if let Some(inferred) = pattern.inferred_direction() {
++                        if let Some(inferred) = direction.or_else(|| pattern.inferred_direction()) {
+                             self.handle_shortcut_action(
+                                 Action::SwitchOutput(inferred),
+                                 seat,
+@@ -254,7 +254,7 @@ impl State {
+                 );
+                 if previous.is_err() {
+                     if propagate {
+-                        if let Some(inferred) = pattern.inferred_direction() {
++                        if let Some(inferred) = direction.or_else(|| pattern.inferred_direction()) {
+                             self.handle_shortcut_action(
+                                 Action::SwitchOutput(inferred),
+                                 seat,
+@@ -384,7 +384,7 @@ impl State {
+                     }
+                     Ok(None) => {}
+                     Err(_) if propagate => {
+-                        if let Some(inferred) = pattern.inferred_direction() {
++                        if let Some(inferred) = direction.or_else(|| pattern.inferred_direction()) {
+                             self.handle_shortcut_action(
+                                 if matches!(x, Action::MoveToNextWorkspace) {
+                                     Action::MoveToOutput(inferred)
+@@ -467,7 +467,7 @@ impl State {
+                     }
+                     Ok(None) => {}
+                     Err(_) if propagate => {
+-                        if let Some(inferred) = pattern.inferred_direction() {
++                        if let Some(inferred) = direction.or_else(|| pattern.inferred_direction()) {
+                             self.handle_shortcut_action(
+                                 if matches!(x, Action::MoveToPreviousWorkspace) {
+                                     Action::MoveToOutput(inferred)

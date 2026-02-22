@@ -81,8 +81,21 @@
         } ];
       });
 
+    patchedNixpkgs = forAllPlatforms (platform: let
+        originalNixpkgs = (import nixpkgs { system = platform; });
+      in (originalNixpkgs.applyPatches {
+        name = "patched-nixpkgs";
+        src = nixpkgs;
+        patches = [
+          # (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/446679
+          #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/446679.patch";
+          #   sha256 = "sha256-fxG7fWyn4T1AvXPvOUgDaM7QxDF36epfUjcTaBXZ48s=";
+          # })
+        ];
+      }));
+
     nixpkgsFor = forAllPlatforms (platform:
-      import nixpkgs {
+      import patchedNixpkgs.${platform} {
         system = platform;
         config.allowUnfree = true;
         overlays = lib.flatten [
@@ -91,6 +104,11 @@
             # Use packages from stable because they are broken on unstable
             # inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
             inherit (inputs.nixpkgs-ckb-next-qt6.legacyPackages.${platform}) ckb-next;
+            cosmic-comp = super.cosmic-comp.overrideAttrs (old: {
+              patches = (old.patches or []) ++ [
+                ./cosmic-fix.patch
+              ];
+            });
             # azure-cli = super.azure-cli.overrideAttrs (old: {
             #   patches = (old.patches or []) ++ [
             #     (self.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/436682
