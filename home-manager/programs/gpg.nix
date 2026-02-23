@@ -25,6 +25,9 @@ lib.mkMerge [
       enableSshSupport = true;
       grabKeyboardAndMouse = true;
       pinentry.package = pkgs.pinentry-gnome3;
+
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
     };
   })
 ]
