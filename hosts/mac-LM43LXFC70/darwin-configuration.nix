@@ -2,18 +2,18 @@
 
 {
   users = {
-    users."tristan.g-hane" = {
-      home = "/Users/tristan.g-hane";
+    users."tgosselin-hane" = {
+      home = "/Users/tgosselin-hane";
       isHidden = false;
       shell = pkgs.zsh;
     };
   };
 
   home-manager = {
-    users."tristan.g-hane" = { ... }: {
+    users."tgosselin-hane" = { ... }: {
       imports = [
         ../../home-manager/home.nix
-        ../../home-manager/programs/workleap.nix
+        ../../home-manager/programs/abnormal.nix
       ];
 
       config.my.terminalFontSize = 18;
@@ -25,6 +25,7 @@
     brews = [
     ];
     taps = [
+      "anomalyco/tap"
     ];
     casks = [
       "lens"
@@ -39,5 +40,5 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
-  system.primaryUser = "tristan.g-hane";
+  system.primaryUser = "tgosselin-hane";
 }

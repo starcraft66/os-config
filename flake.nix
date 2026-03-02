@@ -214,10 +214,10 @@
         }
       ];
     in {
-      WL-K3WYFW33WD = nix-darwin.lib.darwinSystem {
+      mac-LM43LXFC70 = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
-          ./hosts/WL-K3WYFW33WD/darwin-configuration.nix
+          ./hosts/mac-LM43LXFC70/darwin-configuration.nix
         ];
         pkgs = nixpkgsFor.aarch64-darwin;
         specialArgs = {

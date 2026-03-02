@@ -50,6 +50,9 @@
       cleanup = "zap";
       upgrade = true;
     };
+    taps = [
+      "anomalyco/tap"
+    ];
     brews = [
       "anomalyco/tap/opencode"
       "beads"
@@ -263,6 +266,7 @@
     };
   };
 
+  system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
   # Using Determinate Nix
