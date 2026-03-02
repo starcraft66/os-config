@@ -8,6 +8,7 @@ in
     # terraform
     # terragrunt
     tenv
+    awscli2
   ];
 
   xdg.configFile."1Password/ssh/agent.toml".text = ''
