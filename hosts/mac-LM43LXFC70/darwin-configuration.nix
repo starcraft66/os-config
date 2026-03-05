@@ -22,16 +22,45 @@
   };
 
   homebrew = {
-    brews = [
-    ];
     taps = [
-      "anomalyco/tap"
+      "syncdk/aws-session-manager-plugin"
+      "databricks/tap"
+      {
+        name = "abnormal-security/abnormal";
+        clone_target = "git@github.com:abnormal-security/homebrew-abnormal.git";
+      }
+    ];
+    brews = [
+      # docker needs brew on macOS (no Nix package for the daemon/CLI on darwin)
+      "docker"
+      # jenv, ruff-lsp not in nixpkgs
+      "jenv"
+      "ruff-lsp"
+      # Python (scripts check for Homebrew Python specifically)
+      "python@3.11"
+      "virtualenv"
+      # Python native library build deps (need to be in /opt/homebrew for compiler to find them)
+      "openssl@3.0"
+      "libpq"
+      "mysql-client@8.0"
+      "zbar"
+      "librdkafka"
+      "snappy"
+      "hdf5"
+      "freetype"
+      "libpng"
+      # Databricks CLI (no nixpkg, custom tap)
+      "databricks/tap/databricks"
+      # Abnormal custom packages (private tap, no nixpkg)
+      "abnormal-security/abnormal/cmake"
+      "abnormal-security/abnormal/mupdf"
+      "abnormal-security/abnormal/rocksdb"
     ];
     casks = [
       "lens"
       "meetingbar"
-      "orbstack"
-      "jetbrains-toolbox"
+      "cursor"
+      "syncdk/aws-session-manager-plugin/session-manager-plugin"
     ];
     masApps = {
     };
