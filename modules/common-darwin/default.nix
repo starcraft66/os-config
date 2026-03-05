@@ -272,7 +272,7 @@
   # Using Determinate Nix
   nix.enable = false;
 
-  determinate-nix.customSettings = let
+  determinateNix.customSettings = let
     caches = import ../../caches;
   in {
     extra-substituters = caches.nix.settings.substituters;
