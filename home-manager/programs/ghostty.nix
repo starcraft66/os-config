@@ -20,7 +20,7 @@ lib.mkMerge [
       enableZshIntegration = true;
       settings = {
         # We're going to try nushell as our main shell in ghostty
-        command = "${pkgs.nushell}/bin/nu --login --interactive";
+        command = lib.mkDefault "${pkgs.nushell}/bin/nu --login --interactive";
         font-family = fontFamily;
         font-size = config.my.terminalFontSize;
         font-style = "Regular";
