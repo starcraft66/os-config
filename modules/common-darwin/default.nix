@@ -69,7 +69,7 @@
       "insomnia"
       "kitty"
       "ghostty"
-      "rectangle"
+      "rectangle-pro"
       "jordanbaird-ice"
       "obs"
       "imhex"
