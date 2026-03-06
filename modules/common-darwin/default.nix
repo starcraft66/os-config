@@ -69,6 +69,7 @@
       "insomnia"
       "kitty"
       "ghostty"
+      "cmux"
       "rectangle-pro"
       "jordanbaird-ice"
       "obs"
