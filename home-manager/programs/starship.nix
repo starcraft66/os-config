@@ -10,7 +10,9 @@
     settings = {
       # This line replaces add_newline = false
       add_newline = false;
-      format = "$username$hostname$directory$git_branch$nix_shell$git_commit$git_state$git_status$cmd_duration$jobs$status$character";
+      format = "$username$hostname$directory$git_branch$nix_shell$git_commit$git_state$git_status"
+        + (lib.optionalString config.my.starship.python "$python")
+        + "$cmd_duration$jobs$status$character";
 
       cmd_duration = {
         disabled = false;
@@ -45,6 +47,14 @@
         impure_msg = "";
         pure_msg = "";
         symbol = "❄️";
+      };
+
+      python = lib.mkIf config.my.starship.python {
+        format = "[(\\($virtualenv\\))]($style) ";
+        style = "yellow";
+        detect_files = [];
+        detect_extensions = [];
+        detect_folders = [];
       };
 
       time = {

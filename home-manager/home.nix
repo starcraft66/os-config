@@ -138,6 +138,14 @@
     type = lib.types.str;
   };
   
+  options.my.starship = {
+    python = lib.mkOption {
+      description = "Show active Python virtualenv in starship prompt";
+      default = false;
+      type = lib.types.bool;
+    };
+  };
+
   options.my.deepBlackColors = lib.mkOption {
     description = "Use deep black colors in (enable on OLED or FALD displays)";
     default = false;

@@ -18,6 +18,8 @@
 
       config.my.terminalFontSize = 18;
       config.my.deepBlackColors = true;
+      # Disabled: lags the prompt horribly on this machine
+      config.my.starship.python = false;
     };
   };
 
