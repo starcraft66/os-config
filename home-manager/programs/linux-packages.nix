@@ -8,7 +8,7 @@ lib.mkIf isLinux {
     element-desktop
     slack
     pciutils
-    neofetch
+    fastfetch
     spotify
     vscode
     unzip

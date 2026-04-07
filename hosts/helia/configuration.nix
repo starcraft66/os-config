@@ -78,7 +78,7 @@
   in [
     firefox-customized htop bind qt5.qttools
     networkmanager element-desktop python3 pciutils
-    alacritty neofetch spotify vscode glib prismlauncher
+    alacritty fastfetch spotify vscode glib prismlauncher
     roboto unzip traceroute signal-desktop iperf ethtool
     ncdu kdePackages.gwenview flameshot wine-staging winetricks
     kdePackages.breeze-gtk nautilus discord

@@ -27,6 +27,7 @@
     taps = [
       "syncdk/aws-session-manager-plugin"
       "databricks/tap"
+      "ankitpokhrel/jira-cli"
       {
         name = "abnormal-security/abnormal";
         clone_target = "git@github.com:abnormal-security/homebrew-abnormal.git";
@@ -53,6 +54,7 @@
       "libpng"
       # Databricks CLI (no nixpkg, custom tap)
       "databricks/tap/databricks"
+      "ankitpokhrel/jira-cli/jira-cli"
       # Abnormal custom packages (private tap, no nixpkg)
       "abnormal-security/abnormal/cmake"
       "abnormal-security/abnormal/mupdf"

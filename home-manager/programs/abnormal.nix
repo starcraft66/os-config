@@ -24,6 +24,9 @@ in
     qemu
     # Cloud / registry
     regclient
+    # Language servers
+    typescript-language-server
+    gopls
   ];
 
   xdg.configFile."1Password/ssh/agent.toml".text = ''

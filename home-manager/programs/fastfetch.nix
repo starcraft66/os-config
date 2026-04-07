@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ neofetch ];
-  xdg.configFile."neofetch/config.conf".text = ''
+  home.packages = with pkgs; [ fastfetch ];
+  xdg.configFile."fastfetch/config.conf".text = ''
     # See this wiki page for more info:
-    # https://github.com/dylanaraps/neofetch/wiki/Customizing-Info
+    # https://github.com/dylanaraps/fastfetch/wiki/Customizing-Info
     print_info() {
         info title
         info underline
@@ -38,6 +38,6 @@
     cpu_temp="C"
     refresh_rate="on"
     battery_display="barinfo"
-    thumbnail_dir="${config.xdg.cacheHome}/thumbnails/neofetch"
+    thumbnail_dir="${config.xdg.cacheHome}/thumbnails/fastfetch"
   '';
 }

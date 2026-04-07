@@ -10,7 +10,7 @@ lib.mkMerge [
   {
     home.packages = with pkgs; [
       pyright
-      nodePackages_latest.vscode-json-languageserver
+      vscode-json-languageserver
       yaml-language-server
       terraform-ls
       rust-analyzer

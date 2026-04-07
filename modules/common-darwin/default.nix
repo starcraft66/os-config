@@ -45,7 +45,7 @@
   
   homebrew = {
     enable = true;
-    brewPrefix = "/opt/homebrew/bin";
+    prefix = "/opt/homebrew";
     onActivation = {
       cleanup = "zap";
       upgrade = true;

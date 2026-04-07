@@ -30,7 +30,7 @@
     ./programs/linux-packages.nix
     # ./programs/mixxx.nix
     ./programs/mullvad.nix
-    ./programs/neofetch.nix
+    ./programs/fastfetch.nix
     ./programs/nextcloud-client.nix
     ./programs/nushell.nix
     ./programs/obs-studio.nix
