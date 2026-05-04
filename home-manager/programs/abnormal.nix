@@ -27,6 +27,9 @@ in
     # Language servers
     typescript-language-server
     gopls
+    # Misc
+    grpcurl
+    sqlc
   ];
 
   xdg.configFile."1Password/ssh/agent.toml".text = ''

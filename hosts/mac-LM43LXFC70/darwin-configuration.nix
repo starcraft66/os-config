@@ -28,6 +28,7 @@
       "syncdk/aws-session-manager-plugin"
       "databricks/tap"
       "ankitpokhrel/jira-cli"
+      "apono-io/tap"
       {
         name = "abnormal-security/abnormal";
         clone_target = "git@github.com:abnormal-security/homebrew-abnormal.git";
@@ -52,6 +53,7 @@
       "hdf5"
       "freetype"
       "libpng"
+      "apono-io/tap/apono-cli"
       # Databricks CLI (no nixpkg, custom tap)
       "databricks/tap/databricks"
       "ankitpokhrel/jira-cli/jira-cli"

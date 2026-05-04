@@ -10,7 +10,6 @@ lib.mkMerge [
 
     home.packages = with pkgs; [
       pass
-      pwgen
     ];
   }
   (lib.mkIf isDarwin {
