@@ -54,7 +54,7 @@
     ./programs/zsh.nix
   ];
 
-  config.home.stateVersion = "22.05";
+  config.home.stateVersion = "26.05";
 
   config.programs.home-manager.enable = true;
 
