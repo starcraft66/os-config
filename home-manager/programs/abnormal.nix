@@ -51,16 +51,16 @@ in
   home.activation.jenvSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     _jenv=/opt/homebrew/bin/jenv
     if [ -x "$_jenv" ]; then
-      $DRY_RUN_CMD sudo -u ${config.home.username} "$_jenv" add ${pkgs.jdk11} 2>/dev/null || true
-      _jenv_version=$(sudo -u ${config.home.username} "$_jenv" versions --bare 2>/dev/null | grep -v "^system$" | head -1)
+      $DRY_RUN_CMD "$_jenv" add ${pkgs.jdk11} 2>/dev/null || true
+      _jenv_version=$("$_jenv" versions --bare 2>/dev/null | grep -v "^system$" | head -1 || true)
       if [ -n "$_jenv_version" ]; then
-        $DRY_RUN_CMD sudo -u ${config.home.username} "$_jenv" global "$_jenv_version" || true
+        $DRY_RUN_CMD "$_jenv" global "$_jenv_version" || true
       fi
-      $DRY_RUN_CMD sudo -u ${config.home.username} /bin/bash -c '
+      $DRY_RUN_CMD /bin/bash -c '
         eval "$(/opt/homebrew/bin/jenv init -)" 2>/dev/null
         jenv enable-plugin export 2>/dev/null || true
         jenv enable-plugin maven 2>/dev/null || true
-      '
+      ' || true
     fi
   '';
 
