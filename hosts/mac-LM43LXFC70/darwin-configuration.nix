@@ -61,12 +61,12 @@
       "abnormal-security/abnormal/cmake"
       "abnormal-security/abnormal/mupdf"
       "abnormal-security/abnormal/rocksdb"
+      "syncdk/aws-session-manager-plugin/aws-session-manager-plugin"
     ];
     casks = [
       "lens"
       "meetingbar"
       "cursor"
-      "syncdk/aws-session-manager-plugin/session-manager-plugin"
     ];
     masApps = {
     };
