@@ -37,7 +37,7 @@ in
     vault = "Abnormal"
   '';
 
-  programs.ssh.matchBlocks."*".identityAgent = [
+  programs.ssh.settings."*".IdentityAgent = [
     (lib.escape [" "] onePasswordSSHAgentSocket)
   ];
 
