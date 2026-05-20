@@ -34,6 +34,7 @@
     ./programs/nextcloud-client.nix
     ./programs/nushell.nix
     ./programs/obs-studio.nix
+    ./programs/peon-ping.nix
     ./programs/plex-mpv-shim.nix
     ./programs/polybar.nix
     ./programs/python.nix

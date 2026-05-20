@@ -50,6 +50,9 @@
 
     opencode.url = "github:anomalyco/opencode";
     # opencode.inputs.nixpkgs.follows = "nixpkgs";
+    
+    peon-ping.url = "github:PeonPing/peon-ping";
+    peon-ping.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{
