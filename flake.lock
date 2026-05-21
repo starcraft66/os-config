@@ -1219,15 +1219,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1779067831,
-        "narHash": "sha256-nfdz9bx7IrOJW7J4LAcbkNXcMp3jUzWvZ4IwOG4ClqE=",
+        "lastModified": 1779260904,
+        "narHash": "sha256-fOt6Z5bz1go2HXCTRYHYTaC2o5aNfY3DK40Pc1LdfIA=",
         "owner": "PeonPing",
         "repo": "peon-ping",
-        "rev": "8bb290c177fb07dea980aa9fe6e89e68ecea0919",
+        "rev": "737cff631c600c45530bb604ed1f5e1145fb74cc",
         "type": "github"
       },
       "original": {
         "owner": "PeonPing",
+        "ref": "refs/pull/522/merge",
         "repo": "peon-ping",
         "type": "github"
       }
