@@ -51,9 +51,7 @@
     opencode.url = "github:anomalyco/opencode";
     # opencode.inputs.nixpkgs.follows = "nixpkgs";
     
-    # Pin to PR #522 (nix-fixes) merge ref until upstream merges:
-    # https://github.com/PeonPing/peon-ping/pull/522
-    peon-ping.url = "github:PeonPing/peon-ping?ref=refs/pull/522/merge";
+    peon-ping.url = "github:PeonPing/peon-ping";
     peon-ping.inputs.nixpkgs.follows = "nixpkgs";
   };
 
