@@ -173,8 +173,8 @@ in
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
 
-        "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
-        "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
+        "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
+        "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
 
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
         "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";

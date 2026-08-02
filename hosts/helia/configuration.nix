@@ -91,7 +91,7 @@
 
   services.pcscd.enable = true;
   services.fwupd.enable = true;
-  programs.light.enable = true;
+  hardware.acpilight.enable = true;
 
   # List services that you want to enable:
   security.pam.sshAgentAuth.enable = true;

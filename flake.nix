@@ -1,8 +1,7 @@
 {  
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-ckb-next-qt6.url = "github:4JX/nixpkgs/ckb-next-qt6";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,9 +26,8 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-    vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.1.0";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     kubectl-aliases.url = "github:ahmetb/kubectl-aliases";
@@ -108,22 +106,11 @@
           (lib.optional (platform == "x86_64-linux")
           (self: super: {
             # Use packages from stable because they are broken on unstable
-            # inherit (nixpkgs-stable.legacyPackages.${platform}) azure-cli;
-            inherit (inputs.nixpkgs-ckb-next-qt6.legacyPackages.${platform}) ckb-next;
             cosmic-comp = super.cosmic-comp.overrideAttrs (old: {
               patches = (old.patches or []) ++ [
                 ./cosmic-fix.patch
               ];
             });
-            # azure-cli = super.azure-cli.overrideAttrs (old: {
-            #   patches = (old.patches or []) ++ [
-            #     (self.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/436682
-            #       url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/436682.patch";
-            #       sha256 = "sha256-RHV36R5Dpxw5qUtGgy98xvHxs4u9Tr110FImYpYoNd0=";
-            #     })
-            #   ];
-            # });
-            # python39Packages = super.python39Packages // { inherit (nixpkgs-stable.legacyPackages.${platform}.python39Packages) h2; };
           }))
           inputs.emacs-overlay.overlay
           # Apple Silicon backport overlay:

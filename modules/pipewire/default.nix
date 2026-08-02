@@ -15,7 +15,7 @@ in
         # needed for pactl utility some apps might rely on
         pulseaudio
         # patchbay
-        helvum
+        crosspipe
         # sound effects
         easyeffects
       ];

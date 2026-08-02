@@ -59,8 +59,8 @@ lib.mkIf isLinux {
     pavucontrol
     rclone
     pwgen
-    xorg.xev
-    xorg.xmodmap
+    xev
+    xmodmap
     ffmpeg
     iotop
     iperf
@@ -70,7 +70,7 @@ lib.mkIf isLinux {
     cmatrix
     figlet
     smartmontools
-    lutris
+    # lutris
     looking-glass-client
     qbittorrent
     parallel

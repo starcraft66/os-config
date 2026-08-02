@@ -56,7 +56,7 @@
   # Enable nvidia modesetting
   hardware.nvidia.modesetting.enable = true;
   # Use stable driver
-  hardware.nvidia.package = pkgs.linuxPackages_latest.nvidiaPackages.beta;
+  hardware.nvidia.package = pkgs.linuxPackages_latest.nvidiaPackages.new_feature;
 
   # Enable open-source nvidia kernel modules
   hardware.nvidia.open = true;

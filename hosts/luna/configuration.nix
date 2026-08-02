@@ -167,6 +167,7 @@
 
   # onedrive syncing
   services.onedrive.enable = true;
+  systemd.user.services."onedrive@".unitConfig.ConditionEnvironment = "XDG_SESSION_CLASS=user";
 
   # mullvad vpn
   services.mullvad-vpn.enable = true;
