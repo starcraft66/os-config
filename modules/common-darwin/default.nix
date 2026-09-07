@@ -59,6 +59,7 @@
     ];
     casks = [
       "claude-code@latest"
+      "codex"
       "opencode-desktop"
       "discretescroll"
       "raycast"
