@@ -276,8 +276,9 @@
   determinateNix.customSettings = let
     caches = import ../../caches;
   in {
-    extra-substituters = caches.nix.settings.substituters;
+    extra-substituters = caches.nix.settings.extra-substituters;
     extra-trusted-public-keys = caches.nix.settings.trusted-public-keys;
+    lazy-trees = false;
   };
 
 }

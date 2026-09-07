@@ -32,7 +32,7 @@ let
 in
 {
   nix.settings = {
-    substituters = map (cache: cache.url) caches;
+    extra-substituters = map (cache: cache.url) caches;
     trusted-public-keys = map (cache: cache.publicKey) caches;
   };
 }
