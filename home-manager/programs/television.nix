@@ -2,6 +2,7 @@
 {
   programs.television = {
     enable = true;
+    enableNushellIntegration = true;
     settings = {
       tick_rate = 50;
       default_channel = "files";
