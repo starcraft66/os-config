@@ -58,7 +58,7 @@
       "beads"
     ];
     casks = [
-      "claude-code"
+      "claude-code@latest"
       "opencode-desktop"
       "discretescroll"
       "raycast"
