@@ -42,6 +42,14 @@
     };
   };
 
+  services.yknotify-rs = {
+    enable = true;
+
+    # You can set notification sounds (find available sounds in `/System/Library/Sounds`):
+    requestSound = "Purr";
+    dismissedSound = "Pop";
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;

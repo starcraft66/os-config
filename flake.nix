@@ -51,6 +51,9 @@
     
     peon-ping.url = "github:PeonPing/peon-ping";
     peon-ping.inputs.nixpkgs.follows = "nixpkgs";
+
+    yknotify-rs.url = "github:reo101/yknotify-rs";
+    yknotify-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{
@@ -67,6 +70,7 @@
     lanzaboote,
     determinate,
     mac-app-util,
+    yknotify-rs,
     ...
   }:
   let
@@ -220,6 +224,7 @@
       Zecora = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = commonDarwinModules ++ [
+          yknotify-rs.darwinModules.default
           ./hosts/zecora/darwin-configuration.nix
         ];
         pkgs = nixpkgsFor.aarch64-darwin;
