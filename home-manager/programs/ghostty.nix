@@ -14,10 +14,19 @@ lib.mkMerge [
     programs.ghostty.package = lib.mkForce null;
   })
   {
+    # Source Ghostty shell integration manually to support both Ghostty and cmux.
+    # cmux sets GHOSTTY_RESOURCES_DIR to .../Resources/ghostty but places
+    # shell-integration files at .../Resources/shell-integration/ instead.
+    programs.zsh.initContent = ''
+      if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+        source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration 2>/dev/null || \
+          source "''${GHOSTTY_RESOURCES_DIR%/ghostty}"/shell-integration/ghostty-integration.zsh 2>/dev/null
+      fi
+    '';
     programs.ghostty = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false;
       settings = {
         # We're going to try nushell as our main shell in ghostty
         command = lib.mkDefault "${pkgs.nushell}/bin/nu --login --interactive";
