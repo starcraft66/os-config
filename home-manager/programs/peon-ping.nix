@@ -13,6 +13,8 @@
       volume = 0.7;
       enabled = true;
       desktop_notifications = true;
+      meeting_detect = true;
+      focus_detect = true;
       categories = {
         "session.start" = true;
         "task.complete" = true;
