@@ -1,10 +1,6 @@
 let
   caches = [
     {
-      url = "https://cosmic.cachix.org";
-      publicKey = "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=";
-    }
-    {
       url = "https://devenv.cachix.org";
       publicKey = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
     }
