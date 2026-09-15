@@ -20,6 +20,7 @@
 
   homebrew = {
     brews = [
+      "ghidra"
     ];
     taps = [
     ];
@@ -28,12 +29,12 @@
       "burp-suite"
       "cyberduck"
       "db-browser-for-sqlite"
+      "lm-studio"
       "dosbox"
       "mixxx"
       "wireshark-app"
       "obs"
       "prismlauncher"
-      "ghidra"
       "stolendata-mpv"
       "yubico-authenticator"
       "openmtp"
