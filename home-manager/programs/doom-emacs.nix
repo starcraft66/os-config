@@ -22,8 +22,8 @@ lib.mkMerge [
     programs.emacs = {
       enable = true;
       package = lib.mkMerge [
-        (lib.mkIf isLinux pkgs.emacs30-pgtk)
-        (lib.mkIf isDarwin pkgs.emacs30)
+        (lib.mkIf isLinux pkgs.emacs-pgtk)
+        (lib.mkIf isDarwin pkgs.emacs)
       ];
       extraPackages = epkgs: with epkgs; [
         vterm
