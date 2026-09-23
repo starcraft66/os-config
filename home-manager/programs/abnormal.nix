@@ -51,11 +51,17 @@ in
   home.activation.jenvSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     _jenv=/opt/homebrew/bin/jenv
     if [ -x "$_jenv" ]; then
-      $DRY_RUN_CMD "$_jenv" add ${pkgs.jdk11} 2>/dev/null || true
-      _jenv_version=$("$_jenv" versions --bare 2>/dev/null | grep -v "^system$" | head -1 || true)
-      if [ -n "$_jenv_version" ]; then
-        $DRY_RUN_CMD "$_jenv" global "$_jenv_version" || true
-      fi
+      # Drop aliases that are dangling or point at an older nix store JDK;
+      # `jenv add` prompts before overwriting, which silently skips here.
+      for _v in "$HOME/.jenv/versions/"*; do
+        [ -L "$_v" ] || continue
+        _t=$(readlink "$_v")
+        if [ ! -e "$_v" ] || { [[ "$_t" == /nix/store/* ]] && [ "$_t" != "${pkgs.jdk11}" ]; }; then
+          $DRY_RUN_CMD rm -f "$_v"
+        fi
+      done
+      $DRY_RUN_CMD "$_jenv" add ${pkgs.jdk11} >/dev/null 2>&1 || true
+      $DRY_RUN_CMD "$_jenv" global ${pkgs.jdk11.version} || true
       $DRY_RUN_CMD /bin/bash -c '
         eval "$(/opt/homebrew/bin/jenv init -)" 2>/dev/null
         jenv enable-plugin export 2>/dev/null || true
