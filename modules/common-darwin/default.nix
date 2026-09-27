@@ -48,14 +48,18 @@
     };
     taps = [
       "anomalyco/tap"
+      "steipete/tap"
     ];
     brews = [
       "anomalyco/tap/opencode"
       "beads"
     ];
     casks = [
+      "claude"
       "claude-code@latest"
       "codex"
+      "steipete/tap/codexbar"
+      "chatgpt"
       "opencode-desktop"
       "discretescroll"
       "raycast"
