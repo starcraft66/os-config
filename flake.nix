@@ -54,7 +54,7 @@
     peon-ping.url = "github:PeonPing/peon-ping";
     peon-ping.inputs.nixpkgs.follows = "nixpkgs";
 
-    yknotify-rs.url = "github:reo101/yknotify-rs";
+    yknotify-rs.url = "github:starcraft66/yknotify-rs";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 

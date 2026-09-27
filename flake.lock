@@ -1583,15 +1583,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1753020741,
-        "narHash": "sha256-GeoImYoA5ili6Rp46RmyEZBWLLOo9BzW8krZrFq7Nuo=",
-        "owner": "reo101",
+        "lastModified": 1790530898,
+        "narHash": "sha256-+wE25ULeV9HaYKhXgTZpk6byVrbDJtH1TQl+DTd4BW4=",
+        "owner": "starcraft66",
         "repo": "yknotify-rs",
-        "rev": "92fcd9afb37390fb1ab8056565162ee53b1acf3d",
+        "rev": "e8301360e9034d900e03b9e6e367ddb7733c6314",
         "type": "github"
       },
       "original": {
-        "owner": "reo101",
+        "owner": "starcraft66",
         "repo": "yknotify-rs",
         "type": "github"
       }
