@@ -57,8 +57,8 @@ lib.mkMerge [
           ];
           background = if config.my.deepBlackColors then config.my.darkTheme.terminalBackgroundDeep else config.my.darkTheme.terminalBackground;
           foreground = config.my.darkTheme.terminalForeground;
-          cursor-color = config.my.darkTheme.terminalCursorColor;
-          cursor-text = config.my.darkTheme.terminalCursorText;
+          cursor-color = "#ffffff";
+          cursor-text = if config.my.deepBlackColors then config.my.darkTheme.terminalBackgroundDeep else config.my.darkTheme.terminalBackground;
           selection-background = config.my.darkTheme.terminalSelectionBackground;
           selection-foreground = config.my.darkTheme.terminalSelectionForeground;
         };
