@@ -9,19 +9,20 @@
     claudeCodeIntegration = true;
 
     settings = {
-      default_pack = "sc_kerrigan";
+      default_pack = "nier-2b";
       volume = 0.7;
       enabled = true;
       desktop_notifications = true;
       meeting_detect = true;
       focus_detect = true;
       categories = {
-        "session.start" = true;
+        "session.start" = false;
+        "task.acknowledge" = false;
         "task.complete" = true;
-        "task.error" = true;
+        "task.error" = false;
         "input.required" = true;
         "resource.limit" = true;
-        "user.spam" = true;
+        "user.spam" = false;
       };
     };
 
@@ -29,18 +30,26 @@
     # and custom sources (attrset with name + src)
     installPacks = [
       "peon"
-      "glados"
+      "peasant"
+      "murloc"
+      "goblin"
+      "sc_scv"
+      "sc_firebat"
+      "sc_medic"
+      "sc_tank"
+      "sc_vessel"
+      "sc_terran"
       "sc_kerrigan"
       # Custom pack from GitHub (openpeon.com registry)
-      # {
-      #   name = "mr_meeseeks";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "kasperhendriks";
-      #     repo = "openpeon-mrmeeseeks";
-      #     rev = "main";  # or use a commit hash for reproducibility
-      #     sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-      #   };
-      # }
+      {
+        name = "nier-2b";
+        src = pkgs.fetchFromGitHub {
+          owner = "enolive";
+          repo = "openpeon-pack-nier-2b";
+          rev = "v1.0.1";
+          sha256 = "sha256-2X6qS8ORRbvkeYehSR3VWIMoWo3HZl1+5BIlDvIJnhk=";
+        };
+      }
     ];
     enableZshIntegration = true;
   };
