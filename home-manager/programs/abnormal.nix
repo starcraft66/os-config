@@ -30,6 +30,8 @@ in
     # Misc
     grpcurl
     sqlc
+    # monitoring
+    prometheus.cli
   ];
 
   xdg.configFile."1Password/ssh/agent.toml".text = ''
