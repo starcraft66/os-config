@@ -37,6 +37,9 @@
     enable = true;
     autoMigrate = true;
     user = config.system.primaryUser;
+
+    # Temp workaround for https://github.com/zhaofengli/nix-homebrew/issues/187
+    extraEnv.HOMEBREW_ORIGINAL_BREW_FILE = "/opt/homebrew/bin/brew";
   };
   
   homebrew = {
