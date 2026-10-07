@@ -12,7 +12,7 @@ in
     powershell
     openssl
     yq-go
-    vault
+    openbao
   ] ++ lib.optionals isDarwin [
     colima
   ]);
