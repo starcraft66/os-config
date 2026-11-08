@@ -7,8 +7,8 @@ lib.mkMerge [
   (lib.mkIf isLinux {
     home.packages = with pkgs; [
       claude-code
-      # Always use the most up-to-date version of opencode from the upstream flake
-      inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+      codex
+      opencode
     ];
   })
 ]

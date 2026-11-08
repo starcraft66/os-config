@@ -1219,40 +1219,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_8": {
-      "locked": {
-        "lastModified": 1790510107,
-        "narHash": "sha256-EVMNYv7hYDDD9TGVT/hIyTYgpiXA8y3m5xIEIxuGNU0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "opencode": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_8"
-      },
-      "locked": {
-        "lastModified": 1794110307,
-        "narHash": "sha256-qX+EAu5wGq2LwT8Qg9Laqr2mnH/FtY6xN6H/yte2C2c=",
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "rev": "2fdf7b4df5984eddb46fa7ff4cfbb84c2d39487f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "type": "github"
-      }
-    },
     "peon-ping": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -1337,7 +1303,6 @@
         "nixos-nvidia-vgpu": "nixos-nvidia-vgpu",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-stable": "nixpkgs-stable_2",
-        "opencode": "opencode",
         "peon-ping": "peon-ping",
         "sops-nix": "sops-nix",
         "vscode-server": "vscode-server",

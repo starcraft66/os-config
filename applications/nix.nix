@@ -6,7 +6,7 @@
   ];
   nix = {
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = [ "nix-command" "flakes" ];
       keep-outputs = true;
       keep-derivations = true;
       builders-use-substitutes = true;

@@ -7,6 +7,9 @@
     ../../applications/nix.nix
   ];
 
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "client";
+
   # Lanzaboote currently replaces the systemd-boot module.
   # This setting is usually set to true in configuration.nix
   # generated at installation time. So we force it to false
@@ -23,7 +26,6 @@
 
   # Use the latest linux kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.systemd.enable = true;
 
   networking.hostName = "luna"; # Define your hostname.
 
@@ -177,6 +179,7 @@
   # programs.mtr.enable = true;
   programs.browserpass.enable = true;
   programs.wireshark = { enable = true; package = pkgs.wireshark; };
+  programs.yubikey-touch-detector.enable = true;
 
   # List services that you want to enable:
   location = {
@@ -204,6 +207,7 @@
   services.avahi = {
     enable = true;
     nssmdns4 = true;
+    nssmdns6 = true;
     ipv4 = true;
     ipv6 = true;
     publish = {

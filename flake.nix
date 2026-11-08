@@ -24,7 +24,7 @@
 
     nixos-nvidia-vgpu.url = "github:danielfullmer/nixos-nvidia-vgpu";
 
-    hyprland.url = "github:hyprwm/Hyprland/v0.52.1";
+    hyprland.url = "github:hyprwm/Hyprland/v0.57.0";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -48,9 +48,6 @@
     bash-env-nushell.inputs.nixpkgs.follows = "nixpkgs";
     bash-env-nushell.inputs.bash-env-json.follows = "bash-env-json";
 
-    opencode.url = "github:anomalyco/opencode";
-    # opencode.inputs.nixpkgs.follows = "nixpkgs";
-    
     peon-ping.url = "github:PeonPing/peon-ping";
     peon-ping.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -101,10 +98,6 @@
           #   url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/446679.patch";
           #   sha256 = "sha256-fxG7fWyn4T1AvXPvOUgDaM7QxDF36epfUjcTaBXZ48s=";
           # })
-          (originalNixpkgs.fetchpatch { # https://github.com/NixOS/nixpkgs/pull/569689
-            url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/569689.patch";
-            sha256 = "sha256-U1OQdjbTcxHSviC+0YKUR2e1QIUQDEofRBu2a6rcy4g=";
-          })
         ];
       }));
 

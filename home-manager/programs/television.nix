@@ -1,5 +1,8 @@
-{ ... }:
+{ config, lib, ... }:
 {
+  programs.zsh.initContent = lib.mkIf config.programs.television.enableZshIntegration ''
+    source ${config.programs.television.package}/share/zsh/site-functions/_tv
+  '';
   programs.television = {
     enable = true;
     enableNushellIntegration = true;
