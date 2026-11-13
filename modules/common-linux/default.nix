@@ -3,11 +3,18 @@
   imports = [
     ../../applications/core.nix
     ../../applications/nix.nix
+    inputs.bootvine.nixosModules.default
   ];
 
   # Boot
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Live systemd job tree on the boot/shutdown console (starts in the systemd initrd)
+  services.bootvine.enable = true;
+
+  # Users
+  # Declarative /etc/passwd, /etc/group and /etc/shadow management instead of the perl activation script
+  services.userborn.enable = true;
 
   # Networking
   # The global useDHCP flag is deprecated, configure DHCP per-interface in hosts.

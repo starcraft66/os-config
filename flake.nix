@@ -53,6 +53,9 @@
 
     yknotify-rs.url = "github:starcraft66/yknotify-rs";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs";
+
+    bootvine.url = "git+https://codeberg.org/wvhulle/bootvine";
+    bootvine.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{
