@@ -1,0 +1,871 @@
+Backport of NVIDIA/open-gpu-kernel-modules PR #1505 (head 5c32c20222db,
+by Samuel Williams) to the 615.78.08 tag:
+  - nvkms: add optional delay between HDMI FRL training attempts
+  - nvkms: retain last-assessed FRL link caps when assessment fails
+  - nvkms, nvidia-drm: retrain an active FRL link lost by the sink
+Adjusted for 615.78.08: no hdmi.scdcSrcTestConfig field and no
+content_protection_event_work in nvidia-drm. All behavior is opt-in via
+nvidia-modeset frl_train_backoff_ms / frl_caps_retention (default off).
+https://github.com/NVIDIA/open-gpu-kernel-modules/pull/1505
+
+diff --git a/kernel-open/common/inc/nvkms-api-types.h b/kernel-open/common/inc/nvkms-api-types.h
+index 50b7a14..8a2263d 100644
+--- a/kernel-open/common/inc/nvkms-api-types.h
++++ b/kernel-open/common/inc/nvkms-api-types.h
+@@ -191,6 +191,7 @@ enum NvKmsEventType {
+     NVKMS_EVENT_TYPE_FLIP_OCCURRED,
+     NVKMS_EVENT_TYPE_DPY_CONTENT_PROTECTION_CHANGED,
+     NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED,
++    NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED,
+ };
+ 
+ enum NvKmsFlipResult {
+diff --git a/kernel-open/common/inc/nvkms-kapi.h b/kernel-open/common/inc/nvkms-kapi.h
+index f958cf8..ad3c513 100644
+--- a/kernel-open/common/inc/nvkms-kapi.h
++++ b/kernel-open/common/inc/nvkms-kapi.h
+@@ -479,6 +479,15 @@ struct NvKmsKapiEventDisplayCpTopologyChanged {
+     const void *topology;
+ };
+ 
++/*
++ * The display lost its link while driving an active head, without any change
++ * to its EDID or mode list; a full modeset of the head is needed to retrain
++ * the link.
++ */
++struct NvKmsKapiEventDisplayLinkRetrainRequired {
++    NvKmsKapiDisplay display;
++};
++
+ struct NvKmsKapiEventDynamicDisplayConnected {
+     NvKmsKapiDisplay display;
+ };
+@@ -512,6 +521,7 @@ struct NvKmsKapiEvent {
+         struct NvKmsKapiEventFlipOccurred flipOccurred;
+         struct NvKmsKapiEventDisplayCpChanged displayCpChanged;
+         struct NvKmsKapiEventDisplayCpTopologyChanged displayCpTopologyChanged;
++        struct NvKmsKapiEventDisplayLinkRetrainRequired displayLinkRetrainRequired;
+     } u;
+ };
+ 
+diff --git a/kernel-open/nvidia-drm/nvidia-drm-connector.h b/kernel-open/nvidia-drm/nvidia-drm-connector.h
+index 787d3a5..592b45c 100644
+--- a/kernel-open/nvidia-drm/nvidia-drm-connector.h
++++ b/kernel-open/nvidia-drm/nvidia-drm-connector.h
+@@ -51,6 +51,14 @@ struct nv_drm_connector {
+ 
+     atomic_t connection_status_dirty;
+ 
++    /*
++     * Set when NVKMS reports that the link of the display on this
++     * connector must be retrained by a full modeset (see
++     * NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED); consumed by
++     * nv_drm_device::link_retrain_work.
++     */
++    atomic_t link_retrain_pending;
++
+     /**
+      * @modeset_permission_filep:
+      *
+diff --git a/kernel-open/nvidia-drm/nvidia-drm-drv.c b/kernel-open/nvidia-drm/nvidia-drm-drv.c
+index 64df8c0..9f76f95 100644
+--- a/kernel-open/nvidia-drm/nvidia-drm-drv.c
++++ b/kernel-open/nvidia-drm/nvidia-drm-drv.c
+@@ -186,6 +186,12 @@ static void nv_drm_event_callback(const struct NvKmsKapiEvent *event)
+                 event->u.displayCpTopologyChanged.topology);
+             break;
+ 
++        case NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED:
++            nv_drm_handle_display_link_retrain(
++                nv_dev,
++                event->u.displayLinkRetrainRequired.display);
++            break;
++
+         case NVKMS_EVENT_TYPE_DYNAMIC_DPY_CONNECTED:
+             nv_drm_handle_dynamic_display_connected(
+                 nv_dev,
+@@ -724,6 +730,128 @@ static void nv_drm_handle_hotplug_event(struct work_struct *work)
+     drm_kms_helper_hotplug_event(nv_dev->dev);
+ }
+ 
++/*
++ * NVKMS reported (NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED) that the link of
++ * a display driving an active head was lost without any change to the
++ * display's EDID or mode list, e.g. an HDMI FRL sink that was power-cycled
++ * while the head stayed active.  User space sees nothing to react to in that
++ * case, so re-commit the current state of the affected CRTCs with
++ * mode_changed forced; the resulting full modeset retrains the link.
++ */
++static void nv_drm_handle_link_retrain_event(struct work_struct *work)
++{
++    struct delayed_work *dwork = to_delayed_work(work);
++    struct nv_drm_device *nv_dev =
++        container_of(dwork, struct nv_drm_device, link_retrain_work);
++    struct drm_device *dev = nv_dev->dev;
++    struct drm_modeset_acquire_ctx *pctx;
++    nv_drm_atomic_state_base_t *state;
++    struct drm_connector *connector;
++    struct drm_connector_list_iter conn_iter;
++    NvU64 pending_mask = 0;
++    unsigned int num_crtcs = 0;
++    int ret = 0;
++#if NV_DRM_MODESET_LOCK_ALL_END_ARGUMENT_COUNT == 3
++    struct drm_modeset_acquire_ctx ctx;
++#endif
++
++    /*
++     * Snapshot and clear the pending requests before taking the modeset
++     * locks, so that a lock backoff/retry below cannot lose them and a new
++     * request that arrives during the commit schedules this work again.
++     */
++    drm_connector_list_iter_begin(dev, &conn_iter);
++    drm_for_each_connector_iter(connector, &conn_iter) {
++        struct nv_drm_connector *nv_connector = to_nv_connector(connector);
++
++        if (atomic_xchg(&nv_connector->link_retrain_pending, 0) &&
++            drm_connector_index(connector) < 64) {
++            pending_mask |= 1ULL << drm_connector_index(connector);
++        }
++    }
++    drm_connector_list_iter_end(&conn_iter);
++
++    if (pending_mask == 0) {
++        return;
++    }
++
++#if NV_DRM_MODESET_LOCK_ALL_END_ARGUMENT_COUNT == 3
++    DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
++    pctx = &ctx;
++#else
++    mutex_lock(&dev->mode_config.mutex);
++    pctx = dev->mode_config.acquire_ctx;
++#endif
++
++    num_crtcs = 0;
++
++    state = nv_drm_atomic_state_base_alloc(dev);
++    if (!state) {
++        ret = -ENOMEM;
++        goto done;
++    }
++    state->acquire_ctx = pctx;
++
++    drm_connector_list_iter_begin(dev, &conn_iter);
++    drm_for_each_connector_iter(connector, &conn_iter) {
++        struct drm_crtc *crtc;
++        struct drm_crtc_state *crtc_state;
++
++        if (drm_connector_index(connector) >= 64 ||
++            !(pending_mask & (1ULL << drm_connector_index(connector)))) {
++            continue;
++        }
++
++        crtc = (connector->state != NULL) ? connector->state->crtc : NULL;
++        if (crtc == NULL || crtc->state == NULL || !crtc->state->active) {
++            continue;
++        }
++
++        crtc_state = drm_atomic_get_crtc_state(state, crtc);
++        if (IS_ERR(crtc_state)) {
++            ret = PTR_ERR(crtc_state);
++            break;
++        }
++
++        crtc_state->mode_changed = true;
++
++        ret = drm_atomic_add_affected_connectors(state, crtc);
++        if (ret != 0) {
++            break;
++        }
++
++        ret = drm_atomic_add_affected_planes(state, crtc);
++        if (ret != 0) {
++            break;
++        }
++
++        num_crtcs++;
++    }
++    drm_connector_list_iter_end(&conn_iter);
++
++    if (ret == 0 && num_crtcs > 0) {
++        ret = drm_atomic_commit(state);
++    }
++
++    nv_drm_atomic_state_base_put(state);
++
++done:
++#if NV_DRM_MODESET_LOCK_ALL_END_ARGUMENT_COUNT == 3
++    DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++#else
++    mutex_unlock(&dev->mode_config.mutex);
++#endif
++
++    if (ret != 0) {
++        NV_DRM_DEV_LOG_ERR(nv_dev,
++            "Failed to retrain display link with a forced modeset: %d", ret);
++    } else if (num_crtcs > 0) {
++        NV_DRM_DEV_LOG_INFO(nv_dev,
++            "Retrained display link with a forced modeset of %u CRTC(s)",
++            num_crtcs);
++    }
++}
++
+ static int nv_drm_dev_load(struct drm_device *dev)
+ {
+     struct NvKmsKapiDevice *pDevice;
+@@ -878,6 +1006,7 @@ static int nv_drm_dev_load(struct drm_device *dev)
+              (1 << NVKMS_EVENT_TYPE_DYNAMIC_DPY_CONNECTED) |
+              (1 << NVKMS_EVENT_TYPE_DPY_CONTENT_PROTECTION_CHANGED) |
+              (1 << NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED) |
++             (1 << NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED) |
+              (1 << NVKMS_EVENT_TYPE_FLIP_OCCURRED)))) {
+         NV_DRM_DEV_LOG_ERR(nv_dev, "Failed to register event mask");
+     }
+@@ -914,6 +1043,8 @@ static int nv_drm_dev_load(struct drm_device *dev)
+     /* Enable event handling */
+ 
+     INIT_DELAYED_WORK(&nv_dev->hotplug_event_work, nv_drm_handle_hotplug_event);
++    INIT_DELAYED_WORK(&nv_dev->link_retrain_work,
++                      nv_drm_handle_link_retrain_event);
+     atomic_set(&nv_dev->enable_event_handling, true);
+ 
+     init_waitqueue_head(&nv_dev->flip_event_wq);
+@@ -945,6 +1076,7 @@ static void nv_drm_dev_unload(struct drm_device *dev)
+ #endif
+ 
+     cancel_delayed_work_sync(&nv_dev->hotplug_event_work);
++    cancel_delayed_work_sync(&nv_dev->link_retrain_work);
+     mutex_lock(&nv_dev->lock);
+ 
+     WARN_ON(nv_dev->subOwnershipGranted);
+diff --git a/kernel-open/nvidia-drm/nvidia-drm-encoder.c b/kernel-open/nvidia-drm/nvidia-drm-encoder.c
+index a4fc883..b812ff9 100644
+--- a/kernel-open/nvidia-drm/nvidia-drm-encoder.c
++++ b/kernel-open/nvidia-drm/nvidia-drm-encoder.c
+@@ -299,6 +299,27 @@ void nv_drm_handle_display_change(struct nv_drm_device *nv_dev,
+     schedule_delayed_work(&nv_dev->hotplug_event_work, 0);
+ }
+ 
++void nv_drm_handle_display_link_retrain(struct nv_drm_device *nv_dev,
++                                        NvKmsKapiDisplay hDisplay)
++{
++    struct drm_device *dev = nv_dev->dev;
++    struct nv_drm_encoder *nv_encoder = NULL;
++
++    mutex_lock(&dev->mode_config.mutex);
++
++    nv_encoder = get_nv_encoder_from_nvkms_display(dev, hDisplay);
++
++    mutex_unlock(&dev->mode_config.mutex);
++
++    if (nv_encoder == NULL || nv_encoder->nv_connector == NULL) {
++        return;
++    }
++
++    atomic_set(&nv_encoder->nv_connector->link_retrain_pending, 1);
++
++    schedule_delayed_work(&nv_dev->link_retrain_work, 0);
++}
++
+ void nv_drm_handle_display_cp_change(struct nv_drm_device *nv_dev,
+                                      NvKmsKapiDisplay hDisplay,
+                                      enum NvKmsContentProtection cp)
+diff --git a/kernel-open/nvidia-drm/nvidia-drm-encoder.h b/kernel-open/nvidia-drm/nvidia-drm-encoder.h
+index c572a11..d3a5c9f 100644
+--- a/kernel-open/nvidia-drm/nvidia-drm-encoder.h
++++ b/kernel-open/nvidia-drm/nvidia-drm-encoder.h
+@@ -56,6 +56,9 @@ nv_drm_add_encoder(struct drm_device *dev, NvKmsKapiDisplay hDisplay);
+ void nv_drm_handle_display_change(struct nv_drm_device *nv_dev,
+                                   NvKmsKapiDisplay hDisplay);
+ 
++void nv_drm_handle_display_link_retrain(struct nv_drm_device *nv_dev,
++                                        NvKmsKapiDisplay hDisplay);
++
+ void nv_drm_handle_display_cp_change(struct nv_drm_device *nv_dev,
+                                      NvKmsKapiDisplay hDisplay,
+                                      enum NvKmsContentProtection cp);
+diff --git a/kernel-open/nvidia-drm/nvidia-drm-priv.h b/kernel-open/nvidia-drm/nvidia-drm-priv.h
+index 982c9ef..d07cfc0 100644
+--- a/kernel-open/nvidia-drm/nvidia-drm-priv.h
++++ b/kernel-open/nvidia-drm/nvidia-drm-priv.h
+@@ -138,6 +138,7 @@ struct nv_drm_device {
+     NvU64 modifiers[6 /* block linear */ + 1 /* linear */ + 1 /* terminator */];
+ 
+     struct delayed_work hotplug_event_work;
++    struct delayed_work link_retrain_work;
+     atomic_t enable_event_handling;
+ 
+     /**
+diff --git a/kernel-open/nvidia-modeset/nvidia-modeset-linux.c b/kernel-open/nvidia-modeset/nvidia-modeset-linux.c
+index 62986c4..7794cba 100644
+--- a/kernel-open/nvidia-modeset/nvidia-modeset-linux.c
++++ b/kernel-open/nvidia-modeset/nvidia-modeset-linux.c
+@@ -119,6 +119,27 @@ MODULE_PARM_DESC(force_frl_rate,
+ static int force_frl_rate = 0;
+ module_param_named(force_frl_rate, force_frl_rate, int, 0444);
+ 
++MODULE_PARM_DESC(frl_train_backoff_ms,
++                  "Delay in milliseconds to wait before retrying HDMI FRL link "
++                  "training after a failure (0 = no delay, the default). Some "
++                  "sinks take up to a couple of seconds after retraining for "
++                  "their SCDC to become ready; without a delay the stock retry "
++                  "window (a few milliseconds) is far too short. The delay is "
++                  "applied between training attempts while the display lock is "
++                  "held, so it adds at most (attempts - 1) * delay of "
++                  "latency to a wake.");
++static unsigned int frl_train_backoff_ms = 0;
++module_param_named(frl_train_backoff_ms, frl_train_backoff_ms, uint, 0444);
++
++MODULE_PARM_DESC(frl_caps_retention,
++                  "When a fresh HDMI FRL link assessment fails (for example "
++                  "during display sleep/wake) and the EDID is unchanged, keep "
++                  "the last successfully assessed FRL link caps in the "
++                  "connector mode list instead of dropping FRL-capable modes "
++                  "(defaults to false).");
++static bool frl_caps_retention = false;
++module_param_named(frl_caps_retention, frl_caps_retention, bool, 0444);
++
+ MODULE_PARM_DESC(conceal_vrr_caps,
+                  "Conceal all display VRR capabilities");
+ static bool conceal_vrr_caps = false;
+@@ -220,6 +241,16 @@ enum NvKmsFrlRateForce nvkms_force_frl_rate(void)
+     return NVKMS_FRL_RATE_FORCE_NONE;
+ }
+ 
++NvU32 nvkms_frl_train_backoff_ms(void)
++{
++    return frl_train_backoff_ms;
++}
++
++NvBool nvkms_frl_caps_retention(void)
++{
++    return frl_caps_retention;
++}
++
+ NvBool nvkms_conceal_vrr_caps(void)
+ {
+     return conceal_vrr_caps;
+diff --git a/kernel-open/nvidia-modeset/nvidia-modeset-os-interface.h b/kernel-open/nvidia-modeset/nvidia-modeset-os-interface.h
+index dc33314..73c7d2f 100644
+--- a/kernel-open/nvidia-modeset/nvidia-modeset-os-interface.h
++++ b/kernel-open/nvidia-modeset/nvidia-modeset-os-interface.h
+@@ -118,6 +118,8 @@ enum NvKmsFrlRateForce {
+ 
+ NvBool nvkms_test_fail_alloc_core_channel(enum NvKmsFailAllocCoreChannelMethod method);
+ enum NvKmsFrlRateForce nvkms_force_frl_rate(void);
++NvU32 nvkms_frl_train_backoff_ms(void);
++NvBool nvkms_frl_caps_retention(void);
+ NvBool nvkms_conceal_vrr_caps(void);
+ NvBool nvkms_enhanced_pcon_support(void);
+ NvBool nvkms_output_rounding_fix(void);
+diff --git a/src/nvidia-modeset/include/nvkms-dpy.h b/src/nvidia-modeset/include/nvkms-dpy.h
+index 55a2e27..76def8a 100644
+--- a/src/nvidia-modeset/include/nvkms-dpy.h
++++ b/src/nvidia-modeset/include/nvkms-dpy.h
+@@ -31,6 +31,18 @@ extern "C" {
+ #endif
+ 
+ void nvDpyProbeMaxPixelClock(NVDpyEvoPtr pDpyEvo);
++
++/*!
++ * Restore the last-known-good FRL caps (captured in nvDpyProbeMaxPixelClock
++ * before they are zeroed) into pDpyEvo when the current FRL caps have been
++ * reset, so FRL-capable modes remain in the connector mode list.
++ *
++ * Gated on the raw EDID bytes being unchanged, since the retained sink caps
++ * were derived from the parsed EDID.
++ *
++ * Returns TRUE if the caps were restored, FALSE otherwise.
++ */
++NvBool nvDpyFrlRestoreLastGoodCaps(NVDpyEvoPtr pDpyEvo, const char *reason);
+ void nvDpySetValidSyncsEvo(const NVDpyEvoRec *pDpyEvo,
+                            struct NvKmsModeValidationValidSyncs *pValidSyncs);
+ NVDpyEvoPtr nvAllocDpyEvo(NVDispEvoPtr pDispEvo,
+diff --git a/src/nvidia-modeset/include/nvkms-hdmi.h b/src/nvidia-modeset/include/nvkms-hdmi.h
+index 72def96..d8f09bf 100644
+--- a/src/nvidia-modeset/include/nvkms-hdmi.h
++++ b/src/nvidia-modeset/include/nvkms-hdmi.h
+@@ -68,6 +68,7 @@ NvBool nvInitHdmiLibrary(NVDevEvoRec *pDevEvo);
+ void nvTeardownHdmiLibrary(NVDevEvoRec *pDevEvo);
+ 
+ NvBool nvHdmiFrlAssessLink(NVDpyEvoPtr pDpyEvo);
++NvBool nvHdmiFrlSinkLostActiveLink(const NVDpyEvoRec *pDpyEvo);
+ NvBool nvHdmiDpySupportsFrl(const NVDpyEvoRec *pDpyEvo);
+ NvBool nvHdmiFrlQueryConfigOneColorFormatAndBpc(const NVDpyEvoRec *pDpyEvo,
+                                                const NvModeTimings *pModeTimings,
+diff --git a/src/nvidia-modeset/include/nvkms-types.h b/src/nvidia-modeset/include/nvkms-types.h
+index f0e917d..ffaea49 100644
+--- a/src/nvidia-modeset/include/nvkms-types.h
++++ b/src/nvidia-modeset/include/nvkms-types.h
+@@ -2374,6 +2374,21 @@ typedef struct _NVDpyEvoRec {
+         HDMI_SRC_CAPS srcCaps;
+         HDMI_SINK_CAPS sinkCaps;
+         NvBool reassessFrlLinkCaps             : 1;
++
++        /*
++         * Last successfully assessed FRL caps, used to restore the current
++         * caps when a fresh FRL assessment fails and the EDID is unchanged
++         * (see nvDpyFrlRestoreLastGoodCaps).
++         */
++        struct {
++            NvBool valid;
++            HDMI_SRC_CAPS srcCaps;
++            HDMI_SINK_CAPS sinkCaps;
++            NvU32 maxPixelClockKHz;
++            NvU32 maxSingleLinkPixelClockKHz;
++            size_t edidLength;
++            NvU8 edidBuffer[NVKMS_EDID_BUFFER_SIZE];
++        } lastGoodFrlCaps;
+     } hdmi;
+ 
+     struct {
+diff --git a/src/nvidia-modeset/interface/nvkms-api-types.h b/src/nvidia-modeset/interface/nvkms-api-types.h
+index 50b7a14..8a2263d 100644
+--- a/src/nvidia-modeset/interface/nvkms-api-types.h
++++ b/src/nvidia-modeset/interface/nvkms-api-types.h
+@@ -191,6 +191,7 @@ enum NvKmsEventType {
+     NVKMS_EVENT_TYPE_FLIP_OCCURRED,
+     NVKMS_EVENT_TYPE_DPY_CONTENT_PROTECTION_CHANGED,
+     NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED,
++    NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED,
+ };
+ 
+ enum NvKmsFlipResult {
+diff --git a/src/nvidia-modeset/interface/nvkms-api.h b/src/nvidia-modeset/interface/nvkms-api.h
+index b48bfdd..8b8e999 100644
+--- a/src/nvidia-modeset/interface/nvkms-api.h
++++ b/src/nvidia-modeset/interface/nvkms-api.h
+@@ -3249,6 +3249,22 @@ struct NvKmsEventDpyCpTopologyChanged  {
+     const void *topology;
+ };
+ 
++/*!
++ * NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED
++ *
++ * Generated when a dpy that is driving an active head has lost its link
++ * without any change to the dpy's EDID or mode list (for example, an HDMI
++ * FRL sink that was power-cycled while the head stayed active), so the
++ * client must perform a full modeset of the head to retrain the link.
++ *
++ * This event is only available to kernel-space clients.
++ */
++
++struct NvKmsEventDpyLinkRetrainRequired {
++    NvKmsDeviceHandle deviceHandle;
++    NVDpyId dpyId;
++};
++
+ struct NvKmsEvent {
+     enum NvKmsEventType eventType;
+     union {
+@@ -3260,6 +3276,7 @@ struct NvKmsEvent {
+         struct NvKmsEventFlipOccurred flipOccurred;
+         struct NvKmsEventDpyCpChanged dpyCpChanged;
+         struct NvKmsEventDpyCpTopologyChanged dpyCpTopologyChanged;
++        struct NvKmsEventDpyLinkRetrainRequired dpyLinkRetrainRequired;
+     } u;
+ };
+ 
+diff --git a/src/nvidia-modeset/kapi/interface/nvkms-kapi.h b/src/nvidia-modeset/kapi/interface/nvkms-kapi.h
+index f958cf8..ad3c513 100644
+--- a/src/nvidia-modeset/kapi/interface/nvkms-kapi.h
++++ b/src/nvidia-modeset/kapi/interface/nvkms-kapi.h
+@@ -479,6 +479,15 @@ struct NvKmsKapiEventDisplayCpTopologyChanged {
+     const void *topology;
+ };
+ 
++/*
++ * The display lost its link while driving an active head, without any change
++ * to its EDID or mode list; a full modeset of the head is needed to retrain
++ * the link.
++ */
++struct NvKmsKapiEventDisplayLinkRetrainRequired {
++    NvKmsKapiDisplay display;
++};
++
+ struct NvKmsKapiEventDynamicDisplayConnected {
+     NvKmsKapiDisplay display;
+ };
+@@ -512,6 +521,7 @@ struct NvKmsKapiEvent {
+         struct NvKmsKapiEventFlipOccurred flipOccurred;
+         struct NvKmsKapiEventDisplayCpChanged displayCpChanged;
+         struct NvKmsKapiEventDisplayCpTopologyChanged displayCpTopologyChanged;
++        struct NvKmsKapiEventDisplayLinkRetrainRequired displayLinkRetrainRequired;
+     } u;
+ };
+ 
+diff --git a/src/nvidia-modeset/kapi/src/nvkms-kapi.c b/src/nvidia-modeset/kapi/src/nvkms-kapi.c
+index 91b619e..aed19a3 100644
+--- a/src/nvidia-modeset/kapi/src/nvkms-kapi.c
++++ b/src/nvidia-modeset/kapi/src/nvkms-kapi.c
+@@ -71,6 +71,7 @@ ct_assert(NVKMS_KAPI_LAYER_MAX == NVKMS_MAX_LAYERS_PER_HEAD);
+      (1 << NVKMS_EVENT_TYPE_DYNAMIC_DPY_CONNECTED) | \
+      (1 << NVKMS_EVENT_TYPE_DPY_CONTENT_PROTECTION_CHANGED) | \
+      (1 << NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED) | \
++     (1 << NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED) | \
+      (1 << NVKMS_EVENT_TYPE_FLIP_OCCURRED))
+ 
+ static NvU32 EnumerateGpus(void (*gpuCallback)(const struct NvKmsKapiGpuInfo *info))
+@@ -3899,6 +3900,11 @@ void nvKmsKapiHandleEventQueueChange
+                 kapiEvent.u.displayCpTopologyChanged.topology =
+                     kmsEventParams.reply.event.u.dpyCpTopologyChanged.topology;
+                 break;
++            case NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED:
++                kapiEvent.u.displayLinkRetrainRequired.display =
++                    nvDpyIdToNvU32(kmsEventParams.
++                                   reply.event.u.dpyLinkRetrainRequired.dpyId);
++                break;
+             case NVKMS_EVENT_TYPE_DYNAMIC_DPY_CONNECTED:
+                 kapiEvent.u.dynamicDisplayConnected.display =
+                     nvDpyIdToNvU32(kmsEventParams.
+diff --git a/src/nvidia-modeset/os-interface/include/nvidia-modeset-os-interface.h b/src/nvidia-modeset/os-interface/include/nvidia-modeset-os-interface.h
+index dc33314..73c7d2f 100644
+--- a/src/nvidia-modeset/os-interface/include/nvidia-modeset-os-interface.h
++++ b/src/nvidia-modeset/os-interface/include/nvidia-modeset-os-interface.h
+@@ -118,6 +118,8 @@ enum NvKmsFrlRateForce {
+ 
+ NvBool nvkms_test_fail_alloc_core_channel(enum NvKmsFailAllocCoreChannelMethod method);
+ enum NvKmsFrlRateForce nvkms_force_frl_rate(void);
++NvU32 nvkms_frl_train_backoff_ms(void);
++NvBool nvkms_frl_caps_retention(void);
+ NvBool nvkms_conceal_vrr_caps(void);
+ NvBool nvkms_enhanced_pcon_support(void);
+ NvBool nvkms_output_rounding_fix(void);
+diff --git a/src/nvidia-modeset/src/nvkms-dpy.c b/src/nvidia-modeset/src/nvkms-dpy.c
+index 3815fe8..643e1b8 100644
+--- a/src/nvidia-modeset/src/nvkms-dpy.c
++++ b/src/nvidia-modeset/src/nvkms-dpy.c
+@@ -881,6 +881,85 @@ DpyGetPassiveDpDongleType(const NVDpyEvoRec *pDpyEvo,
+     return passiveDpDongleType;
+ }
+ 
++/*
++ * Capture the current (last-known-good) FRL caps and pixel clock ceilings on
++ * pDpyEvo for later restoration, in case a subsequent FRL assessment fails
++ * and zeroes the caps.  Only meaningful when the caps currently describe a
++ * FRL-capable link.
++ */
++static void nvDpyFrlCaptureLastGoodCaps(NVDpyEvoPtr pDpyEvo)
++{
++    NVDpyEvoRec *pDpyRec = (NVDpyEvoRec *) pDpyEvo;
++
++    if (pDpyRec->hdmi.sinkCaps.linkMaxFRLRate == HDMI_FRL_DATA_RATE_NONE) {
++        return;
++    }
++
++    pDpyRec->hdmi.lastGoodFrlCaps.valid = TRUE;
++    pDpyRec->hdmi.lastGoodFrlCaps.srcCaps = pDpyRec->hdmi.srcCaps;
++    pDpyRec->hdmi.lastGoodFrlCaps.sinkCaps = pDpyRec->hdmi.sinkCaps;
++    pDpyRec->hdmi.lastGoodFrlCaps.maxPixelClockKHz = pDpyRec->maxPixelClockKHz;
++    pDpyRec->hdmi.lastGoodFrlCaps.maxSingleLinkPixelClockKHz =
++        pDpyRec->maxSingleLinkPixelClockKHz;
++    pDpyRec->hdmi.lastGoodFrlCaps.edidLength = pDpyRec->edid.length;
++    if (pDpyRec->edid.buffer != NULL &&
++        pDpyRec->edid.length <= NVKMS_EDID_BUFFER_SIZE) {
++        nvkms_memcpy(pDpyRec->hdmi.lastGoodFrlCaps.edidBuffer,
++                     pDpyRec->edid.buffer, pDpyRec->edid.length);
++    }
++}
++
++NvBool nvDpyFrlRestoreLastGoodCaps(NVDpyEvoPtr pDpyEvo, const char *reason)
++{
++    NVDpyEvoRec *pDpyRec = (NVDpyEvoRec *) pDpyEvo;
++    NVDispEvoPtr pDispEvo = pDpyRec->pDispEvo;
++    const NvU32 displayId = nvDpyIdToNvU32(pDpyRec->pConnectorEvo->displayId);
++
++    if (!nvkms_frl_caps_retention() ||
++        !pDpyRec->hdmi.lastGoodFrlCaps.valid ||
++        pDpyRec->hdmi.sinkCaps.linkMaxFRLRate != HDMI_FRL_DATA_RATE_NONE) {
++        return FALSE;
++    }
++
++    /*
++     * The retained sink caps were derived from the parsed EDID (including
++     * the FRL forum info), so they are only valid while the raw EDID bytes
++     * are unchanged.  A different EDID (cable, adapter, or sink) invalidates
++     * them.
++     */
++    if (pDpyRec->edid.buffer == NULL ||
++        pDpyRec->edid.length != pDpyRec->hdmi.lastGoodFrlCaps.edidLength ||
++        (pDpyRec->edid.length > NVKMS_EDID_BUFFER_SIZE) ||
++        nvkms_memcmp(pDpyRec->edid.buffer,
++                     pDpyRec->hdmi.lastGoodFrlCaps.edidBuffer,
++                     pDpyRec->edid.length) != 0) {
++        return FALSE;
++    }
++
++    pDpyRec->hdmi.srcCaps = pDpyRec->hdmi.lastGoodFrlCaps.srcCaps;
++    pDpyRec->hdmi.sinkCaps = pDpyRec->hdmi.lastGoodFrlCaps.sinkCaps;
++    pDpyRec->maxPixelClockKHz = pDpyRec->hdmi.lastGoodFrlCaps.maxPixelClockKHz;
++    pDpyRec->maxSingleLinkPixelClockKHz =
++        pDpyRec->hdmi.lastGoodFrlCaps.maxSingleLinkPixelClockKHz;
++
++    /*
++     * The restored caps are a fallback; force a fresh FRL assessment on the
++     * next assessment path so a real assessment overwrites them as soon as
++     * the link is available.
++     */
++    pDpyRec->hdmi.reassessFrlLinkCaps = TRUE;
++
++    nvEvoLogDisp(pDispEvo, EVO_LOG_WARN,
++                 "HDMI FRL: restored last successfully assessed link caps "
++                 "after assessment failure (%s); display 0x%08x "
++                 "sink_max_rate=%u max_pclk_khz=%u",
++                 reason, displayId,
++                 pDpyRec->hdmi.sinkCaps.linkMaxFRLRate,
++                 pDpyRec->maxPixelClockKHz);
++
++    return TRUE;
++}
++
+ /*!
+  * Get the maximum allowed pixel clock for pDpyEvo.
+  *
+@@ -975,6 +1054,13 @@ void nvDpyProbeMaxPixelClock(NVDpyEvoPtr pDpyEvo)
+                 nvHdmiTmdsGetPixelClockKHz(pDpyEvo,
+                                            sorCaps[orIndex].maxTMDSClkKHz);
+ 
++            /*
++             * Remember the last-known-good FRL caps before they are zeroed,
++             * so they can be restored if the FRL assessment below is skipped
++             * or fails.
++             */
++            nvDpyFrlCaptureLastGoodCaps(pDpyEvo);
++
+             nvkms_memset(&pDpyEvo->hdmi.srcCaps, 0, sizeof(pDpyEvo->hdmi.srcCaps));
+             nvkms_memset(&pDpyEvo->hdmi.sinkCaps, 0, sizeof(pDpyEvo->hdmi.sinkCaps));
+ 
+@@ -986,11 +1072,28 @@ void nvDpyProbeMaxPixelClock(NVDpyEvoPtr pDpyEvo)
+                  * those driving heads, we don't need to exclude RM from
+                  * selecting any SOR, so an sorExcludeMask of 0 is appropriate.
+                  */
+-                if (nvAssignSOREvo(pConnectorEvo,
+-                                   nvDpyIdToNvU32(pConnectorEvo->displayId),
+-                                   FALSE /* b2Heads1Or */,
+-                                   0 /* sorExcludeMask */) &&
+-                    nvHdmiFrlAssessLink(pDpyEvo)) {
++                if (!nvAssignSOREvo(pConnectorEvo,
++                                    nvDpyIdToNvU32(pConnectorEvo->displayId),
++                                    FALSE /* b2Heads1Or */,
++                                    0 /* sorExcludeMask */)) {
++                    /*
++                     * The SOR is typically unavailable because this dpy is
++                     * still driving an active head.  If the retained caps
++                     * keep the mode list unchanged but the sink has lost
++                     * its FRL link (e.g. it was power-cycled), ask the
++                     * client to modeset the head so the link is retrained.
++                     */
++                    if (nvDpyFrlRestoreLastGoodCaps(pDpyEvo,
++                                                    "SOR assignment failed") &&
++                        nvHdmiFrlSinkLostActiveLink(pDpyEvo)) {
++                        nvSendDpyEventEvo(
++                            pDpyEvo,
++                            NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED);
++                    }
++                } else if (!nvHdmiFrlAssessLink(pDpyEvo)) {
++                    nvDpyFrlRestoreLastGoodCaps(pDpyEvo,
++                                                "link assessment failed");
++                } else {
+                     /*
+                      * Note that although we "assessed" the link above, the
+                      * maximum pixel clock set here doesn't take that into
+@@ -1012,6 +1115,12 @@ void nvDpyProbeMaxPixelClock(NVDpyEvoPtr pDpyEvo)
+                      */
+                     pDpyEvo->maxPixelClockKHz =
+                         ((4 * 12 * 1000 * 1000 * 16) / 18);
++
++                    /*
++                     * The freshly assessed caps are now the
++                     * last-known-good set; refresh the snapshot.
++                     */
++                    nvDpyFrlCaptureLastGoodCaps(pDpyEvo);
+                 }
+             }
+         } else {
+diff --git a/src/nvidia-modeset/src/nvkms-hdmi.c b/src/nvidia-modeset/src/nvkms-hdmi.c
+index a4e4f76..b1e4953 100644
+--- a/src/nvidia-modeset/src/nvkms-hdmi.c
++++ b/src/nvidia-modeset/src/nvkms-hdmi.c
+@@ -2185,12 +2185,101 @@ NvBool nvHdmiFrlAssessLink(NVDpyEvoPtr pDpyEvo)
+                                          &pDpyEvo->hdmi.sinkCaps);
+     if (ret != NVHDMIPKT_SUCCESS) {
+         nvAssert(ret == NVHDMIPKT_SUCCESS);
++
++        /*
++         * The assessment just rejected the link (training failure zeroes
++         * linkMaxFRLRate).  If the link trained successfully before and the
++         * EDID is unchanged, restore the last-known-good caps so FRL-capable
++         * modes remain in the connector mode list.
++         */
++        nvDpyFrlRestoreLastGoodCaps(pDpyEvo, "link assessment failed");
+         return FALSE;
+     }
+ 
+     return pDpyEvo->hdmi.sinkCaps.linkMaxFRLRate != HDMI_FRL_DATA_RATE_NONE;
+ }
+ 
++/* SCDC Config_1 (0x31) bits 3:0: FRL_Rate (0 = sink is not in FRL mode). */
++#define NVKMS_SCDC_CONFIG_1_FRL_RATE_MASK           0x0F
++/* SCDC Status_Flags_0 (0x40) bits 4:1: Ln0..Ln3 locked. */
++#define NVKMS_SCDC_STATUS_FLAGS_0_LANES_LOCKED_MASK 0x1E
++
++static NvBool HdmiReadScdc(const NVDpyEvoRec *pDpyEvo, NvU8 offset,
++                           NvU8 *pData)
++{
++    const NVDispEvoRec *pDispEvo = pDpyEvo->pDispEvo;
++    const NVDevEvoRec *pDevEvo = pDispEvo->pDevEvo;
++    NV0073_CTRL_SPECIFIC_GET_HDMI_SCDC_DATA_PARAMS params;
++
++    nvkms_memset(&params, 0, sizeof(params));
++    params.subDeviceInstance = pDispEvo->displayOwner;
++    params.displayId = nvDpyIdToNvU32(pDpyEvo->pConnectorEvo->displayId);
++    params.offset = offset;
++
++    if (nvRmApiControl(nvEvoGlobal.clientHandle,
++                       pDevEvo->displayCommonHandle,
++                       NV0073_CTRL_CMD_SPECIFIC_GET_HDMI_SCDC_DATA,
++                       &params,
++                       sizeof(params)) != NVOS_STATUS_SUCCESS) {
++        return FALSE;
++    }
++
++    *pData = params.data;
++    return TRUE;
++}
++
++/*
++ * Determine whether pDpyEvo is driving an active head over HDMI FRL while the
++ * sink no longer has an FRL link, e.g. because the sink was power-cycled and
++ * reset its SCDC state while the head stayed active.
++ *
++ * In that state nothing about the dpy (EDID, mode list) changes, so a client
++ * that only reacts to mode list changes will never perform the modeset that
++ * is needed to retrain the link.
++ *
++ * Only reads SCDC; never writes or clears any SCDC flags.  Returns FALSE if
++ * the head is not active with FRL or if SCDC cannot be read.
++ */
++NvBool nvHdmiFrlSinkLostActiveLink(const NVDpyEvoRec *pDpyEvo)
++{
++    const NVDispEvoRec *pDispEvo = pDpyEvo->pDispEvo;
++    const NvU32 head = nvGetPrimaryHwHead(pDispEvo, pDpyEvo->apiHead);
++    const NvU32 displayId =
++        nvDpyIdToNvU32(pDpyEvo->pConnectorEvo->displayId);
++    NvU8 config1, statusFlags0;
++    NvBool lost;
++
++    if ((head == NV_INVALID_HEAD) ||
++        (pDispEvo->headState[head].hdmiFrlConfig.frlRate ==
++            HDMI_FRL_DATA_RATE_NONE) ||
++        !pDpyEvo->parsedEdid.info.hdmiForumInfo.scdc_present) {
++        return FALSE;
++    }
++
++    if (!HdmiReadScdc(pDpyEvo,
++                      NV0073_CTRL_CMD_SPECIFIC_GET_HDMI_SCDC_DATA_OFFSET_CONFIGURATION_1,
++                      &config1) ||
++        !HdmiReadScdc(pDpyEvo,
++                      NV0073_CTRL_CMD_SPECIFIC_GET_HDMI_SCDC_DATA_OFFSET_STATUS_FLAGS_0,
++                      &statusFlags0)) {
++        nvEvoLogDisp(pDispEvo, EVO_LOG_WARN,
++                     "HDMI FRL: unable to read SCDC to check the active link "
++                     "on display 0x%08x", displayId);
++        return FALSE;
++    }
++
++    lost = ((config1 & NVKMS_SCDC_CONFIG_1_FRL_RATE_MASK) == 0) ||
++           ((statusFlags0 & NVKMS_SCDC_STATUS_FLAGS_0_LANES_LOCKED_MASK) == 0);
++
++    nvEvoLogDisp(pDispEvo, lost ? EVO_LOG_WARN : EVO_LOG_INFO,
++                 "HDMI FRL: active link check on display 0x%08x: "
++                 "scdc_config_1=0x%02x scdc_status_flags_0=0x%02x (%s)",
++                 displayId, config1, statusFlags0,
++                 lost ? "sink lost FRL link" : "ok");
++
++    return lost;
++}
++
+ /*
+  * Determine if the given HDMI dpy supports FRL.
+  *
+@@ -2774,18 +2863,40 @@ void nvHdmiFrlSetConfig(NVDispEvoRec *pDispEvo, NvU32 head)
+ 
+     nvAssert(pHeadState->activeRmId != 0);
+ 
++    /*
++     * Some sinks (notably high-refresh FRL displays) take a couple of
++     * seconds after retraining before their SCDC is ready to accept a new
++     * FRL training request. The stock loop retries in a few milliseconds,
++     * so every attempt fails. An optional per-attempt delay is applied
++     * between attempts; 0 (the default) preserves the stock behavior.
++     */
++    const NvU32 backoffUsec =
++        (NvU32)nvkms_frl_train_backoff_ms() * (NvU32)1000;
++
+     do {
+         ret = NvHdmi_SetFRLConfig(pDevEvo->hdmiLib.handle,
+                                   pDispEvo->displayOwner,
+                                   pHeadState->activeRmId,
+                                   NV_FALSE /* bFakeLt */,
+                                   pFrlConfig);
++        if (ret != NVHDMIPKT_SUCCESS &&
++            retries < MAX_RETRIES &&
++            backoffUsec != 0) {
++            nvkms_usleep(backoffUsec);
++        }
+     } while (ret != NVHDMIPKT_SUCCESS && retries++ < MAX_RETRIES);
+ 
+     if (ret != NVHDMIPKT_SUCCESS) {
+         nvEvoLogDisp(pDispEvo, EVO_LOG_WARN,
+                      "HDMI FRL link training failed.");
+ 
++        if (backoffUsec == 0) {
++            nvEvoLogDisp(pDispEvo, EVO_LOG_WARN,
++                         "Some sinks need a delay before FRL training "
++                         "retries can succeed; try the "
++                         "frl_train_backoff_ms module parameter.");
++        }
++
+         /*
+          * Link training failed even after retrying.  Since link training
+          * happens after we've already committed to a modeset and failing is
+diff --git a/src/nvidia-modeset/src/nvkms.c b/src/nvidia-modeset/src/nvkms.c
+index 4f9b65b..595bd6e 100644
+--- a/src/nvidia-modeset/src/nvkms.c
++++ b/src/nvidia-modeset/src/nvkms.c
+@@ -77,7 +77,8 @@
+ 
+ 
+ #define NVKMS_USER_SPACE_DISALLOWED_EVENTS_MASK \
+-     (1 << NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED)
++     ((1 << NVKMS_EVENT_TYPE_DPY_CP_TOPOLOGY_CHANGED) | \
++      (1 << NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED))
+ 
+ /*
+  * When the NVKMS device file is opened, the per-open structure could
+@@ -6528,6 +6529,13 @@ static void SendDpyEventEvo(const NVDpyEvoRec *pDpyEvo,
+             continue;
+         }
+ 
++        // *_LINK_RETRAIN_REQUIRED is a contract with kernel space clients
++        // (nv-drm) only.
++        if ((eventType == NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED) &&
++            (pOpen->clientType == NVKMS_CLIENT_USER_SPACE)) {
++            continue;
++        }
++
+         event.eventType = eventType;
+ 
+         switch (eventType) {
+@@ -6557,6 +6565,11 @@ static void SendDpyEventEvo(const NVDpyEvoRec *pDpyEvo,
+             }
+             break;
+ 
++        case NVKMS_EVENT_TYPE_DPY_LINK_RETRAIN_REQUIRED:
++            event.u.dpyLinkRetrainRequired.deviceHandle = deviceHandle;
++            event.u.dpyLinkRetrainRequired.dpyId = pDpyEvo->id;
++            break;
++
+         case NVKMS_EVENT_TYPE_DYNAMIC_DPY_CONNECTED:
+             event.u.dynamicDpyConnected.deviceHandle = deviceHandle;
+             event.u.dynamicDpyConnected.dispHandle = dispHandle;

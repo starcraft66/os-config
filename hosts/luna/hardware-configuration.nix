@@ -10,6 +10,8 @@
   boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
   boot.extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="OBS Virtual Output"
+      # Samsung G80SD on HDMI 2.1: keep 4K240 after monitor power-cycle (needs nvidia-open-frl-pr1505.patch)
+      options nvidia-modeset frl_train_backoff_ms=500 frl_caps_retention=1
     '';
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -56,7 +58,20 @@
   # Enable nvidia modesetting
   hardware.nvidia.modesetting.enable = true;
   # Use stable driver
-  hardware.nvidia.package = pkgs.linuxPackages_latest.nvidiaPackages.new_feature;
+  # Patched with NVIDIA/open-gpu-kernel-modules PR #1505 (backported to 615.78.08):
+  # after an HDMI 2.1 sink power-cycle the driver's FRL link assessment races the
+  # monitor waking up, fails, and prunes every FRL-only mode (4K>60Hz on the G80SD).
+  # See NVIDIA/open-gpu-kernel-modules#1369. Drop once fixed upstream; if the driver
+  # version changes and the patch no longer applies, the build fails loudly.
+  hardware.nvidia.package =
+    let
+      base = pkgs.linuxPackages_latest.nvidiaPackages.new_feature;
+    in
+    base // {
+      open = base.open.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ../../nvidia-open-frl-pr1505.patch ];
+      });
+    };
 
   # Enable open-source nvidia kernel modules
   hardware.nvidia.open = true;
