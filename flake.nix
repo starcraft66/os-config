@@ -162,14 +162,18 @@
         '';
       }; });
 
-    nixosConfigurations = {
+    nixosConfigurations = let
+      commonLinuxModules = [
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+        ./modules/common-linux
+      ];
+    in {
       luna = let
         system = "x86_64-linux";
       in nixosSystem' {
         system = system;
-        modules = [
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
+        modules = commonLinuxModules ++ [
           nixos-nvidia-vgpu.nixosModules.nvidia-vgpu
           hyprland.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
@@ -184,9 +188,7 @@
         system = "x86_64-linux";
       in nixosSystem' {
         system = system;
-        modules = [
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
+        modules = commonLinuxModules ++ [
           ./hosts/helia/configuration.nix
         ];
         pkgs = nixpkgsFor.${system};
